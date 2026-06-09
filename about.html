@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>About — fudami</title>
+
+<meta name="description" content="fudami is crafted by a solo developer passionate about language acquisition, cognitive science, and elegant user interfaces."/>
+<link rel="icon" href="assets/favicon.png" media="(prefers-color-scheme: dark)"/>
+<link rel="icon" href="assets/favicon-light.png" media="(prefers-color-scheme: light)"/>
+
+<!-- Apply theme before paint -->
+<script>
+  (function(){
+    var s=localStorage.getItem('fudami-theme');
+    var d=s?s==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.classList.add(d?'dark':'light');
+  })();
+</script>
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "sumi-ink":               "#2C2A29",
+        "sumi-ink-muted":         "#6B6661",
+        "surface-container-lowest":"#ffffff",
+        "surface-variant":        "#e4e2dd",
+        "aizome-indigo-light":    "#DCE2F1",
+        "hanko-red-light":        "#FCEAE9",
+        "surface":                "#fbf9f3",
+        "washi-paper":            "#F9F7F1",
+        "matcha-green":           "#00A968",
+        "aizome-indigo":          "#1D2F6F",
+        "hanko-red":              "#E83929",
+        "washi-border":           "#E6E1D6",
+      },
+      borderRadius: { DEFAULT: "1rem", lg: "2rem", xl: "3rem", full: "9999px" },
+      fontFamily: { sans: ["Plus Jakarta Sans", "ui-sans-serif", "system-ui"] },
+      fontSize: {
+        "headline-lg":    ["32px", { lineHeight: "40px",  fontWeight: "700" }],
+        "label-caps":     ["12px", { lineHeight: "16px",  letterSpacing: "0.1em", fontWeight: "700" }],
+        "headline-md":    ["24px", { lineHeight: "32px",  fontWeight: "600" }],
+        "body-lg":        ["18px", { lineHeight: "28px",  fontWeight: "400" }],
+        "body-md":        ["16px", { lineHeight: "24px",  fontWeight: "400" }]
+      }
+    }
+  }
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+
+<style>
+  .glass-panel {
+    background: rgba(255,255,255,0.4);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.05);
+  }
+  .dark .glass-panel {
+    background: rgba(44,42,41,0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .liquid-hover { transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1); }
+  .liquid-hover:hover { transform: scale(0.98); }
+
+  .dark body { background-color: #1a1918 !important; color: #F0EDE8; }
+  .dark .bg-surface-container-lowest { background-color: #1e1c1b !important; }
+  .dark .bg-washi-paper { background-color: #1a1918 !important; }
+  .dark .text-sumi-ink      { color: #F0EDE8 !important; }
+  .dark .text-sumi-ink-muted{ color: #9E9994 !important; }
+  .dark .border-washi-border{ border-color: rgba(255,255,255,0.08) !important; }
+</style>
+</head>
+
+<body class="bg-surface-container-lowest text-sumi-ink font-sans antialiased min-h-screen flex flex-col">
+
+<!-- ── Nav ────────────────────────────────────────────────────────────── -->
+<header class="fixed z-50 top-0 w-full bg-surface/70 dark:bg-[#1a1918]/80 backdrop-blur-2xl shadow-sm border-b border-white/20 dark:border-white/10">
+  <div class="flex justify-between items-center w-full px-5 md:px-8 max-w-[1200px] mx-auto h-20">
+    <a href="index.html" class="font-bold text-sumi-ink dark:text-[#F0EDE8] tracking-tight flex items-center gap-2 text-xl no-underline">
+      <img src="assets/daruma-neutral-no-bg.png" alt="fudami" class="w-8 h-8 object-contain"/>
+      fudami
+    </a>
+    <nav class="hidden md:flex gap-8 items-center">
+      <a class="text-sumi-ink-muted hover:text-hanko-red transition-colors no-underline" href="index.html#learn" data-nav="index" data-i18n="nav.learn">Learn</a>
+      <a class="text-sumi-ink-muted hover:text-hanko-red transition-colors no-underline" href="index.html#roadmap" data-i18n="nav.roadmap">Roadmap</a>
+      <a class="text-sumi-ink-muted hover:text-hanko-red transition-colors no-underline" href="pricing.html" data-i18n="nav.pricing">Pricing</a>
+      <a class="text-hanko-red font-bold border-b-2 border-hanko-red no-underline" href="about.html" data-nav="about" data-i18n="nav.about">About</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <select id="lang-select" class="bg-transparent text-sumi-ink dark:text-[#F0EDE8] text-sm border border-white/40 dark:border-white/20 rounded-full px-3 py-1.5 cursor-pointer outline-none hover:border-hanko-red transition-colors">
+        <option value="en">🇬🇧 EN</option>
+        <option value="fr">🇫🇷 FR</option>
+        <option value="ja">🇯🇵 JA</option>
+        <option value="es">🇪🇸 ES</option>
+        <option value="de">🇩🇪 DE</option>
+      </select>
+      <button id="theme-toggle" class="text-sumi-ink dark:text-[#F0EDE8] bg-white/50 dark:bg-white/10 w-10 h-10 rounded-full flex items-center justify-center border border-white/60 dark:border-white/20 hover:scale-95 transition-transform">
+        <span class="material-symbols-outlined text-[20px]">dark_mode</span>
+      </button>
+      <a href="https://fudami.pages.dev" class="hidden md:block px-6 py-2 bg-sumi-ink dark:bg-white/10 text-white rounded-full text-base no-underline hover:scale-95 transition-transform" data-i18n="nav.signin">Sign In</a>
+    </div>
+  </div>
+</header>
+
+<!-- ── Main ───────────────────────────────────────────────────────────── -->
+<main class="flex-grow pt-32 pb-24 px-5 md:px-8 w-full max-w-[1200px] mx-auto flex flex-col gap-8 relative">
+  <!-- Decorative blobs -->
+  <div class="absolute top-0 left-1/4 w-96 h-96 bg-hanko-red-light rounded-full mix-blend-multiply filter blur-3xl opacity-40 dark:opacity-10 -z-10 pointer-events-none"></div>
+  <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-aizome-indigo-light rounded-full mix-blend-multiply filter blur-3xl opacity-40 dark:opacity-10 -z-10 pointer-events-none"></div>
+
+  <!-- Who We Are -->
+  <section class="max-w-3xl mx-auto w-full text-center md:text-left mb-16">
+    <h1 class="text-[28px] md:text-headline-lg text-sumi-ink font-bold mb-6">Mastery through Liquid Zen.</h1>
+    <p class="text-body-lg text-sumi-ink-muted mb-8 leading-relaxed">
+      fudami was built on a simple premise: learning Japanese shouldn't feel like navigating a spreadsheet, nor should it be a superficial game. We combined the relentless efficiency of Anki's Spaced Repetition System with a modern, tactile interface designed to keep you focused and motivated.
+    </p>
+
+    <!-- Creator card -->
+    <div class="glass-panel rounded-[2rem] p-8 flex flex-col md:flex-row items-center gap-6 mt-12 liquid-hover text-left">
+      <div class="w-24 h-24 rounded-full overflow-hidden shrink-0 border-4 border-white/50 shadow-sm bg-hanko-red-light flex items-center justify-center">
+        <img src="assets/daruma-happy-no-bg.png" alt="Arno" class="w-20 h-20 object-contain"/>
+      </div>
+      <div>
+        <h3 class="text-headline-md text-sumi-ink mb-2">Crafted by Arno</h3>
+        <p class="text-body-md text-sumi-ink-muted mb-4">A solo developer passionate about language acquisition, cognitive science, and elegant user interfaces. Building tools that respect your time and attention.</p>
+        <a class="inline-flex items-center gap-2 text-sumi-ink dark:text-[#F0EDE8] font-bold hover:text-hanko-red transition-colors no-underline" href="https://github.com/snonow/fudami-front">
+          <span class="material-symbols-outlined">code</span>
+          View on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="max-w-3xl mx-auto w-full">
+    <h2 class="text-headline-md text-sumi-ink mb-8">What we believe</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="glass-panel rounded-[2rem] p-6">
+        <div class="w-12 h-12 rounded-2xl bg-hanko-red-light flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-hanko-red" style="font-variation-settings: 'FILL' 1">psychology</span>
+        </div>
+        <h4 class="text-base font-bold text-sumi-ink mb-2">Science-first</h4>
+        <p class="text-body-md text-sumi-ink-muted text-sm leading-relaxed">Every scheduling decision is backed by cognitive science research, not guesswork.</p>
+      </div>
+      <div class="glass-panel rounded-[2rem] p-6">
+        <div class="w-12 h-12 rounded-2xl bg-matcha-green/10 flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-matcha-green" style="font-variation-settings: 'FILL' 1">favorite</span>
+        </div>
+        <h4 class="text-base font-bold text-sumi-ink mb-2">Respect your time</h4>
+        <p class="text-body-md text-sumi-ink-muted text-sm leading-relaxed">No dark patterns. No infinite scroll. Just clean, purposeful reviews that end when they should.</p>
+      </div>
+      <div class="glass-panel rounded-[2rem] p-6">
+        <div class="w-12 h-12 rounded-2xl bg-aizome-indigo-light flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-aizome-indigo" style="font-variation-settings: 'FILL' 1">open_source</span>
+        </div>
+        <h4 class="text-base font-bold text-sumi-ink mb-2">Open core</h4>
+        <p class="text-body-md text-sumi-ink-muted text-sm leading-relaxed">The core learning engine is open. You own your data. No vendor lock-in.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ── Footer ─────────────────────────────────────────────────────────── -->
+<footer class="bg-transparent border-t border-washi-border pb-8 mt-auto">
+  <div class="flex flex-col md:flex-row justify-between items-center w-full py-12 px-5 max-w-[1200px] mx-auto gap-6">
+    <div>
+      <span class="text-label-caps text-sumi-ink-muted block mb-1">fudami</span>
+      <p class="text-body-md text-sumi-ink dark:text-[#F0EDE8]" data-i18n="footer.copy">© 2025 fudami. Crafted with Liquid Zen.</p>
+    </div>
+    <nav class="flex gap-6 text-base">
+      <a class="text-sumi-ink-muted hover:text-sumi-ink transition-colors no-underline" href="https://github.com/snonow/fudami-front">GitHub</a>
+      <a class="text-sumi-ink-muted hover:text-sumi-ink transition-colors no-underline" href="#">Privacy</a>
+      <a class="text-sumi-ink-muted hover:text-sumi-ink transition-colors no-underline" href="#">Terms</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="i18n.js"></script>
+<script src="shared.js"></script>
+</body>
+</html>
