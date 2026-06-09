@@ -1,159 +1,424 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="light" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fudami — Immersive Japanese Mastery</title>
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Master Japanese with FSRS-powered spaced repetition, 3D interactive learning, and topological radical progression. The modern way to learn Kanji and Vocab.">
-    <meta name="keywords" content="Japanese learning, Kanji, FSRS, Spaced Repetition, SRS, Anki alternative, learn Japanese, JLPT">
-    <meta name="author" content="Fudami">
-    
-    <!-- OpenGraph / Social Media -->
-    <meta property="og:title" content="Fudami — Immersive Japanese Mastery">
-    <meta property="og:description" content="Optimize your Japanese learning with advanced FSRS scheduling and 3D immersive cards.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://snonow.github.io/fudami-landing/">
-    <meta property="og:image" content="https://snonow.github.io/fudami-landing/assets/preview.png">
-    
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Fudami — Immersive Japanese Mastery">
-    <meta name="twitter:description" content="Modern Japanese learning powered by FSRS.">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/favicon.png">
-    
-    <!-- Simple, fast CSS -->
-    <style>
-        :root {
-            --bg: #0A0B1E;
-            --text: #ffffff;
-            --accent: #FF3B30;
-            --secondary: #1C1C1E;
-        }
-        body {
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-        }
-        header {
-            padding: 4rem 2rem;
-            text-align: center;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: -1px;
-        }
-        .japanese {
-            display: block;
-            font-size: 1.5rem;
-            color: var(--accent);
-            margin-bottom: 2rem;
-        }
-        .hero-text {
-            font-size: 1.25rem;
-            max-width: 600px;
-            margin: 0 auto 3rem;
-            opacity: 0.8;
-        }
-        .cta-button {
-            display: inline-block;
-            background-color: var(--accent);
-            color: white;
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: transform 0.2s;
-        }
-        .cta-button:hover {
-            transform: scale(1.05);
-        }
-        section {
-            padding: 4rem 0;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        .feature-card {
-            background: var(--secondary);
-            padding: 2rem;
-            border-radius: 20px;
-        }
-        .feature-card h3 {
-            margin-top: 0;
-            color: var(--accent);
-        }
-        footer {
-            text-align: center;
-            padding: 4rem;
-            opacity: 0.5;
-            font-size: 0.9rem;
-        }
-    </style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>fudami — Master Japanese with Liquid Zen</title>
+
+<!-- SEO -->
+<meta name="description" content="The next-generation Spaced Repetition System. Anki's depth meets Duolingo's delightful UX, powered by the advanced FSRS algorithm."/>
+<meta name="keywords" content="Japanese learning, Kanji, FSRS, Spaced Repetition, SRS, Anki alternative, learn Japanese, JLPT"/>
+<meta name="author" content="fudami"/>
+<meta property="og:title" content="fudami — Master Japanese with Liquid Zen"/>
+<meta property="og:description" content="The next-generation SRS. Anki's depth meets Duolingo's UX, powered by FSRS."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://fudami.app"/>
+<meta name="twitter:card" content="summary_large_image"/>
+
+<link rel="icon" href="assets/favicon.png" media="(prefers-color-scheme: dark)"/>
+<link rel="icon" href="assets/favicon-light.png" media="(prefers-color-scheme: light)"/>
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "sumi-ink": "#2C2A29",
+        "surface-container-lowest": "#ffffff",
+        "surface-variant": "#e4e2dd",
+        "secondary-fixed-dim": "#b7c4ff",
+        "aizome-indigo-light": "#DCE2F1",
+        "hanko-red-light": "#FCEAE9",
+        "surface": "#fbf9f3",
+        "washi-paper": "#F9F7F1",
+        "matcha-green": "#00A968",
+        "matcha-green-light": "#D9F2E6",
+        "aizome-indigo": "#1D2F6F",
+        "hanko-red": "#E83929",
+        "sumi-ink-muted": "#6B6661",
+        "washi-border": "#E6E1D6",
+        "surface-container-highest": "#e4e2dd"
+      },
+      borderRadius: {
+        DEFAULT: "1rem", lg: "2rem", xl: "3rem", full: "9999px"
+      },
+      fontFamily: {
+        sans: ["Plus Jakarta Sans", "ui-sans-serif", "system-ui"]
+      },
+      fontSize: {
+        "headline-lg": ["32px", { lineHeight: "40px", fontWeight: "700" }],
+        "kanji-display": ["80px", { lineHeight: "100px", letterSpacing: "-0.02em", fontWeight: "700" }],
+        "label-caps": ["12px", { lineHeight: "16px", letterSpacing: "0.1em", fontWeight: "700" }],
+        "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }]
+      }
+    }
+  }
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+
+<style>
+  @keyframes float {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+  }
+  .animate-float { animation: float 4s ease-in-out infinite; }
+
+  @keyframes blink {
+    0%, 94%, 98% { opacity: 1; }
+    95%, 97%, 99%, 100% { opacity: 0; }
+  }
+  .mascot-blink { animation: blink 6s linear infinite; }
+
+  .glass-panel {
+    background: rgba(255,255,255,0.4);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.5);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+  }
+  .dark .glass-panel {
+    background: rgba(44,42,41,0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .mascot-container { transition: transform 0.1s ease-out; }
+  .timeline-scroll::-webkit-scrollbar { height: 6px; }
+  .timeline-scroll::-webkit-scrollbar-track { background: rgba(228,226,221,0.3); border-radius: 3px; }
+  .timeline-scroll::-webkit-scrollbar-thumb { background: #DCE2F1; border-radius: 3px; }
+  .timeline-scroll::-webkit-scrollbar-thumb:hover { background: #1D2F6F; }
+</style>
 </head>
-<body>
 
-    <header>
-        <div class="container">
-            <h1>FUDAMI</h1>
-            <span class="japanese">ふだみ</span>
-            <p class="hero-text">
-                The immersive Japanese mastery platform. Powered by FSRS algorithm for peak memory retention.
-            </p>
-            <a href="https://fudami.pages.dev" class="cta-button">Open Web App</a>
-            <div style="margin-top: 1rem;">
-                <small>Also available for iOS & Android</small>
-            </div>
+<body class="bg-washi-paper text-sumi-ink font-sans overflow-x-hidden antialiased" style="selection-color: white; -webkit-user-select: text;">
+
+<!-- ── Nav ────────────────────────────────────────────────────────────── -->
+<nav class="fixed z-50 top-0 w-full bg-surface/40 backdrop-blur-2xl shadow-sm transition-all duration-300 border-b border-white/20">
+  <div class="flex justify-between items-center w-full px-5 md:px-8 max-w-[1200px] mx-auto h-20">
+    <div class="text-2xl font-bold text-hanko-red tracking-tight flex items-center gap-2">
+      <span class="material-symbols-outlined">water_drop</span>
+      fudami
+    </div>
+    <div class="hidden md:flex gap-8 items-center bg-white/30 px-6 py-2 rounded-full border border-white/40 backdrop-blur-md">
+      <a class="text-sumi-ink-muted hover:text-hanko-red transition-all duration-200 text-base no-underline" href="#learn">Learn</a>
+      <a class="text-sumi-ink-muted hover:text-hanko-red transition-all duration-200 text-base no-underline" href="#roadmap">Roadmap</a>
+      <a class="text-sumi-ink-muted hover:text-hanko-red transition-all duration-200 text-base no-underline" href="#about">About</a>
+    </div>
+    <div class="flex items-center gap-4">
+      <a href="https://fudami.pages.dev" class="text-base font-bold text-hanko-red hover:scale-95 transition-transform duration-200 hidden md:block no-underline">
+        Sign In
+      </a>
+      <a href="https://fudami.pages.dev" class="text-sumi-ink hover:scale-95 transition-transform duration-200 bg-white/50 w-10 h-10 rounded-full flex items-center justify-center border border-white/60">
+        <span class="material-symbols-outlined text-[20px]">account_circle</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ───────────────────────────────────────────────────────────── -->
+<section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden" id="hero-section">
+  <div class="absolute inset-0 z-0 bg-gradient-to-br from-washi-paper via-surface to-aizome-indigo-light/20">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-hanko-red-light/40 via-transparent to-transparent opacity-60"></div>
+  </div>
+  <div class="relative z-10 w-full px-5 md:px-8 max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+    <div class="text-center md:text-left space-y-8 p-8 md:p-0">
+      <div class="inline-block px-4 py-1.5 rounded-full glass-panel text-hanko-red text-label-caps uppercase tracking-wider mb-2">Liquid Zen UI</div>
+      <h1 class="text-[24px] md:text-[56px] md:leading-[64px] text-sumi-ink tracking-tight font-bold leading-8">
+        Master Japanese with <span class="text-hanko-red drop-shadow-sm">fudami</span>
+      </h1>
+      <p class="text-body-lg text-sumi-ink-muted max-w-xl mx-auto md:mx-0">
+        The next-generation Spaced Repetition System. Anki's depth meets Duolingo's delightful UX, powered by the advanced FSRS algorithm.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+        <a href="https://fudami.pages.dev"
+           class="bg-hanko-red text-white text-body-lg font-bold py-4 px-8 rounded-full hover:scale-105 transition-all duration-300 active:scale-95 flex items-center justify-center gap-2 group no-underline"
+           style="box-shadow: 0 8px 16px rgba(232,57,41,0.3), inset 0 2px 0 rgba(255,255,255,0.2)">
+          Start Learning
+          <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </a>
+        <a href="https://fudami.pages.dev"
+           class="glass-panel text-sumi-ink text-body-lg py-4 px-8 rounded-full hover:bg-white/60 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center no-underline">
+          Open Web App
+        </a>
+      </div>
+    </div>
+
+    <!-- Mascot -->
+    <div class="relative h-[400px] md:h-[600px] flex justify-center items-center group cursor-pointer" id="mascot-hitbox">
+      <div class="relative w-72 h-72 md:w-[450px] md:h-[450px] animate-float mascot-container" id="mascot-wrapper">
+        <img alt="fudami mascot neutral" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-100 group-hover:opacity-0" id="mascot-neutral" src="assets/daruma-neutral-no-bg.png"/>
+        <img alt="fudami mascot happy" class="absolute inset-0 w-full h-full object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100" id="mascot-happy" src="assets/daruma-happy-no-bg.png"/>
+        <img alt="fudami mascot sad" class="absolute inset-0 w-full h-full object-contain opacity-0 transition-opacity duration-300" id="mascot-sad" src="assets/daruma-sad-no-bg.png"/>
+        <img alt="fudami mascot blinking" class="absolute inset-0 w-full h-full object-contain mascot-blink pointer-events-none group-hover:hidden" id="mascot-blink-overlay" src="assets/daruma-neutral-blink-no-bg.png"/>
+        <div class="absolute -inset-10 bg-white/40 rounded-full blur-3xl -z-10 group-hover:bg-hanko-red-light/60 transition-colors duration-500 mix-blend-overlay"></div>
+      </div>
+    </div>
+  </div>
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce text-sumi-ink-muted/50">
+    <span class="material-symbols-outlined text-[32px]">keyboard_arrow_down</span>
+  </div>
+</section>
+
+<!-- ── Philosophy ─────────────────────────────────────────────────────── -->
+<section class="py-24 bg-surface-container-lowest relative z-20" id="learn">
+  <div class="w-full px-5 md:px-8 max-w-[1200px] mx-auto">
+    <div class="text-center mb-16 space-y-4">
+      <h2 class="text-headline-md text-sumi-ink">The Best of Both Worlds</h2>
+      <p class="text-body-lg text-sumi-ink-muted max-w-2xl mx-auto">We combined the rigorous science of Anki with the engaging, gamified experience of Duolingo to create a frictionless learning habit.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="glass-panel p-10 rounded-[2.5rem] hover:-translate-y-2 transition-transform duration-500 border-t border-l border-white/80" style="box-shadow: 0 20px 40px rgba(0,0,0,0.03)">
+        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-aizome-indigo-light to-white flex items-center justify-center mb-6 text-aizome-indigo" style="box-shadow: inset 0 2px 4px rgba(0,0,0,0.06)">
+          <span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1">science</span>
         </div>
-    </header>
+        <h3 class="text-headline-md mb-4 text-sumi-ink">Anki's Depth</h3>
+        <p class="text-body-md text-sumi-ink-muted leading-relaxed">Under the hood, fudami leverages advanced Spaced Repetition logic. Never forget a Kanji again by reviewing it exactly when your brain is about to forget it. Deep, customizable, and scientifically proven.</p>
+      </div>
+      <div class="glass-panel p-10 rounded-[2.5rem] hover:-translate-y-2 transition-transform duration-500 border-t border-l border-white/80" style="box-shadow: 0 20px 40px rgba(0,0,0,0.03)">
+        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-hanko-red-light to-white flex items-center justify-center mb-6 text-hanko-red" style="box-shadow: inset 0 2px 4px rgba(0,0,0,0.06)">
+          <span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1">extension</span>
+        </div>
+        <h3 class="text-headline-md mb-4 text-sumi-ink">Duolingo's UX</h3>
+        <p class="text-body-md text-sumi-ink-muted leading-relaxed">Say goodbye to utilitarian interfaces. fudami offers tactile, squishy buttons, clear visual feedback, and a persistent mascot that reacts to your streaks. Learning feels like play, not a chore.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <main class="container">
-        <section id="how-it-works">
-            <h2>The Science of Mastery</h2>
-            <div class="features">
-                <div class="feature-card">
-                    <h3>FSRS Algorithm</h3>
-                    <p>Moving beyond basic Anki-style SRS. Fudami uses the Free Spaced Repetition Scheduler to map your individual forgetting curve with mathematical precision.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Topological Learning</h3>
-                    <p>Never learn a word without its radicals. Our graph-based engine ensures you have the structural foundation before building vocabulary.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Immersive 3D UI</h3>
-                    <p>Learning shouldn't be a spreadsheet. Engage with beautiful, interactive 3D flashcards designed to keep you focused and motivated.</p>
-                </div>
+<!-- ── FSRS ────────────────────────────────────────────────────────────── -->
+<section class="py-32 bg-gradient-to-b from-washi-paper to-surface-container-lowest border-y border-white/50 relative overflow-hidden">
+  <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNlN2U1ZTAiIGZpbGwtb3BhY2l0eT0iMC40Ii8+PC9zdmc+')] opacity-50"></div>
+  <div class="w-full px-5 md:px-8 max-w-[1200px] mx-auto relative z-10">
+    <div class="flex flex-col lg:flex-row items-center gap-16">
+      <div class="lg:w-1/2 space-y-8">
+        <div class="inline-block px-4 py-1.5 rounded-full bg-white/60 border border-white backdrop-blur-md text-aizome-indigo text-label-caps uppercase tracking-wider shadow-sm">Powered by FSRS</div>
+        <h2 class="text-[40px] leading-[48px] font-bold text-sumi-ink">Next-Gen Memory Optimization</h2>
+        <p class="text-body-lg text-sumi-ink-muted">fudami uses the Free Spaced Repetition Scheduler (FSRS), an algorithm that significantly outperforms traditional SM-2 models by tracking three distinct dimensions of your memory.</p>
+        <div class="space-y-6 mt-8">
+          <div class="glass-panel p-4 rounded-2xl flex gap-4 items-start border-white/60">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-matcha-green-light to-white flex items-center justify-center shrink-0" style="box-shadow: inset 0 2px 4px rgba(0,0,0,0.06)">
+              <span class="material-symbols-outlined text-matcha-green">anchor</span>
             </div>
-        </section>
+            <div>
+              <h4 class="text-body-lg font-bold text-sumi-ink">Stability (S)</h4>
+              <p class="text-body-md text-sumi-ink-muted">How well the memory is entrenched. Higher stability means longer intervals between reviews.</p>
+            </div>
+          </div>
+          <div class="glass-panel p-4 rounded-2xl flex gap-4 items-start border-white/60">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-surface-variant to-white flex items-center justify-center shrink-0" style="box-shadow: inset 0 2px 4px rgba(0,0,0,0.06)">
+              <span class="material-symbols-outlined text-sumi-ink">psychology</span>
+            </div>
+            <div>
+              <h4 class="text-body-lg font-bold text-sumi-ink">Difficulty (D)</h4>
+              <p class="text-body-md text-sumi-ink-muted">Inherent complexity of the card. Difficult cards increase stability slower after a successful review.</p>
+            </div>
+          </div>
+          <div class="glass-panel p-4 rounded-2xl flex gap-4 items-start border-white/60">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary-fixed-dim to-white flex items-center justify-center shrink-0" style="box-shadow: inset 0 2px 4px rgba(0,0,0,0.06)">
+              <span class="material-symbols-outlined text-aizome-indigo">history</span>
+            </div>
+            <div>
+              <h4 class="text-body-lg font-bold text-sumi-ink">Retrievability (R)</h4>
+              <p class="text-body-md text-sumi-ink-muted">The probability you can recall the card right now. fudami aims to review when R hits 90%.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="lg:w-1/2 w-full">
+        <div class="grid grid-cols-2 gap-6 h-[450px]">
+          <div class="col-span-2 glass-panel rounded-[2rem] p-8 relative overflow-hidden flex flex-col justify-end border-t border-l border-white" style="box-shadow: 0 20px 40px rgba(0,0,0,0.05)">
+            <div class="absolute top-6 right-6 w-10 h-10 rounded-full bg-matcha-green-light flex items-center justify-center text-matcha-green">
+              <span class="material-symbols-outlined">trending_up</span>
+            </div>
+            <div class="relative z-10">
+              <div class="text-kanji-display text-sumi-ink tracking-tighter">94<span class="text-headline-lg text-sumi-ink-muted">%</span></div>
+              <div class="text-label-caps text-sumi-ink-muted uppercase tracking-widest mt-2">Average Retention</div>
+            </div>
+            <svg class="absolute bottom-0 left-0 w-full h-32 text-matcha-green/30" preserveAspectRatio="none" viewBox="0 0 100 100">
+              <defs>
+                <linearGradient id="grad1" x1="0%" x2="0%" y1="0%" y2="100%">
+                  <stop offset="0%" style="stop-color:currentColor;stop-opacity:0.5"/>
+                  <stop offset="100%" style="stop-color:currentColor;stop-opacity:0"/>
+                </linearGradient>
+              </defs>
+              <path d="M0,100 C20,80 40,90 60,40 C80,0 100,20 100,20 L100,100 Z" fill="url(#grad1)"/>
+              <path d="M0,100 C20,80 40,90 60,40 C80,0 100,20 100,20" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="glass-panel rounded-[2rem] p-6 flex flex-col justify-center items-center text-center border-t border-l border-white shadow-sm">
+            <div class="w-16 h-16 rounded-2xl bg-hanko-red-light flex items-center justify-center mb-4">
+              <span class="material-symbols-outlined text-[32px] text-hanko-red" style="font-variation-settings: 'FILL' 1">local_fire_department</span>
+            </div>
+            <div class="text-headline-lg text-sumi-ink">12 <span class="text-body-lg text-sumi-ink-muted">Days</span></div>
+            <div class="text-label-caps text-sumi-ink-muted uppercase tracking-wider mt-1">Streak Logic</div>
+          </div>
+          <div class="glass-panel rounded-[2rem] p-6 flex flex-col justify-center items-center text-center border-t border-l border-white shadow-sm bg-gradient-to-br from-white/40 to-aizome-indigo-light/20">
+            <div class="w-16 h-16 rounded-2xl bg-white flex items-center justify-center mb-4 shadow-sm border border-white">
+              <span class="material-symbols-outlined text-[32px] text-aizome-indigo">speed</span>
+            </div>
+            <div class="text-headline-lg text-sumi-ink">&lt; 100<span class="text-body-lg text-sumi-ink-muted">ms</span></div>
+            <div class="text-label-caps text-sumi-ink-muted uppercase tracking-wider mt-1">Scheduling Speed</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <section>
-            <h2>Open Core & Community</h2>
-            <p>
-                Fudami is built with transparency. Our frontend client is fully open-source, allowing developers and students to audit the logic and contribute to the immersive experience.
-            </p>
-            <a href="https://github.com/snonow/fudami-front" style="color: var(--accent);">View Source on GitHub</a>
-        </section>
-    </main>
+<!-- ── Roadmap ────────────────────────────────────────────────────────── -->
+<section class="py-24 bg-surface-container-lowest overflow-hidden" id="roadmap">
+  <div class="w-full px-5 md:px-8 max-w-[1200px] mx-auto">
+    <div class="mb-12">
+      <h2 class="text-headline-lg text-sumi-ink">The Path Forward</h2>
+      <p class="text-body-lg text-sumi-ink-muted">Our master plan for comprehensive language mastery.</p>
+    </div>
+    <div class="flex gap-6 overflow-x-auto pb-12 timeline-scroll snap-x snap-mandatory px-4 -mx-4 md:px-0 md:mx-0">
+      <div class="snap-center shrink-0 w-[320px] md:w-[400px] glass-panel rounded-[2rem] p-8 border-t border-l border-white relative shadow-sm">
+        <div class="absolute -top-4 -left-4 bg-matcha-green text-white w-10 h-10 rounded-full flex items-center justify-center border-4 border-surface-container-lowest shadow-md">
+          <span class="material-symbols-outlined text-[20px]">check</span>
+        </div>
+        <div class="text-label-caps text-matcha-green uppercase tracking-widest mb-3">Current Phase</div>
+        <h3 class="text-headline-md mb-4 text-sumi-ink">Vocab &amp; Kanji Base</h3>
+        <p class="text-body-md text-sumi-ink-muted mb-8 leading-relaxed">Core SRS functionality, Wanikani integration, native drawing pad for Kanji practice, and offline mobile support.</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-4 py-1.5 bg-white border border-white/60 rounded-full text-label-caps text-sumi-ink shadow-sm">FSRS Engine</span>
+          <span class="px-4 py-1.5 bg-white border border-white/60 rounded-full text-label-caps text-sumi-ink shadow-sm">Drawing</span>
+        </div>
+      </div>
+      <div class="snap-center shrink-0 w-[320px] md:w-[400px] glass-panel rounded-[2rem] p-8 border-t border-l border-white relative shadow-sm">
+        <div class="absolute -top-4 -left-4 bg-aizome-indigo text-white w-10 h-10 rounded-full flex items-center justify-center border-4 border-surface-container-lowest shadow-md">
+          <span class="material-symbols-outlined text-[20px]">pending</span>
+        </div>
+        <div class="text-label-caps text-aizome-indigo uppercase tracking-widest mb-3">Coming Soon</div>
+        <h3 class="text-headline-md mb-4 text-sumi-ink">AI Contextual Tutor</h3>
+        <p class="text-body-md text-sumi-ink-muted mb-8 leading-relaxed">Generative example sentences based on your interests. Confused by a grammar point? Ask the AI for a personalized explanation.</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-4 py-1.5 bg-aizome-indigo-light/50 border border-aizome-indigo-light text-aizome-indigo rounded-full text-label-caps shadow-sm">LLM Integration</span>
+        </div>
+      </div>
+      <div class="snap-center shrink-0 w-[320px] md:w-[400px] glass-panel rounded-[2rem] p-8 border-t border-l border-white relative shadow-sm opacity-70 hover:opacity-100 transition-opacity">
+        <div class="absolute -top-4 -left-4 bg-surface-variant text-sumi-ink w-10 h-10 rounded-full flex items-center justify-center border-4 border-surface-container-lowest shadow-md">
+          <span class="material-symbols-outlined text-[20px]">lock</span>
+        </div>
+        <div class="text-label-caps text-sumi-ink-muted uppercase tracking-widest mb-3">Future Vision (Premium)</div>
+        <h3 class="text-headline-md mb-4 text-sumi-ink">Speaking &amp; Expression</h3>
+        <p class="text-body-md text-sumi-ink-muted mb-8 leading-relaxed">Real-time voice recognition for pitch accent correction. Simulated shadow-boxing conversations with AI personas.</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-4 py-1.5 bg-hanko-red-light/50 border border-hanko-red-light text-hanko-red rounded-full text-label-caps shadow-sm">Pitch Accent</span>
+          <span class="px-4 py-1.5 bg-white border border-white/60 rounded-full text-label-caps text-sumi-ink shadow-sm">Voice Rec</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <footer>
-        <p>&copy; 2026 Fudami Platform. All rights reserved.</p>
-        <p>Built for the modern learner.</p>
-    </footer>
+<!-- ── Bottom CTA ─────────────────────────────────────────────────────── -->
+<section class="py-32 bg-sumi-ink text-white relative overflow-hidden">
+  <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.8) 1px, transparent 0); background-size: 32px 32px;"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-sumi-ink via-transparent to-transparent"></div>
+  <div class="w-full px-5 md:px-8 max-w-[1200px] mx-auto relative z-10 text-center">
+    <div class="inline-block p-4 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 mb-8">
+      <span class="material-symbols-outlined text-[48px] text-hanko-red">water_drop</span>
+    </div>
+    <h2 class="text-[48px] leading-[56px] font-bold mb-6">Ready to solidify your memory?</h2>
+    <p class="text-body-lg text-white/70 mb-10 max-w-xl mx-auto">Join thousands of learners optimizing their Japanese studies with fudami's Liquid Zen interface.</p>
+    <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+      <a href="https://fudami.pages.dev"
+         class="bg-hanko-red text-white text-body-lg font-bold py-5 px-12 rounded-full hover:scale-105 transition-all duration-300 active:scale-95 no-underline"
+         style="box-shadow: 0 8px 24px rgba(232,57,41,0.4), inset 0 2px 0 rgba(255,255,255,0.2)">
+        Open Web App
+      </a>
+      <a class="flex items-center gap-2 text-white/60 hover:text-white hover:bg-white/10 rounded-full transition-all text-body-md py-4 px-8 border border-transparent hover:border-white/20 no-underline" href="#">
+        <span class="material-symbols-outlined">code</span>
+        View on GitHub
+      </a>
+    </div>
+  </div>
+</section>
 
+<!-- ── Footer ─────────────────────────────────────────────────────────── -->
+<footer class="bg-surface-container-lowest border-t border-washi-border pb-8" id="about">
+  <div class="flex flex-col md:flex-row justify-between items-center w-full py-12 px-5 max-w-[1200px] mx-auto gap-6">
+    <div class="text-label-caps text-sumi-ink-muted flex items-center gap-2">
+      <span class="material-symbols-outlined text-[16px] text-hanko-red">water_drop</span>
+      © 2025 fudami. Crafted by Arno.
+    </div>
+    <div class="flex gap-8">
+      <a class="text-label-caps uppercase tracking-wider text-sumi-ink-muted hover:text-hanko-red transition-colors no-underline" href="#">GitHub</a>
+      <a class="text-label-caps uppercase tracking-wider text-sumi-ink-muted hover:text-hanko-red transition-colors no-underline" href="#">Personal Projects</a>
+      <a class="text-label-caps uppercase tracking-wider text-sumi-ink-muted hover:text-hanko-red transition-colors no-underline" href="#">Privacy</a>
+      <a class="text-label-caps uppercase tracking-wider text-sumi-ink-muted hover:text-hanko-red transition-colors no-underline" href="#">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const heroSection = document.getElementById('hero-section');
+  const mascotWrapper = document.getElementById('mascot-wrapper');
+  const mascotNeutral = document.getElementById('mascot-neutral');
+  const mascotSad = document.getElementById('mascot-sad');
+  const mascotBlinkOverlay = document.getElementById('mascot-blink-overlay');
+  const mascotHitbox = document.getElementById('mascot-hitbox');
+
+  let idleTimer;
+  let isHoveringMascot = false;
+
+  const resetToSad = () => {
+    if (!isHoveringMascot) {
+      mascotNeutral.style.opacity = '0';
+      mascotBlinkOverlay.style.opacity = '0';
+      mascotSad.style.opacity = '1';
+      mascotWrapper.style.transform = 'translate(0px, 0px)';
+    }
+  };
+
+  const wakeUp = () => {
+    if (!isHoveringMascot) {
+      mascotSad.style.opacity = '0';
+      mascotNeutral.style.opacity = '1';
+      mascotBlinkOverlay.style.opacity = '1';
+    }
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(resetToSad, 5000);
+  };
+
+  heroSection.addEventListener('mousemove', (e) => {
+    wakeUp();
+    if (!isHoveringMascot) {
+      const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+      const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+      mascotWrapper.style.transform = `translate(${-xAxis}px, ${-yAxis}px)`;
+    }
+  });
+
+  document.addEventListener('mouseleave', () => {
+    clearTimeout(idleTimer);
+    resetToSad();
+  });
+
+  mascotHitbox.addEventListener('mouseenter', () => {
+    isHoveringMascot = true;
+    clearTimeout(idleTimer);
+    mascotWrapper.style.transform = 'translate(0px, 0px) scale(1.05)';
+    mascotSad.style.opacity = '0';
+    mascotBlinkOverlay.style.opacity = '0';
+  });
+
+  mascotHitbox.addEventListener('mouseleave', () => {
+    isHoveringMascot = false;
+    mascotWrapper.style.transform = 'translate(0px, 0px) scale(1)';
+    wakeUp();
+  });
+
+  idleTimer = setTimeout(resetToSad, 5000);
+});
+</script>
 </body>
 </html>
