@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://snonow.github.io/fudami-landing/sitemap.xml
