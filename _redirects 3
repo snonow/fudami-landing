@@ -1,6 +1,0 @@
-# Cloudflare Pages redirect rules
-# https://developers.cloudflare.com/pages/configuration/redirects/
-
-# Clean canonical URLs — strip .html suffix and trailing /index
-/index              /   301
-/index.html         /   301
