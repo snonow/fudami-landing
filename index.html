@@ -125,10 +125,32 @@ tailwind.config = {
   }
   #roadmap-track:hover { animation-play-state: paused; }
 
-  /* ── Dark-mode body ────────────────────────────────────────────────── */
-  .dark body,
-  .dark { background-color: #1a1918; color: #F0EDE8; }
-  .dark .bg-washi-paper   { background-color: #1a1918 !important; }
+  /* ── Liquid Zen Background ─────────────────────────────────────────── */
+  .bg-liquid-zen {
+    background: radial-gradient(circle at 50% 0%, rgba(29, 47, 111, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 169, 104, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 20% 80%, rgba(232, 57, 41, 0.08) 0%, transparent 40%);
+    background-color: #F9F7F1;
+    background-attachment: fixed;
+    background-size: 200% 200%;
+    animation: breathe 15s ease-in-out infinite alternate;
+  }
+
+  .dark .bg-liquid-zen {
+    background: radial-gradient(circle at 50% 0%, rgba(109, 141, 237, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(46, 202, 127, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 20% 80%, rgba(255, 107, 107, 0.08) 0%, transparent 40%);
+    background-color: #1a1918;
+  }
+
+  @keyframes breathe {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+  }
+
+  /* ── Dark-mode overrides ───────────────────────────────────────────── */
+  .dark { color: #F0EDE8; }
+  .dark .bg-washi-paper   { background-color: transparent !important; }
   .dark .bg-surface-container-lowest { background-color: #1e1c1b !important; }
   .dark .text-sumi-ink    { color: #F0EDE8 !important; }
   .dark .text-sumi-ink-muted { color: #9E9994 !important; }
@@ -142,7 +164,7 @@ tailwind.config = {
 </style>
 </head>
 
-<body class="bg-washi-paper text-sumi-ink font-sans overflow-x-hidden antialiased">
+<body class="bg-liquid-zen text-sumi-ink font-sans overflow-x-hidden antialiased">
 
 <!-- ── Nav ────────────────────────────────────────────────────────────── -->
 <nav class="fixed z-50 top-0 w-full bg-surface/40 dark:bg-[#1a1918]/70 backdrop-blur-2xl shadow-sm transition-all duration-300 border-b border-white/20 dark:border-white/10">
@@ -184,17 +206,14 @@ tailwind.config = {
 
 <!-- ── Hero ───────────────────────────────────────────────────────────── -->
 <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden" id="hero-section">
-  <div class="absolute inset-0 z-0 bg-gradient-to-br from-washi-paper via-surface to-aizome-indigo-light/20 dark:from-[#1a1918] dark:via-[#1e1c1b] dark:to-aizome-indigo/20">
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-hanko-red-light/40 via-transparent to-transparent opacity-60 dark:from-hanko-red/20"></div>
-  </div>
   <div class="relative z-10 w-full px-5 md:px-8 max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
     <div class="text-center md:text-left space-y-8 p-8 md:p-0">
-      <div class="inline-block px-4 py-1.5 rounded-full glass-panel text-hanko-red text-label-caps uppercase tracking-wider mb-2" data-i18n="hero.badge">Open Beta</div>
+      <div class="inline-block px-4 py-1.5 rounded-full glass-panel text-hanko-red text-label-caps uppercase tracking-wider mb-2" data-i18n="hero.badge">Available Now</div>
       <h1 class="text-[24px] md:text-[56px] md:leading-[64px] text-sumi-ink tracking-tight font-bold leading-8" data-i18n-html="hero.title">
-        Master Japanese with <span class="text-hanko-red drop-shadow-sm">fudami</span>
+        Start Your Japanese Journey <span class="text-hanko-red drop-shadow-sm">Today</span>
       </h1>
       <p class="text-body-lg text-sumi-ink-muted max-w-xl mx-auto md:mx-0" data-i18n="hero.subtitle">
-        The next-generation Spaced Repetition System. Anki's depth meets Duolingo's delightful UX, powered by the advanced FSRS algorithm.
+        A focused, highly effective Spaced Repetition System. Anki's scientific depth meets a calm, delightful interface. Build your foundation in Vocab and Kanji.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
         <a href="https://fudami.pages.dev"

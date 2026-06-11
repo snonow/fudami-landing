@@ -3,7 +3,7 @@
 // ── Clerk configuration ──────────────────────────────────────────────────────
 // Replace with your Clerk publishable key (safe to expose in frontend code).
 // Get it from https://dashboard.clerk.com → API Keys → Publishable key.
-const CLERK_PK  = 'pk_live_YOUR_CLERK_PUBLISHABLE_KEY';
+const CLERK_PK  = 'pk_test_a2luZC1odW1wYmFjay0xOS5jbGVyay5hY2NvdW50cy5kZXYk';
 const APP_URL   = 'https://fudami.pages.dev';
 
 /**
