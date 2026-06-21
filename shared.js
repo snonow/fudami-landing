@@ -290,10 +290,51 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('[data-lang]').forEach(el => {
     el.addEventListener('click', () => {
       const code = el.getAttribute('data-lang');
-      if (typeof setLang === 'function') {
-        setLang(code);
-        initClerk(); // Re-initialize clerk to refresh button text translations
+      if (code === 'en') {
+        if (typeof setLang === 'function') {
+          setLang(code);
+          initClerk(); // Re-initialize clerk to refresh button text translations
+        }
+      } else {
+        const span = el.querySelector('span');
+        const langName = span ? span.textContent.replace(' (INCOMING)', '') : 'Language';
+        showToast(`${langName} support is incoming!`);
       }
     });
   });
 });
+
+// ── Floating Toast Notification ──────────────────────────────────────────────
+function showToast(message) {
+  // Remove existing toast if any
+  const existing = document.getElementById('fudami-toast');
+  if (existing) existing.remove();
+
+  // Create toast container
+  const toast = document.createElement('div');
+  toast.id = 'fudami-toast';
+  toast.className = 'fixed top-24 left-1/2 -translate-x-1/2 z-50 liquid-glass border border-hanko-red/30 text-washi-light px-6 py-3 rounded-xl shadow-2xl flex items-center gap-2 pointer-events-none transition-all duration-300 opacity-0 translate-y-[-10px]';
+  toast.style.backdropFilter = 'blur(16px)';
+  toast.style.webkitBackdropFilter = 'blur(16px)';
+  
+  toast.innerHTML = `
+    <span class="material-symbols-outlined text-hanko-red text-xl animate-pulse">info</span>
+    <span class="font-bold text-sm tracking-wide uppercase">${message}</span>
+  `;
+
+  document.body.appendChild(toast);
+
+  // Trigger reflow
+  toast.offsetHeight;
+
+  // Fade and slide in
+  toast.classList.remove('opacity-0', 'translate-y-[-10px]');
+  toast.classList.add('opacity-100', 'translate-y-0');
+
+  // Fade and slide out after 2.5s
+  setTimeout(() => {
+    toast.classList.remove('opacity-100', 'translate-y-0');
+    toast.classList.add('opacity-0', 'translate-y-[-10px]');
+    setTimeout(() => toast.remove(), 300);
+  }, 2500);
+}
