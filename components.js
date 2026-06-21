@@ -20,9 +20,9 @@ function injectHeader(activePage) {
   const desktopLinks = navItems.map(function(item) {
     var isActive = item.id === activePage;
     var cls = isActive
-      ? 'text-washi-light border-b-2 border-hanko-red pb-0.5'
+      ? 'text-washi-light active-nav-link'
       : 'text-washi-light/60 hover:text-washi-light';
-    return '<a class="' + cls + ' transition-colors duration-200 text-sm font-medium no-underline" href="' + item.href + '" data-i18n="' + item.i18n + '">' + item.label + '</a>';
+    return '<a class="' + cls + ' nav-link relative py-1 px-3 transition-colors duration-200 text-sm font-medium no-underline z-10" data-id="' + item.id + '" href="' + item.href + '" data-i18n="' + item.i18n + '">' + item.label + '</a>';
   }).join('');
 
   var mobileLinks = navItems.map(function(item) {
@@ -40,7 +40,8 @@ function injectHeader(activePage) {
         '<span class="font-[\'Plus_Jakarta_Sans\']">fudami</span>' +
       '</a>' +
       '<!-- Desktop Nav -->' +
-      '<nav class="hidden md:flex items-center gap-8">' +
+      '<nav id="desktop-nav" class="hidden md:flex items-center gap-2 relative">' +
+        '<div id="nav-cursor" class="absolute h-8 bg-white/10 rounded-full transition-all duration-300 ease-out pointer-events-none z-0" style="width: 0; left: 0; opacity: 0; backdrop-filter: blur(8px);"></div>' +
         desktopLinks +
       '</nav>' +
       '<!-- Actions -->' +
@@ -80,6 +81,75 @@ function injectHeader(activePage) {
       var icon = menuToggle.querySelector('.material-symbols-outlined');
       if (icon) icon.textContent = isOpen ? 'menu' : 'close';
     });
+  }
+
+  // Smooth Cursor Logic
+  var desktopNav = document.getElementById('desktop-nav');
+  var navCursor = document.getElementById('nav-cursor');
+  var links = desktopNav ? desktopNav.querySelectorAll('.nav-link') : [];
+  
+  function updateCursor(link) {
+    if (!link || !navCursor) return;
+    var linkRect = link.getBoundingClientRect();
+    var navRect = desktopNav.getBoundingClientRect();
+    navCursor.style.width = linkRect.width + 'px';
+    navCursor.style.left = (linkRect.left - navRect.left) + 'px';
+    navCursor.style.opacity = '1';
+  }
+
+  var currentActiveLink = desktopNav ? desktopNav.querySelector('.active-nav-link') : null;
+  
+  setTimeout(function() {
+    if (currentActiveLink) updateCursor(currentActiveLink);
+  }, 100);
+
+  links.forEach(function(link) {
+    link.addEventListener('mouseenter', function() { updateCursor(link); });
+  });
+
+  if (desktopNav) {
+    desktopNav.addEventListener('mouseleave', function() {
+      if (currentActiveLink) {
+        updateCursor(currentActiveLink);
+      } else {
+        if (navCursor) navCursor.style.opacity = '0';
+      }
+    });
+  }
+
+  // ScrollSpy Logic for Approach vs Home
+  if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+    var sections = document.querySelectorAll('section[id]');
+    var hero = document.querySelector('main > div.text-center');
+    if (hero) hero.id = 'hero-section';
+    
+    var allObserved = Array.from(sections);
+    if (hero) allObserved.unshift(hero);
+    
+    if (allObserved.length > 0) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var id = entry.target.id;
+            var targetId = id === 'hero-section' ? 'index' : 'approach';
+            var matchingLink = Array.from(links).find(function(l) { return l.getAttribute('data-id') === targetId; });
+            
+            if (matchingLink) {
+              links.forEach(function(l) { 
+                l.classList.remove('active-nav-link', 'text-washi-light');
+                l.classList.add('text-washi-light/60');
+              });
+              matchingLink.classList.remove('text-washi-light/60');
+              matchingLink.classList.add('active-nav-link', 'text-washi-light');
+              currentActiveLink = matchingLink;
+              updateCursor(currentActiveLink);
+            }
+          }
+        });
+      }, { rootMargin: '-40% 0px -60% 0px' });
+      
+      allObserved.forEach(function(sec) { observer.observe(sec); });
+    }
   }
 }
 
