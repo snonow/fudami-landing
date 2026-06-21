@@ -87,7 +87,7 @@ This is Tier 1 of the fudami platform (the marketing funnel). For the full archi
 | Repo | Host | Role |
 | --- | --- | --- |
 | `fudami-landing` (this) | Cloudflare Pages | Marketing & SEO |
-| `fudami-front` | Cloudflare Pages | The app (React Native / Expo web) |
+| `fudami-app` | Cloudflare Pages | The app (React Native / Expo web) |
 | `fudami-cloud` | Cloudflare Workers | Auth, billing, encrypted content packs |
 | `fudami-studio` | Local / offline | Content factory (private pipeline) |
 

@@ -6,6 +6,15 @@
 <title>About — fudami</title>
 
 <meta name="description" content="fudami is crafted by a solo developer passionate about language acquisition, cognitive science, and elegant user interfaces."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://fudami.arno-wilhelm.dev/about.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="fudami"/>
+<meta property="og:title" content="About — fudami"/>
+<meta property="og:description" content="Built by a solo developer passionate about language acquisition and cognitive science."/>
+<meta property="og:url" content="https://fudami.arno-wilhelm.dev/about.html"/>
+<meta property="og:image" content="https://fudami.arno-wilhelm.dev/assets/favicon.png"/>
+<meta name="twitter:card" content="summary"/>
 <link rel="icon" href="assets/favicon.png" media="(prefers-color-scheme: dark)"/>
 <link rel="icon" href="assets/favicon-light.png" media="(prefers-color-scheme: light)"/>
 
@@ -18,74 +27,198 @@
   })();
 </script>
 
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-tailwind.config = {
-  darkMode: "class",
-  theme: {
-    extend: {
-      colors: {
-        "sumi-ink":               "#2C2A29",
-        "sumi-ink-muted":         "#6B6661",
-        "surface-container-lowest":"#ffffff",
-        "surface-variant":        "#e4e2dd",
-        "aizome-indigo-light":    "#DCE2F1",
-        "hanko-red-light":        "#FCEAE9",
-        "surface":                "#fbf9f3",
-        "washi-paper":            "#F9F7F1",
-        "matcha-green":           "#00A968",
-        "aizome-indigo":          "#1D2F6F",
-        "hanko-red":              "#E83929",
-        "washi-border":           "#E6E1D6",
-      },
-      borderRadius: { DEFAULT: "1rem", lg: "2rem", xl: "3rem", full: "9999px" },
-      fontFamily: { sans: ["Plus Jakarta Sans", "ui-sans-serif", "system-ui"] },
-      fontSize: {
-        "headline-lg":    ["32px", { lineHeight: "40px",  fontWeight: "700" }],
-        "label-caps":     ["12px", { lineHeight: "16px",  letterSpacing: "0.1em", fontWeight: "700" }],
-        "headline-md":    ["24px", { lineHeight: "32px",  fontWeight: "600" }],
-        "body-lg":        ["18px", { lineHeight: "28px",  fontWeight: "400" }],
-        "body-md":        ["16px", { lineHeight: "24px",  fontWeight: "400" }]
+<script>
+window.tailwind = {
+  config: {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          // Light Mode Brand Colors
+          "washi": "#F9F7F1",
+          "sumi": "#2C2A29",
+          "hanko": "#E83929",
+          "aizome": "#1D2F6F",
+          "matcha": "#00A968",
+
+          // Dark Mode Material Colors
+          "on-tertiary-fixed": "#002110",
+          "on-secondary-fixed-variant": "#17409c",
+          "inverse-surface": "#e5e2e1",
+          "on-surface": "#e5e2e1",
+          "primary-fixed-dim": "#ffb3b0",
+          "surface-tint": "#ffb3b0",
+          "primary-container": "#f16161",
+          "secondary-fixed-dim": "#b4c5ff",
+          "tertiary-fixed": "#6cfdac",
+          "secondary-container": "#1b429f",
+          "on-tertiary-fixed-variant": "#00522f",
+          "on-error": "#690005",
+          "error-container": "#93000a",
+          "on-tertiary": "#00391f",
+          "on-primary-container": "#5c000c",
+          "surface-container-highest": "#353534",
+          "surface-container": "#201f1f",
+          "primary": "#ffb3b0",
+          "on-tertiary-container": "#00311a",
+          "on-secondary": "#002a78",
+          "background": "#131313",
+          "on-secondary-container": "#a0b6ff",
+          "surface-container-low": "#1c1b1b",
+          "surface-bright": "#393939",
+          "surface": "#131313",
+          "on-secondary-fixed": "#00174b",
+          "surface-variant": "#353534",
+          "outline": "#ac8883",
+          "on-primary": "#68000f",
+          "inverse-primary": "#ae2f34",
+          "error": "#ffb4ab",
+          "surface-container-high": "#2a2a2a",
+          "secondary-fixed": "#dbe1ff",
+          "outline-variant": "#5c403b",
+          "primary-fixed": "#ffdad8",
+          "inverse-on-surface": "#313030",
+          "surface-dim": "#131313",
+          "tertiary": "#4be092",
+          "on-surface-variant": "#e5bdb7",
+          "tertiary-container": "#00a664",
+          "secondary": "#b4c5ff",
+          "on-primary-fixed": "#410006",
+          "on-primary-fixed-variant": "#8c1520",
+          "on-error-container": "#ffdad6",
+          "surface-container-lowest": "#0e0e0e",
+          "on-background": "#e5e2e1",
+          "tertiary-fixed-dim": "#4be092"
+        },
+        "borderRadius": {
+          "DEFAULT": "1rem",
+          "lg": "2rem",
+          "xl": "3rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "xl": "32px",
+          "container-max": "800px",
+          "lg": "24px",
+          "gutter-mobile": "24px",
+          "sm": "12px",
+          "xs": "8px",
+          "md": "16px",
+          "base": "4px"
+        },
+        "fontFamily": {
+          "sans": ["Plus Jakarta Sans", "ui-sans-serif", "system-ui"],
+          "label-caps": ["Plus Jakarta Sans"],
+          "headline-lg": ["Plus Jakarta Sans"],
+          "body-lg": ["Nunito Sans"],
+          "body-md": ["Nunito Sans"],
+          "headline-md": ["Plus Jakarta Sans"]
+        },
+        "fontSize": {
+          "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "800"}],
+          "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+          "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+          "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+          "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+        }
       }
     }
   }
-}
+};
 </script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;600;700&amp;family=Plus+Jakarta+Sans:wght@500;700;800&amp;display=swap" rel="stylesheet"/>
 
 <style>
-  .glass-panel {
-    background: rgba(255,255,255,0.4);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255,255,255,0.6);
-    box-shadow: 0 4px 30px rgba(0,0,0,0.05);
-  }
-  .dark .glass-panel {
-    background: rgba(44,42,41,0.5);
-    border: 1px solid rgba(255,255,255,0.1);
-  }
-  .liquid-hover { transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1); }
-  .liquid-hover:hover { transform: scale(0.98); }
+        /* Liquid Glass Utilities (Light Mode Default) */
+        .glass-panel {
+            background: rgba(249, 247, 241, 0.65);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(44, 42, 41, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(44, 42, 41, 0.05);
+        }
+        
+        /* Subtle animated background gradient (Light Mode Default) */
+        .bg-fudami {
+            background: radial-gradient(circle at 50% 0%, rgba(29, 47, 111, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(0, 169, 104, 0.08) 0%, transparent 40%),
+                        radial-gradient(circle at 20% 80%, rgba(232, 57, 41, 0.08) 0%, transparent 40%);
+            background-color: #F9F7F1;
+            background-attachment: fixed;
+            background-size: 200% 200%;
+            animation: breathe 15s ease-in-out infinite alternate;
+        }
 
-  .dark body { background-color: #1a1918 !important; color: #F0EDE8; }
-  .dark .bg-surface-container-lowest { background-color: #1e1c1b !important; }
-  .dark .bg-washi-paper { background-color: #1a1918 !important; }
-  .dark .text-sumi-ink      { color: #F0EDE8 !important; }
-  .dark .text-sumi-ink-muted{ color: #9E9994 !important; }
-  .dark .border-washi-border{ border-color: rgba(255,255,255,0.08) !important; }
+        @keyframes breathe {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+
+        @keyframes mascot-bob-breathe {
+            0% { transform: translateY(0px) scale(1.0); }
+            50% { transform: translateY(-8px) scale(1.015); }
+            100% { transform: translateY(0px) scale(1.0); }
+        }
+
+        .mascot-bob-container {
+            animation: mascot-bob-breathe 6s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #1D2F6F 0%, #00A968 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ── Dark Mode Overrides ───────────────────────────────────────────── */
+        .dark .glass-panel {
+            background: rgba(19, 19, 19, 0.55);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: none;
+            border-right: none;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        
+        .dark .bg-fudami {
+            background: radial-gradient(circle at 50% 0%, #1b429f 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, #00a664 0%, transparent 40%),
+                        radial-gradient(circle at 20% 80%, #f16161 0%, transparent 40%);
+            background-color: #131313;
+        }
+
+        .dark .text-gradient {
+            background: linear-gradient(135deg, #e5e2e1 0%, #a0b6ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dark { color: #EAEAEA; }
+        .dark .text-sumi { color: #EAEAEA !important; }
+        .dark .text-sumi\/70 { color: #A0A0A0 !important; }
+        .dark .text-hanko { color: #FF6B6B !important; }
+        .dark .bg-hanko { background-color: #FF6B6B !important; }
+        .dark .text-matcha { color: #2ECA7F !important; }
+        .dark .text-aizome { color: #6D8DED !important; }
+        .dark .bg-washi\/70 { background-color: rgba(30,30,30,0.7) !important; }
+        .dark .bg-washi { background-color: #121212 !important; }
+        .dark .border-sumi\/10 { border-color: rgba(255,255,255,0.05) !important; }
 </style>
 </head>
 
-<body class="bg-surface-container-lowest text-sumi-ink font-sans antialiased min-h-screen flex flex-col">
+<body class="bg-fudami text-sumi font-body-md min-h-screen flex flex-col selection:bg-hanko selection:text-white">
 
 <!-- ── Nav ────────────────────────────────────────────────────────────── -->
-<header class="fixed z-50 top-0 w-full bg-surface/70 dark:bg-[#1a1918]/80 backdrop-blur-2xl shadow-sm border-b border-white/20 dark:border-white/10">
+<header class="fixed z-50 top-0 w-full bg-washi/70 dark:bg-charcoal/80 backdrop-blur-xl border-b border-sumi/10 shadow-sm">
   <div class="flex justify-between items-center w-full px-5 md:px-8 max-w-[1200px] mx-auto h-20">
-    <a href="index.html" class="font-bold text-sumi-ink dark:text-[#F0EDE8] tracking-tight flex items-center gap-2 text-xl no-underline">
-      <img src="assets/daruma-neutral-no-bg.png" alt="fudami" class="w-8 h-8 object-contain"/>
+    <a href="index.html" class="font-bold text-sumi dark:text-[#EAEAEA] tracking-tight flex items-center gap-2 text-xl no-underline">
+      <img src="assets/daruma-neutral-no-bg.png" alt="fudami" class="w-8 h-8 object-contain" width="32" height="32"/>
       fudami
     </a>
     <nav class="hidden md:flex gap-8 items-center">
@@ -105,7 +238,7 @@ tailwind.config = {
       <button id="theme-toggle" class="text-sumi-ink dark:text-[#F0EDE8] bg-white/50 dark:bg-white/10 w-10 h-10 rounded-full flex items-center justify-center border border-white/60 dark:border-white/20 hover:scale-95 transition-transform">
         <span class="material-symbols-outlined text-[20px]">dark_mode</span>
       </button>
-      <button id="clerk-auth-btn" class="hidden md:block px-6 py-2 bg-sumi-ink dark:bg-white/10 text-white rounded-full text-base hover:scale-95 transition-transform cursor-pointer" data-i18n="nav.signin">Sign In</button>
+      <button id="clerk-auth-btn" class="hidden md:block bg-hanko-red text-white px-4 py-2 rounded-full font-semibold hover:opacity-90 transition-opacity cursor-pointer" data-i18n="nav.signin">Sign In</button>
     </div>
   </div>
 </header>
@@ -118,20 +251,22 @@ tailwind.config = {
 
   <!-- Who We Are -->
   <section class="max-w-3xl mx-auto w-full text-center md:text-left mb-16">
-    <h1 class="text-[28px] md:text-headline-lg text-sumi-ink font-bold mb-6">Mastery through Liquid Zen.</h1>
+    <h1 class="text-[28px] md:text-headline-lg text-sumi-ink font-bold mb-6">Mastery, the calm way.</h1>
     <p class="text-body-lg text-sumi-ink-muted mb-8 leading-relaxed">
       fudami was built on a simple premise: learning Japanese shouldn't feel like navigating a spreadsheet, nor should it be a superficial game. We combined the relentless efficiency of Anki's Spaced Repetition System with a modern, tactile interface designed to keep you focused and motivated.
     </p>
 
     <!-- Creator card -->
-    <div class="glass-panel rounded-[2rem] p-8 flex flex-col md:flex-row items-center gap-6 mt-12 liquid-hover text-left">
-      <div class="w-24 h-24 rounded-full overflow-hidden shrink-0 border-4 border-white/50 shadow-sm bg-hanko-red-light flex items-center justify-center">
-        <img src="assets/daruma-happy-no-bg.png" alt="Arno" class="w-20 h-20 object-contain"/>
+    <div class="glass-panel rounded-[2rem] p-8 flex flex-col md:flex-row items-center gap-6 mt-12 liquid-hover text-left group">
+      <div class="w-24 h-24 rounded-full overflow-hidden shrink-0 border-4 border-white/50 shadow-sm bg-hanko-red-light dark:bg-hanko/10 flex items-center justify-center">
+        <div class="mascot-bob-container w-20 h-20 flex items-center justify-center">
+          <img src="assets/daruma-happy-no-bg.png" alt="Arno" class="daruma-mascot w-full h-full object-contain" width="80" height="80"/>
+        </div>
       </div>
       <div>
         <h3 class="text-headline-md text-sumi-ink mb-2">Crafted by Arno</h3>
         <p class="text-body-md text-sumi-ink-muted mb-4">A solo developer passionate about language acquisition, cognitive science, and elegant user interfaces. Building tools that respect your time and attention.</p>
-        <a class="inline-flex items-center gap-2 text-sumi-ink dark:text-[#F0EDE8] font-bold hover:text-hanko-red transition-colors no-underline" href="https://github.com/snonow/fudami-front">
+        <a class="inline-flex items-center gap-2 text-sumi-ink dark:text-[#F0EDE8] font-bold hover:text-hanko-red transition-colors no-underline" href="https://github.com/snonow/fudami-app">
           <span class="material-symbols-outlined">code</span>
           View on GitHub
         </a>
@@ -173,10 +308,10 @@ tailwind.config = {
   <div class="flex flex-col md:flex-row justify-between items-center w-full py-12 px-5 max-w-[1200px] mx-auto gap-6">
     <div>
       <span class="text-label-caps text-sumi-ink-muted block mb-1">fudami</span>
-      <p class="text-body-md text-sumi-ink dark:text-[#F0EDE8]" data-i18n="footer.copy">© 2025 fudami. Crafted with Liquid Zen.</p>
+      <p class="text-body-md text-sumi-ink dark:text-[#F0EDE8]" data-i18n="footer.copy">© 2026 fudami.</p>
     </div>
     <nav class="flex gap-6 text-base">
-      <a class="text-sumi-ink-muted hover:text-sumi-ink transition-colors no-underline" href="https://github.com/snonow/fudami-front">GitHub</a>
+      <a class="text-sumi-ink-muted hover:text-sumi-ink transition-colors no-underline" href="https://github.com/snonow/fudami-app">GitHub</a>
       <a class="text-sumi-ink-muted hover:text-sumi-ink transition-colors no-underline" href="#">Privacy</a>
       <a class="text-sumi-ink-muted hover:text-sumi-ink transition-colors no-underline" href="#">Terms</a>
     </nav>

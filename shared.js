@@ -1,22 +1,19 @@
-/* shared.js — theme, nav active state, lang init, Clerk auth (loaded on all pages) */
+/* shared.js — theme, nav active state, lang init, Clerk auth, and interactive Mascot */
 
 // ── Clerk configuration ──────────────────────────────────────────────────────
-// Replace with your Clerk publishable key (safe to expose in frontend code).
-// Get it from https://dashboard.clerk.com → API Keys → Publishable key.
 const CLERK_PK  = 'pk_test_a2luZC1odW1wYmFjay0xOS5jbGVyay5hY2NvdW50cy5kZXYk';
 const APP_URL   = 'https://fudami.pages.dev';
 
 /**
- * Loads ClerkJS from CDN, then wires up the #clerk-auth-btn nav button on the
- * current page. Opens Clerk's sign-in modal inline — the user never has to
- * navigate away from the landing page to authenticate. After a successful
- * sign-in or sign-up Clerk redirects straight to the web app.
+ * Loads ClerkJS from CDN and wires up auth elements:
+ * - Navbar Sign In button: triggers clerk.openSignIn
+ * - CTA, Hero Start Learning, and Free Plan buttons: trigger clerk.openSignUp
  *
- * If the user is already authenticated the button changes to "Open App" and
- * links directly to the web app (no extra click needed).
+ * If the user is already authenticated, it updates all buttons to display "Open App"
+ * (localized via i18n keys) and redirect directly to the app URL.
  */
 function initClerk() {
-  if (CLERK_PK.includes('YOUR_CLERK')) return; // not yet configured — skip silently
+  if (CLERK_PK.includes('YOUR_CLERK')) return; // not configured - skip
 
   const script = document.createElement('script');
   script.src = 'https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js';
@@ -26,30 +23,109 @@ function initClerk() {
       const clerk = new window.Clerk(CLERK_PK);
       await clerk.load();
 
-      const btn = document.getElementById('clerk-auth-btn');
-      if (!btn) return;
+      // Retrieve current localized labels for dynamic button replacement
+      const currentLang = localStorage.getItem('fudami-lang') || 'en';
+      const langDict = (typeof TRANSLATIONS !== 'undefined' && TRANSLATIONS[currentLang]) || {};
+      const openAppText = langDict['nav.openapp'] || 'Open App';
+      const signInText = langDict['nav.signin'] || 'Sign In';
+      const signUpText = langDict['nav.signup'] || 'Sign Up';
 
-      if (clerk.user) {
-        // Already signed in: bypass the landing and go straight to the app.
-        btn.textContent = 'Open App';
-        btn.addEventListener('click', () => { window.location.href = APP_URL; });
-      } else {
-        btn.addEventListener('click', () => {
-          clerk.openSignIn({
-            afterSignInUrl:  APP_URL,
-            afterSignUpUrl:  APP_URL,
-          });
-        });
+      // 1. Navbar auth button
+      const authBtn = document.getElementById('clerk-auth-btn');
+      if (authBtn) {
+        if (clerk.user) {
+          authBtn.textContent = openAppText;
+          authBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
+        } else {
+          authBtn.textContent = signInText;
+          authBtn.onclick = (e) => {
+            e.preventDefault();
+            clerk.openSignIn({ afterSignInUrl: APP_URL, afterSignUpUrl: APP_URL });
+          };
+        }
       }
+
+      // 2. Hero Start Learning button (Sign Up flow)
+      const heroStartBtn = document.getElementById('clerk-hero-signup-btn');
+      if (heroStartBtn) {
+        if (clerk.user) {
+          // Change text (preserving inner tags like icons if present)
+          const textEl = heroStartBtn.querySelector('.font-label-caps') || heroStartBtn;
+          textEl.textContent = openAppText;
+          heroStartBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
+        } else {
+          heroStartBtn.onclick = (e) => {
+            e.preventDefault();
+            clerk.openSignUp({ afterSignInUrl: APP_URL, afterSignUpUrl: APP_URL });
+          };
+        }
+      }
+
+      // 3. Hero Open Web App button (Sign In flow)
+      const heroOpenBtn = document.getElementById('clerk-hero-signin-btn');
+      if (heroOpenBtn) {
+        if (clerk.user) {
+          const textEl = heroOpenBtn.querySelector('.font-label-caps') || heroOpenBtn;
+          textEl.textContent = openAppText;
+          heroOpenBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
+        } else {
+          heroOpenBtn.onclick = (e) => {
+            e.preventDefault();
+            clerk.openSignIn({ afterSignInUrl: APP_URL, afterSignUpUrl: APP_URL });
+          };
+        }
+      }
+
+      // 4. CTA section button (Sign Up flow)
+      const ctaBtn = document.getElementById('clerk-cta-btn');
+      if (ctaBtn) {
+        if (clerk.user) {
+          ctaBtn.textContent = openAppText;
+          ctaBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
+        } else {
+          ctaBtn.onclick = (e) => {
+            e.preventDefault();
+            clerk.openSignUp({ afterSignInUrl: APP_URL, afterSignUpUrl: APP_URL });
+          };
+        }
+      }
+
+      // 5. Pricing Plan Free button (Sign Up flow)
+      const pricingFreeBtn = document.getElementById('clerk-pricing-free-btn');
+      if (pricingFreeBtn) {
+        if (clerk.user) {
+          pricingFreeBtn.textContent = openAppText;
+          pricingFreeBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
+        } else {
+          pricingFreeBtn.onclick = (e) => {
+            e.preventDefault();
+            clerk.openSignUp({ afterSignInUrl: APP_URL, afterSignUpUrl: APP_URL });
+          };
+        }
+      }
+
+      // 6. Inline SignUp buttons (e.g. from the step card)
+      const inlineSignupBtns = document.querySelectorAll('.clerk-signup-trigger');
+      inlineSignupBtns.forEach(btn => {
+        if (clerk.user) {
+          btn.textContent = openAppText;
+          btn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
+        } else {
+          btn.onclick = (e) => {
+            e.preventDefault();
+            clerk.openSignUp({ afterSignInUrl: APP_URL, afterSignUpUrl: APP_URL });
+          };
+        }
+      });
+
     } catch (err) {
-      // Non-fatal — the rest of the page works fine without auth.
       console.warn('[Clerk] init failed:', err);
     }
   });
   document.head.appendChild(script);
 }
-// ────────────────────────────────────────────────────────────────────────────
 
+// ── Theme management ─────────────────────────────────────────────────────────
 function initTheme() {
   const saved = localStorage.getItem('fudami-theme');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -75,6 +151,7 @@ function _updateThemeIcon() {
   btn.title = isDark ? 'Switch to light mode' : 'Switch to dark mode';
 }
 
+// ── Navigation ───────────────────────────────────────────────────────────────
 function initNav() {
   const path = location.pathname;
   document.querySelectorAll('[data-nav]').forEach(el => {
@@ -83,16 +160,109 @@ function initNav() {
       (page === 'index' && (path === '/' || path.endsWith('/') || path.endsWith('index.html'))) ||
       (page !== 'index' && path.endsWith(page + '.html'));
     if (isActive) {
-      el.classList.add('text-hanko-red', 'font-bold');
-      el.classList.remove('text-sumi-ink-muted');
+      el.classList.add('text-hanko', 'font-bold');
+      el.classList.remove('text-sumi-muted');
     }
   });
 }
 
+// ── Interactive Mascot (Daruma) ──────────────────────────────────────────────
+function initMascot() {
+  const mascots = document.querySelectorAll('.daruma-mascot');
+  if (mascots.length === 0) return;
+
+  let lastMouseMove = Date.now();
+  let currentMood = 'happy'; // 'happy' (default smiling)
+  let isBlinking = false;
+  let isHovered = false;
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+
+  // Track mouse coordinates for parallax cursor-follow
+  window.addEventListener('mousemove', (e) => {
+    lastMouseMove = Date.now();
+    
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    
+    updateMascotsTransform();
+  });
+
+  // Blink logic
+  function triggerBlink() {
+    if (isBlinking) return;
+    isBlinking = true;
+    updateMascotsImage();
+    
+    setTimeout(() => {
+      isBlinking = false;
+      updateMascotsImage();
+      
+      // Schedule next random blink
+      setTimeout(triggerBlink, 3000 + Math.random() * 4000);
+    }, 150);
+  }
+  
+  // Schedule first blink
+  setTimeout(triggerBlink, 2000 + Math.random() * 2000);
+
+  // Updates the image source based on mood and blink state
+  function updateMascotsImage() {
+    mascots.forEach(img => {
+      const blinkState = isBlinking ? '-blink' : '';
+      img.src = `assets/daruma-${currentMood}${blinkState}-no-bg.png`;
+    });
+  }
+
+  // Calculates and applies smooth 3D translations and rotations
+  function updateMascotsTransform() {
+    const cx = window.innerWidth / 2;
+    const cy = window.innerHeight / 2;
+    const dx = mouseX - cx;
+    const dy = mouseY - cy;
+    
+    const parallaxX = dx / 25; // ±screen/25 parallax
+    const parallaxY = dy / 25;
+    const rotateY = (dx / window.innerWidth) * 20;
+    const rotateX = -(dy / window.innerHeight) * 20;
+    
+    mascots.forEach(img => {
+      const scaleVal = isHovered ? 1.05 : 1.0;
+      img.style.transition = 'transform 0.1s ease-out, filter 0.3s ease';
+      img.style.transform = `translate3d(${parallaxX}px, ${parallaxY}px, 0) rotateY(${rotateY}deg) rotateX(${rotateX}deg) scale(${scaleVal})`;
+    });
+  }
+
+  // Setup hover bindings
+  mascots.forEach(img => {
+    // Look for a parent bento card (.group) or fallback to image itself
+    const hoverContainer = img.closest('.group') || img;
+    
+    hoverContainer.addEventListener('mouseenter', () => {
+      isHovered = true;
+      currentMood = 'happy';
+      updateMascotsImage();
+      updateMascotsTransform();
+    });
+    
+    hoverContainer.addEventListener('mouseleave', () => {
+      isHovered = false;
+      currentMood = 'happy';
+      updateMascotsImage();
+      updateMascotsTransform();
+    });
+  });
+
+  // Initial transform setup
+  updateMascotsTransform();
+}
+
+// ── DOM Initialization ───────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initNav();
   initClerk();
+  initMascot();
   if (typeof initLang === 'function') initLang();
 
   const themeBtn = document.getElementById('theme-toggle');
@@ -100,10 +270,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const langSel = document.getElementById('lang-select');
   if (langSel) langSel.addEventListener('change', e => {
-    if (typeof setLang === 'function') setLang(e.target.value);
+    if (typeof setLang === 'function') {
+      setLang(e.target.value);
+      // Re-initialize clerk to refresh button text translations
+      initClerk();
+    }
   });
 
-  // Sync with OS theme changes (only if user hasn't manually set)
+  // Sync with OS preferences
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
     if (!localStorage.getItem('fudami-theme')) {
       document.documentElement.classList.toggle('dark', e.matches);
