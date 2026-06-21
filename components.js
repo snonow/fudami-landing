@@ -165,30 +165,30 @@ function injectFooter() {
 
   footer.innerHTML =
     '<div class="max-w-[1200px] mx-auto px-6 md:px-8">' +
-      '<div class="flex flex-col md:flex-row justify-between items-start gap-8">' +
+      '<div class="flex flex-col items-center text-center md:text-left md:flex-row md:items-start justify-between gap-12">' +
         '<!-- Brand -->' +
-        '<div class="flex flex-col gap-3">' +
+        '<div class="flex flex-col items-center md:items-start gap-4">' +
           '<a href="index.html" class="inline-block no-underline">' +
             '<span class="text-lg font-bold text-washi-light font-[\'Plus_Jakarta_Sans\']">fudami</span>' +
           '</a>' +
           '<p class="text-sm text-washi-light/50 max-w-[280px]" data-i18n="footer.tagline">Master Japanese through science-backed spaced repetition in a calm, focused workspace.</p>' +
         '</div>' +
         '<!-- Links -->' +
-        '<div class="grid grid-cols-2 sm:grid-cols-3 gap-x-12 gap-y-10 md:flex md:gap-16">' +
-          '<div class="flex flex-col gap-2">' +
-            '<span class="text-xs font-bold uppercase tracking-widest text-washi-light/40 mb-1">Product</span>' +
-            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="index.html#approach" data-i18n="nav.approach">Approach</a>' +
-            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="pricing.html" data-i18n="nav.pricing">Pricing</a>' +
+        '<div class="grid grid-cols-1 sm:grid-cols-3 gap-x-12 gap-y-10 md:flex md:gap-16 w-full md:w-auto">' +
+          '<div class="flex flex-col items-center md:items-start gap-2">' +
+            '<span class="text-xs font-bold uppercase tracking-widest text-washi-light/40 mb-2">Product</span>' +
+            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline py-1" href="index.html#approach" data-i18n="nav.approach">Approach</a>' +
+            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline py-1" href="pricing.html" data-i18n="nav.pricing">Pricing</a>' +
           '</div>' +
-          '<div class="flex flex-col gap-2">' +
-            '<span class="text-xs font-bold uppercase tracking-widest text-washi-light/40 mb-1">Company</span>' +
-            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="about.html" data-i18n="nav.about">About</a>' +
-            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://github.com/snonow/fudami-app">GitHub</a>' +
+          '<div class="flex flex-col items-center md:items-start gap-2">' +
+            '<span class="text-xs font-bold uppercase tracking-widest text-washi-light/40 mb-2">Company</span>' +
+            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline py-1" href="about.html" data-i18n="nav.about">About</a>' +
+            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline py-1" href="https://github.com/snonow/fudami-app">GitHub</a>' +
           '</div>' +
-          '<div class="flex flex-col gap-2">' +
-            '<span class="text-xs font-bold uppercase tracking-widest text-washi-light/40 mb-1">Legal</span>' +
-            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="#">Privacy</a>' +
-            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="#">Terms</a>' +
+          '<div class="flex flex-col items-center md:items-start gap-2">' +
+            '<span class="text-xs font-bold uppercase tracking-widest text-washi-light/40 mb-2">Legal</span>' +
+            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline py-1" href="#">Privacy</a>' +
+            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline py-1" href="#">Terms</a>' +
           '</div>' +
         '</div>' +
       '</div>' +
