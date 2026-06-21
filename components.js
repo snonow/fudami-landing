@@ -12,9 +12,9 @@ function injectHeader(activePage) {
 
   const navItems = [
     { id: 'index',    href: 'index.html',           label: 'Home',     i18n: 'nav.home' },
-    { id: 'approach', href: 'index.html#approach',   label: 'Approach', i18n: 'nav.approach' },
-    { id: 'about',    href: 'about.html',            label: 'About',    i18n: 'nav.about' },
-    { id: 'pricing',  href: 'pricing.html',          label: 'Pricing',  i18n: 'nav.pricing' },
+    { id: 'approach', href: 'approach.html',        label: 'Approach', i18n: 'nav.approach' },
+    { id: 'about',    href: 'about.html',           label: 'About',    i18n: 'nav.about' },
+    { id: 'pricing',  href: 'pricing.html',         label: 'Pricing',  i18n: 'nav.pricing' },
   ];
 
   const desktopLinks = navItems.map(function(item) {
@@ -177,13 +177,13 @@ function injectFooter() {
         '<div class="grid grid-cols-1 sm:grid-cols-3 gap-x-12 gap-y-10 md:flex md:gap-16 w-full md:w-auto">' +
           '<div class="flex flex-col items-center md:items-start gap-2">' +
             '<span class="text-xs font-bold uppercase tracking-widest text-washi-light/40 mb-2">Product</span>' +
-            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline py-1" href="index.html#approach" data-i18n="nav.approach">Approach</a>' +
+            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline py-1" href="approach.html" data-i18n="nav.approach">Approach</a>' +
             '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline py-1" href="pricing.html" data-i18n="nav.pricing">Pricing</a>' +
           '</div>' +
           '<div class="flex flex-col items-center md:items-start gap-2">' +
             '<span class="text-xs font-bold uppercase tracking-widest text-washi-light/40 mb-2">Company</span>' +
             '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline py-1" href="about.html" data-i18n="nav.about">About</a>' +
-            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline py-1" href="https://github.com/snonow/fudami-app">GitHub</a>' +
+            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline py-1" href="https://github.com/snonow" target="_blank" rel="noopener noreferrer">GitHub</a>' +
           '</div>' +
           '<div class="flex flex-col items-center md:items-start gap-2">' +
             '<span class="text-xs font-bold uppercase tracking-widest text-washi-light/40 mb-2">Legal</span>' +
