@@ -2,7 +2,7 @@
 
 // ── Clerk configuration ──────────────────────────────────────────────────────
 const CLERK_PK  = 'pk_test_a2luZC1odW1wYmFjay0xOS5jbGVyay5hY2NvdW50cy5kZXYk';
-const APP_URL   = 'https://fudami.pages.dev';
+const APP_URL   = 'https://fudami-app.arno-wilhelm.dev';
 
 /**
  * Loads ClerkJS from CDN and wires up auth elements:
