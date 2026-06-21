@@ -1,0 +1,19 @@
+# Files excluded from Cloudflare asset upload (not web-servable content).
+# Syntax is identical to .gitignore.
+
+# Version control
+.git
+.github
+
+# Wrangler build cache
+.wrangler
+
+# Config / CI files — not web assets
+wrangler.jsonc
+.gitignore
+.cfignore
+.DS_Store
+
+# Documentation — not web assets
+README.md
+SEO.md

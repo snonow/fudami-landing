@@ -1,2 +1,8 @@
 SEO.md
 .DS_Store
+.wrangler/
+
+# Symlinked shared agent context (root-level .md files)
+.agents-context/
+.agents/
+.claude/

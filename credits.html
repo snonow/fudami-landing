@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Studies & Credits — fudami</title>
+
+<!-- SEO -->
+<meta name="description" content="The science, algorithms, and open-source projects that power fudami's Japanese learning platform."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://fudami.arno-wilhelm.dev/credits.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Studies & Credits — fudami"/>
+<meta property="og:url" content="https://fudami.arno-wilhelm.dev/credits.html"/>
+<meta property="og:image" content="https://fudami.arno-wilhelm.dev/assets/favicon.png"/>
+<link rel="icon" type="image/png" href="assets/favicon.png"/>
+
+<!-- Preconnect & Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=M+PLUS+Rounded+1c:wght@500;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+<!-- Design System CSS (single source of truth) -->
+<link rel="stylesheet" href="design-system.css"/>
+
+<!-- Anti-flash: apply theme before paint -->
+<script>
+  (function(){
+    var s=localStorage.getItem('fudami-theme');
+    var d=s?s==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.classList.toggle('dark', d);
+    document.documentElement.classList.toggle('light', !d);
+  })();
+</script>
+
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="tailwind-config.js"></script>
+
+<!-- App scripts (deferred) -->
+<script src="i18n.js" defer></script>
+<script src="components.js" defer></script>
+<script src="shared.js" defer></script>
+
+<!-- Page-specific init -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Inject shared components
+    injectHeader('credits'); // or null since it's not in the main nav
+    injectFooter();
+    injectPollModal();
+    initScrollReveal();
+  });
+</script>
+</head>
+
+<body class="antialiased min-h-screen flex flex-col font-sans text-body-md">
+
+<main class="flex-grow pt-24 md:pt-32 pb-24 px-6 md:px-8 w-full max-w-[800px] mx-auto relative z-10">
+  <div class="text-center mb-12 section-fade-in">
+    <h1 class="text-3xl md:text-5xl text-washi-light font-bold mb-4 tracking-tight" data-i18n="credits.title">Studies &amp; Credits</h1>
+    <p class="text-lg text-washi-light/70 max-w-2xl mx-auto" data-i18n="credits.desc">
+      fudami stands on the shoulders of giants. We are deeply grateful to the researchers and open-source projects that make this platform possible.
+    </p>
+  </div>
+
+  <div class="card-glass rounded-[2rem] p-8 md:p-12 section-fade-in" style="transition-delay: 0.1s">
+    <ul class="space-y-8">
+      <li class="flex flex-col gap-2 border-b border-white/5 pb-8 last:border-0 last:pb-0">
+        <h3 class="text-xl font-bold text-washi-light flex items-center gap-2">
+          <span class="material-symbols-outlined text-matcha-green" style="font-variation-settings: 'FILL' 1">science</span>
+          Free Spaced Repetition Scheduler (FSRS)
+        </h3>
+        <p class="text-washi-light/70 leading-relaxed">
+          The core scheduling algorithm is based on FSRS, a state-of-the-art spaced repetition algorithm that significantly outperforms SM-2. Research by open-spaced-repetition.
+        </p>
+      </li>
+      <li class="flex flex-col gap-2 border-b border-white/5 pb-8 last:border-0 last:pb-0">
+        <h3 class="text-xl font-bold text-washi-light flex items-center gap-2">
+          <span class="material-symbols-outlined text-aizome-indigo" style="font-variation-settings: 'FILL' 1">draw</span>
+          KanjiVG
+        </h3>
+        <p class="text-washi-light/70 leading-relaxed">
+          Kanji stroke order data and SVG animations are powered by KanjiVG, an open-source database of Japanese kanji stroke diagrams created by Ulrich Apel.
+        </p>
+      </li>
+      <li class="flex flex-col gap-2 border-b border-white/5 pb-8 last:border-0 last:pb-0">
+        <h3 class="text-xl font-bold text-washi-light flex items-center gap-2">
+          <span class="material-symbols-outlined text-hanko-red" style="font-variation-settings: 'FILL' 1">translate</span>
+          JMdict &amp; KANJIDIC
+        </h3>
+        <p class="text-washi-light/70 leading-relaxed">
+          Dictionary definitions and kanji metadata utilize the JMdict and KANJIDIC dictionary files. These files are the property of the Electronic Dictionary Research and Development Group.
+        </p>
+      </li>
+      <li class="flex flex-col gap-2 last:border-0 last:pb-0">
+        <h3 class="text-xl font-bold text-washi-light flex items-center gap-2">
+          <span class="material-symbols-outlined text-washi-light/80" style="font-variation-settings: 'FILL' 1">text_fields</span>
+          Typography
+        </h3>
+        <p class="text-washi-light/70 leading-relaxed">
+          Typography utilizes Google Fonts: <strong>Plus Jakarta Sans</strong> for a highly legible UI and <strong>M PLUS Rounded 1c</strong> for a friendly, modern Japanese aesthetic. Kanji display utilizes the KanjiStrokeOrders font.
+        </p>
+      </li>
+    </ul>
+  </div>
+</main>
+
+</body>
+</html>
