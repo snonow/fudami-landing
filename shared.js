@@ -1,8 +1,9 @@
-/* shared.js — theme, nav active state, lang init, Clerk auth, and interactive Mascot */
+/* shared.js — theme, nav active state, lang init, Clerk auth, and language request poll */
 
-// ── Clerk configuration ──────────────────────────────────────────────────────
+// ── Configuration ──────────────────────────────────────────────────────────
 const CLERK_PK  = 'pk_test_a2luZC1odW1wYmFjay0xOS5jbGVyay5hY2NvdW50cy5kZXYk';
 const APP_URL   = 'https://fudami-app.arno-wilhelm.dev';
+const API_URL   = 'https://fudami-api.arno-wilhelm.dev';
 
 /**
  * Loads ClerkJS from CDN and wires up auth elements:
@@ -33,89 +34,43 @@ function initClerk() {
       // 1. Navbar auth button
       const authBtn = document.getElementById('clerk-auth-btn');
       if (authBtn) {
-        if (clerk.user) {
-          authBtn.textContent = openAppText;
-          authBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
-        } else {
-          authBtn.textContent = signInText;
-          authBtn.onclick = (e) => {
-            e.preventDefault();
-            clerk.openSignIn({ afterSignInUrl: APP_URL, afterSignUpUrl: APP_URL });
-          };
-        }
+        authBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL + '/onboarding/welcome'; };
+      }
+
+      // Mobile Nav auth button
+      const mobileAuthBtn = document.getElementById('clerk-mobile-auth-btn');
+      if (mobileAuthBtn) {
+        mobileAuthBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL + '/onboarding/welcome'; };
       }
 
       // 2. Hero Start Learning button (Sign Up flow)
       const heroStartBtn = document.getElementById('clerk-hero-signup-btn');
       if (heroStartBtn) {
-        if (clerk.user) {
-          // Change text (preserving inner tags like icons if present)
-          const textEl = heroStartBtn.querySelector('.font-label-caps') || heroStartBtn;
-          textEl.textContent = openAppText;
-          heroStartBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
-        } else {
-          heroStartBtn.onclick = (e) => {
-            e.preventDefault();
-            clerk.openSignUp({ afterSignInUrl: APP_URL, afterSignUpUrl: APP_URL });
-          };
-        }
+        heroStartBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL + '/onboarding/welcome'; };
       }
 
-      // 3. Hero Open Web App button (Sign In flow)
+      // 3. Hero Open Web App button (Sign In flow) - Removed in HTML but kept for safety
       const heroOpenBtn = document.getElementById('clerk-hero-signin-btn');
       if (heroOpenBtn) {
-        if (clerk.user) {
-          const textEl = heroOpenBtn.querySelector('.font-label-caps') || heroOpenBtn;
-          textEl.textContent = openAppText;
-          heroOpenBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
-        } else {
-          heroOpenBtn.onclick = (e) => {
-            e.preventDefault();
-            clerk.openSignIn({ afterSignInUrl: APP_URL, afterSignUpUrl: APP_URL });
-          };
-        }
+        heroOpenBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL + '/onboarding/welcome'; };
       }
 
       // 4. CTA section button (Sign Up flow)
       const ctaBtn = document.getElementById('clerk-cta-btn');
       if (ctaBtn) {
-        if (clerk.user) {
-          ctaBtn.textContent = openAppText;
-          ctaBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
-        } else {
-          ctaBtn.onclick = (e) => {
-            e.preventDefault();
-            clerk.openSignUp({ afterSignInUrl: APP_URL, afterSignUpUrl: APP_URL });
-          };
-        }
+        ctaBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL + '/onboarding/welcome'; };
       }
 
       // 5. Pricing Plan Free button (Sign Up flow)
       const pricingFreeBtn = document.getElementById('clerk-pricing-free-btn');
       if (pricingFreeBtn) {
-        if (clerk.user) {
-          pricingFreeBtn.textContent = openAppText;
-          pricingFreeBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
-        } else {
-          pricingFreeBtn.onclick = (e) => {
-            e.preventDefault();
-            clerk.openSignUp({ afterSignInUrl: APP_URL, afterSignUpUrl: APP_URL });
-          };
-        }
+        pricingFreeBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL + '/onboarding/welcome'; };
       }
 
-      // 6. Inline SignUp buttons (e.g. from the step card)
+      // 6. Inline SignUp buttons
       const inlineSignupBtns = document.querySelectorAll('.clerk-signup-trigger');
       inlineSignupBtns.forEach(btn => {
-        if (clerk.user) {
-          btn.textContent = openAppText;
-          btn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
-        } else {
-          btn.onclick = (e) => {
-            e.preventDefault();
-            clerk.openSignUp({ afterSignInUrl: APP_URL, afterSignUpUrl: APP_URL });
-          };
-        }
+        btn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL + '/onboarding/welcome'; };
       });
 
     } catch (err) {
@@ -166,95 +121,154 @@ function initNav() {
   });
 }
 
-// ── Interactive Mascot (Daruma) ──────────────────────────────────────────────
-function initMascot() {
-  const mascots = document.querySelectorAll('.daruma-mascot');
-  if (mascots.length === 0) return;
+// ── Language Support Poll ────────────────────────────────────────────────────
+const INCOMING_LANGS = {
+  es: { name: 'Spanish', emoji: '🇪🇸' },
+  fr: { name: 'French', emoji: '🇫🇷' },
+  de: { name: 'German', emoji: '🇩🇪' },
+  it: { name: 'Italian', emoji: '🇮🇹' },
+  ja: { name: 'Japanese', emoji: '🇯🇵' }
+};
 
-  let lastMouseMove = Date.now();
-  let currentMood = 'happy'; // 'happy' (default smiling)
-  let isBlinking = false;
-  let isHovered = false;
-  let mouseX = window.innerWidth / 2;
-  let mouseY = window.innerHeight / 2;
+function initPollModal() {
+  const modal = document.getElementById('poll-modal');
+  if (!modal) return;
 
-  // Track mouse coordinates for parallax cursor-follow
-  window.addEventListener('mousemove', (e) => {
-    lastMouseMove = Date.now();
-    
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    
-    updateMascotsTransform();
+  const closeBtn = document.getElementById('close-poll-modal');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', hidePollModal);
+  }
+
+  // Click outside to close
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) hidePollModal();
   });
 
-  // Blink logic
-  function triggerBlink() {
-    if (isBlinking) return;
-    isBlinking = true;
-    updateMascotsImage();
-    
-    setTimeout(() => {
-      isBlinking = false;
-      updateMascotsImage();
-      
-      // Schedule next random blink
-      setTimeout(triggerBlink, 3000 + Math.random() * 4000);
-    }, 150);
-  }
-  
-  // Schedule first blink
-  setTimeout(triggerBlink, 2000 + Math.random() * 2000);
-
-  // Updates the image source based on mood and blink state
-  function updateMascotsImage() {
-    mascots.forEach(img => {
-      const blinkState = isBlinking ? '-blink' : '';
-      img.src = `assets/daruma-${currentMood}${blinkState}-no-bg.png`;
-    });
-  }
-
-  // Calculates and applies smooth 3D translations and rotations
-  function updateMascotsTransform() {
-    const cx = window.innerWidth / 2;
-    const cy = window.innerHeight / 2;
-    const dx = mouseX - cx;
-    const dy = mouseY - cy;
-    
-    const parallaxX = dx / 25; // ±screen/25 parallax
-    const parallaxY = dy / 25;
-    const rotateY = (dx / window.innerWidth) * 20;
-    const rotateX = -(dy / window.innerHeight) * 20;
-    
-    mascots.forEach(img => {
-      const scaleVal = isHovered ? 1.05 : 1.0;
-      img.style.transition = 'transform 0.1s ease-out, filter 0.3s ease';
-      img.style.transform = `translate3d(${parallaxX}px, ${parallaxY}px, 0) rotateY(${rotateY}deg) rotateX(${rotateX}deg) scale(${scaleVal})`;
-    });
-  }
-
-  // Setup hover bindings
-  mascots.forEach(img => {
-    // Look for a parent bento card (.group) or fallback to image itself
-    const hoverContainer = img.closest('.group') || img;
-    
-    hoverContainer.addEventListener('mouseenter', () => {
-      isHovered = true;
-      currentMood = 'happy';
-      updateMascotsImage();
-      updateMascotsTransform();
-    });
-    
-    hoverContainer.addEventListener('mouseleave', () => {
-      isHovered = false;
-      currentMood = 'happy';
-      updateMascotsImage();
-      updateMascotsTransform();
+  // Wire up option buttons inside the modal
+  const optionBtns = document.querySelectorAll('.poll-option-btn');
+  optionBtns.forEach(btn => {
+    const langCode = btn.getAttribute('data-lang');
+    updatePollButtonVotedState(btn, langCode);
+    btn.addEventListener('click', () => {
+      submitPollVote(langCode, btn);
     });
   });
 
-  // Initial transform setup
-  updateMascotsTransform();
+  // Wire up navbar trigger
+  const trigger = document.getElementById('lang-poll-trigger');
+  if (trigger) {
+    trigger.addEventListener('click', () => {
+      showPollModal();
+    });
+  }
+}
+
+function updatePollButtonVotedState(btn, langCode) {
+  if (localStorage.getItem(`fudami-voted-${langCode}`)) {
+    btn.disabled = true;
+    btn.classList.add('cursor-not-allowed', 'border-matcha-green/30', 'bg-matcha-green/5');
+    btn.classList.remove('hover:bg-white/10');
+    const icon = btn.querySelector('.material-symbols-outlined');
+    if (icon) {
+      icon.textContent = 'check';
+      icon.classList.remove('opacity-0', 'group-hover:opacity-100');
+      icon.classList.add('opacity-100');
+    }
+  }
+}
+
+function showPollModal() {
+  const modal = document.getElementById('poll-modal');
+  if (!modal) return;
+
+  // Set loading placeholder for counts
+  const countEls = modal.querySelectorAll('.poll-count');
+  countEls.forEach(el => {
+    el.textContent = 'Loading...';
+  });
+
+  // Show modal
+  modal.classList.remove('opacity-0', 'pointer-events-none');
+  const inner = modal.querySelector('.liquid-glass');
+  if (inner) inner.classList.remove('translate-y-4');
+
+  // Fetch counts for all languages
+  fetch(`${API_URL}/api/request-language`)
+    .then(res => res.json())
+    .then(data => {
+      const counts = data.counts || {};
+      const optionBtns = modal.querySelectorAll('.poll-option-btn');
+      optionBtns.forEach(btn => {
+        const langCode = btn.getAttribute('data-lang');
+        const count = counts[langCode] !== undefined ? counts[langCode] : 0;
+        const countEl = btn.querySelector('.poll-count');
+        if (countEl) {
+          countEl.textContent = `${count} request${count !== 1 ? 's' : ''}`;
+        }
+        updatePollButtonVotedState(btn, langCode);
+      });
+    })
+    .catch(err => {
+      console.error('[Poll] failed to fetch counts:', err);
+      const optionBtns = modal.querySelectorAll('.poll-option-btn');
+      optionBtns.forEach(btn => {
+        const countEl = btn.querySelector('.poll-count');
+        if (countEl) countEl.textContent = 'N/A';
+      });
+    });
+}
+
+function hidePollModal() {
+  const modal = document.getElementById('poll-modal');
+  if (!modal) return;
+
+  modal.classList.add('opacity-0', 'pointer-events-none');
+  const inner = modal.querySelector('.liquid-glass');
+  if (inner) inner.classList.add('translate-y-4');
+}
+
+async function submitPollVote(langCode, btn) {
+  if (!langCode || !btn) return;
+
+  if (localStorage.getItem(`fudami-voted-${langCode}`)) {
+    showToast('You have already requested this language!');
+    return;
+  }
+
+  // Set loading state on this button
+  const countEl = btn.querySelector('.poll-count');
+  const originalCountText = countEl ? countEl.textContent : '';
+  if (countEl) countEl.textContent = 'Voting...';
+
+  try {
+    const res = await fetch(`${API_URL}/api/request-language`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ lang: langCode })
+    });
+
+    const data = await res.json();
+    if (res.ok && data.success) {
+      localStorage.setItem(`fudami-voted-${langCode}`, '1');
+      if (countEl) {
+        countEl.textContent = `${data.count} request${data.count !== 1 ? 's' : ''}`;
+      }
+      updatePollButtonVotedState(btn, langCode);
+      showToast(`Request submitted for ${INCOMING_LANGS[langCode]?.name || langCode}!`);
+    } else if (data.error === 'already_voted') {
+      localStorage.setItem(`fudami-voted-${langCode}`, '1');
+      updatePollButtonVotedState(btn, langCode);
+      showToast('You have already requested this language!');
+    } else {
+      throw new Error(data.error || 'Server error');
+    }
+  } catch (err) {
+    console.error('[Poll] vote submission failed:', err);
+    if (countEl) countEl.textContent = originalCountText;
+    showToast('Failed to submit request. Please try again.');
+  }
 }
 
 // ── DOM Initialization ───────────────────────────────────────────────────────
@@ -262,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initNav();
   initClerk();
-  initMascot();
+  initPollModal();
   if (typeof initLang === 'function') initLang();
 
   const themeBtn = document.getElementById('theme-toggle');
@@ -272,7 +286,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (langSel) langSel.addEventListener('change', e => {
     if (typeof setLang === 'function') {
       setLang(e.target.value);
-      // Re-initialize clerk to refresh button text translations
       initClerk();
     }
   });
@@ -285,32 +298,13 @@ document.addEventListener('DOMContentLoaded', () => {
       _updateThemeIcon();
     }
   });
-
-  // Set up click listeners for the bottom language selector flags bar
-  document.querySelectorAll('[data-lang]').forEach(el => {
-    el.addEventListener('click', () => {
-      const code = el.getAttribute('data-lang');
-      if (code === 'en') {
-        if (typeof setLang === 'function') {
-          setLang(code);
-          initClerk(); // Re-initialize clerk to refresh button text translations
-        }
-      } else {
-        const span = el.querySelector('span');
-        const langName = span ? span.textContent.replace(' (INCOMING)', '') : 'Language';
-        showToast(`${langName} support is incoming!`);
-      }
-    });
-  });
 });
 
 // ── Floating Toast Notification ──────────────────────────────────────────────
 function showToast(message) {
-  // Remove existing toast if any
   const existing = document.getElementById('fudami-toast');
   if (existing) existing.remove();
 
-  // Create toast container
   const toast = document.createElement('div');
   toast.id = 'fudami-toast';
   toast.className = 'fixed top-24 left-1/2 -translate-x-1/2 z-50 liquid-glass border border-hanko-red/30 text-washi-light px-6 py-3 rounded-xl shadow-2xl flex items-center gap-2 pointer-events-none transition-all duration-300 opacity-0 translate-y-[-10px]';
@@ -323,15 +317,11 @@ function showToast(message) {
   `;
 
   document.body.appendChild(toast);
-
-  // Trigger reflow
   toast.offsetHeight;
 
-  // Fade and slide in
   toast.classList.remove('opacity-0', 'translate-y-[-10px]');
   toast.classList.add('opacity-100', 'translate-y-0');
 
-  // Fade and slide out after 2.5s
   setTimeout(() => {
     toast.classList.remove('opacity-100', 'translate-y-0');
     toast.classList.add('opacity-0', 'translate-y-[-10px]');

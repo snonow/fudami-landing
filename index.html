@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>fudami — Master Japanese with Zen focus</title>
+<title>fudami — Master Japanese with calm focus</title>
 
 <!-- SEO -->
-<meta name="description" content="Bridging high-energy gamification with traditional aesthetic principles. Learn Kanji in a meditative workspace designed for deep retention."/>
+<meta name="description" content="Learn Japanese Kanji through science-backed spaced repetition in a calm, focused workspace. fudami bridges deep SRS with a serene learning experience."/>
 <meta name="keywords" content="Japanese learning, Kanji, FSRS, Spaced Repetition, SRS, Anki alternative, learn Japanese, JLPT"/>
 <meta name="author" content="fudami"/>
-<meta property="og:title" content="fudami — Master Japanese with Zen focus"/>
+<meta property="og:title" content="fudami — Master Japanese with calm focus"/>
 <meta property="og:description" content="Learn Japanese Kanji through spaced repetition and gamification in a serene workspace."/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="fudami"/>
@@ -18,16 +18,18 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="robots" content="index, follow"/>
 <link rel="canonical" href="https://fudami.arno-wilhelm.dev/"/>
+<link rel="icon" type="image/png" href="assets/favicon.png"/>
 
-<!-- Google Fonts -->
+<!-- Preconnect & Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;family=M+PLUS+Rounded+1c:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=M+PLUS+Rounded+1c:wght@500;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 
-<!-- Material Symbols -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Design System CSS (single source of truth) -->
+<link rel="stylesheet" href="design-system.css"/>
 
-<!-- Apply theme before paint to avoid flash -->
+<!-- Anti-flash: apply theme before paint -->
 <script>
   (function(){
     var s=localStorage.getItem('fudami-theme');
@@ -37,447 +39,318 @@
   })();
 </script>
 
-<!-- Tailwind CSS -->
+<!-- Tailwind CSS CDN -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="tailwind-config.js"></script>
 
-<!-- Tailwind Config -->
-<script id="tailwind-config">
-  window.tailwind = {
-    config: {
-      darkMode: "class",
-      theme: {
-        extend: {
-          "colors": {
-            // Theme Brand Palette
-            "washi": "#F9F7F1",
-            "washi-light": "#F9F7F1",
-            "sumi": "#2C2A29",
-            "sumi-ink": "#2C2A29",
-            "hanko": "#E83929",
-            "hanko-red": "#E83929",
-            "aizome": "#1D2F6F",
-            "aizome-indigo": "#1D2F6F",
-            "matcha": "#00A968",
-            "matcha-green": "#00A968",
-            "charcoal-dark": "#121212",
+<!-- App scripts (deferred) -->
+<script src="i18n.js" defer></script>
+<script src="components.js" defer></script>
+<script src="shared.js" defer></script>
 
-            // Dark Mode Neutral Tokens
-            "surface": "#131313",
-            "background": "#131313",
-            "on-surface": "#ffffff",
-            "on-background": "#e5e2e1",
-            "on-surface-variant": "#e0bfbd",
-            "surface-container": "#201f1f",
-            "surface-container-low": "#1c1b1b",
-            "surface-container-high": "#2a2a2a",
-            "surface-container-highest": "#353534",
-            "surface-container-lowest": "#0e0e0e",
-            "outline": "#a78a88",
-            "outline-variant": "#584140",
-            
-            // System Alerts
-            "primary": "#ffb3b0",
-            "primary-container": "#ff6b6b",
-            "on-primary": "#68000f",
-            "on-primary-container": "#6d0010",
-            "secondary": "#b4c5ff",
-            "secondary-container": "#1b429f",
-            "on-secondary": "#002a78",
-            "on-secondary-container": "#a0b6ff",
-            "tertiary": "#4be092",
-            "tertiary-container": "#00b26b",
-            "on-tertiary": "#00391f",
-            "on-tertiary-container": "#003c21",
-            "error": "#ffb4ab",
-            "error-container": "#93000a",
-            "on-error": "#690005"
-          },
-          "borderRadius": {
-            "DEFAULT": "0.25rem",
-            "lg": "0.5rem",
-            "xl": "0.75rem",
-            "xl-2": "1rem",
-            "xl-3": "1.5rem",
-            "xl-4": "2rem",
-            "full": "9999px"
-          },
-          "spacing": {
-            "xs": "8px",
-            "unit": "4px",
-            "sm": "12px",
-            "md": "16px",
-            "lg": "24px",
-            "xl": "32px",
-            "container-max": "800px",
-            "gutter-mobile": "24px"
-          },
-          "fontFamily": {
-            "headline-lg-mobile": ["\"M PLUS Rounded 1c\"", "sans-serif"],
-            "body-md": ["\"M PLUS Rounded 1c\"", "sans-serif"],
-            "headline-lg": ["\"M PLUS Rounded 1c\"", "sans-serif"],
-            "reading-guide": ["\"M PLUS Rounded 1c\"", "sans-serif"],
-            "kanji-display": ["KanjiStrokeOrders", "sans-serif"],
-            "label-caps": ["\"M PLUS Rounded 1c\"", "sans-serif"],
-            "headline-md": ["\"M PLUS Rounded 1c\"", "sans-serif"],
-            "body-lg": ["\"M PLUS Rounded 1c\"", "sans-serif"],
-            "stats-number": ["\"M PLUS Rounded 1c\"", "sans-serif"]
-          },
-          "fontSize": {
-            "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
-            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
-            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-            "reading-guide": ["22px", {"lineHeight": "28px", "letterSpacing": "0.1em", "fontWeight": "500"}],
-            "kanji-display": ["100px", {"lineHeight": "120px", "fontWeight": "400"}],
-            "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "800"}],
-            "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
-            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "500"}],
-            "stats-number": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
-          },
-          "boxShadow": {
-            "playful": "0 8px 0px 0 theme('colors.on-error')",
-            "playful-sm": "0 4px 0px 0 theme('colors.on-error')"
-          }
-        }
-      }
-    }
-  };
+<!-- Page-specific init -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Inject shared components
+    injectHeader('index');
+    injectFooter();
+    injectPollModal();
+    initScrollReveal();
+  });
 </script>
-
-<style>
-  body {
-      background-color: theme('colors.charcoal-dark');
-      color: theme('colors.washi-light');
-      /* Subdued texture to preserve text contrast */
-      background-image: 
-          radial-gradient(circle at 80% -20%, rgba(29, 47, 111, 0.05) 0%, transparent 50%);
-  }
-
-  .liquid-glass {
-      background: rgba(44, 42, 41, 0.85); /* Sumi ink base */
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border-top: 1px solid rgba(249, 247, 241, 0.1);
-      border-left: 1px solid rgba(249, 247, 241, 0.1);
-      box-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.6);
-  }
-
-  .chrome-glass {
-      background: rgba(18, 18, 18, 0.95);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(249, 247, 241, 0.05);
-  }
-
-  .text-shadow-dark {
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.3);
-  }
-
-  .text-reading-guide-forced {
-      font-size: 22px;
-      line-height: 28px;
-      letter-spacing: 0.05em;
-      font-weight: 500;
-  }
-
-  .text-reading-guide-title {
-       font-size: 48px;
-       line-height: 1.2;
-       font-weight: 700;
-       letter-spacing: -0.02em;
-  }
-
-  .btn-lacquer {
-      background-color: theme('colors.hanko-red');
-      color: theme('colors.washi-light');
-      transition: transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.1s;
-      box-shadow: 0 6px 0px 0 theme('colors.on-error');
-  }
-  .btn-lacquer:active {
-      transform: translateY(4px);
-      box-shadow: 0 2px 0px 0 theme('colors.on-error');
-  }
-
-  .daruma-container {
-      animation: float 6s ease-in-out infinite;
-  }
-
-  @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-15px); }
-      100% { transform: translateY(0px); }
-  }
-  
-  .fudami-icon-container {
-      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-      border: 2px solid rgba(249, 247, 241,0.05);
-  }
-  
-  .flag-bubble {
-      background-color: theme('colors.surface-container-high');
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      box-shadow: 0 4px 0px 0 rgba(0,0,0,0.3);
-      border: 2px solid theme('colors.washi-light');
-  }
-</style>
 </head>
-<body class="antialiased min-h-screen flex flex-col font-body-md text-body-md font-['M_PLUS_Rounded_1c'] selection:bg-hanko-red selection:text-white">
 
-<!-- TopAppBar Shared Component -->
-<header class="fixed top-0 w-full z-50 chrome-glass">
-<div class="flex justify-between items-center w-full px-gutter-mobile md:px-lg max-w-[1200px] mx-auto h-16">
-  <!-- Brand Logo -->
-  <a class="text-headline-md font-headline-md font-bold text-washi-light flex items-center gap-2 hover:opacity-80 transition-opacity no-underline" href="index.html">
-    <img src="assets/daruma-happy-no-bg.png" alt="fudami logo" class="w-8 h-8 object-contain" width="32" height="32"/>
-    Fudami
-  </a>
-  <!-- Desktop Navigation -->
-  <nav class="hidden md:flex gap-xl">
-    <a class="text-washi-light/80 hover:text-washi-light transition-colors duration-200 border-b-2 border-matcha-green font-body-md text-body-md no-underline" href="#approach" data-i18n="nav.approach">Approach</a>
-    <a class="text-washi-light/60 hover:text-washi-light transition-colors duration-200 font-body-md text-body-md no-underline" href="pricing.html" data-i18n="nav.pricing">Pricing</a>
-    <a class="text-washi-light/60 hover:text-washi-light transition-colors duration-200 font-body-md text-body-md no-underline" href="about.html" data-i18n="nav.about">About</a>
-  </nav>
-  <!-- Trailing Action -->
-  <div class="flex items-center gap-md">
-    <button id="theme-toggle" class="text-washi-light hover:scale-95 transition-transform duration-200 bg-white/10 w-10 h-10 rounded-full flex items-center justify-center border border-white/5">
-      <span class="material-symbols-outlined text-[20px]">dark_mode</span>
-    </button>
-    <button id="clerk-auth-btn" class="btn-lacquer px-lg py-sm rounded-xl font-bold transition-all duration-150 uppercase tracking-widest text-xs">
-      Get Started
-    </button>
-  </div>
-</div>
-</header>
+<body class="antialiased min-h-screen flex flex-col font-sans text-body-md">
 
-<main class="flex-grow pt-24 pb-32 px-gutter-mobile md:px-lg max-w-[1200px] mx-auto w-full flex flex-col gap-xl">
-<!-- Under Construction Banner -->
-<div class="liquid-glass rounded-2xl p-4 flex items-center justify-center border border-matcha-green/20 relative overflow-hidden group">
-  <div class="absolute inset-0 bg-gradient-to-r from-transparent via-matcha-green/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-  <p class="text-washi-light font-bold flex items-center gap-2 text-sm md:text-base text-shadow-dark" data-i18n-html="banner.dev">
-    <span class="material-symbols-outlined text-matcha-green">build_circle</span>
-    Fudami is currently under active development. <span class="text-matcha-green ml-1">Available soon!</span>
-  </p>
-</div>
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MAIN CONTENT
+     ═══════════════════════════════════════════════════════════════════════ -->
+<main class="flex-grow">
 
-<!-- Hero Section -->
-<section class="min-h-[600px] flex flex-col md:flex-row items-center justify-between gap-xl relative">
-  <div class="flex-1 flex flex-col gap-lg z-10">
-    <h1 class="text-reading-guide-title text-washi-light leading-tight text-shadow-dark" data-i18n-html="hero.title">
-      Master Japanese <span class="flag-bubble ml-2 align-middle text-sm font-normal">🇯🇵</span><br/>
-      with <span class="text-matcha-green">Zen focus.</span>
-    </h1>
-    <p class="text-reading-guide-forced text-washi-light/90 max-w-[500px] text-shadow-dark" data-i18n="hero.subtitle">
-      Bridging high-energy gamification with traditional aesthetic principles. Learn Kanji in a meditative workspace designed for deep retention.
-    </p>
-    <div class="flex flex-col sm:flex-row gap-4 mt-md w-full sm:w-auto">
-      <button id="clerk-hero-signup-btn" class="btn-lacquer px-xl py-md rounded-xl text-headline-md font-headline-md font-bold uppercase tracking-widest text-center cursor-pointer">
-        Start Learning
-      </button>
-      <button id="clerk-hero-signin-btn" class="bg-transparent border-2 border-surface-container-highest text-matcha-green px-xl py-md rounded-xl text-headline-md font-headline-md font-bold uppercase tracking-widest hover:bg-surface-container-high transition-colors text-center cursor-pointer">
-        I already have an account
-      </button>
+  <!-- ── Under Construction Banner ──────────────────────────────────────── -->
+  <div class="pt-20 px-6 md:px-8 max-w-[1200px] mx-auto">
+    <div class="liquid-glass rounded-2xl p-3.5 flex items-center justify-center border border-hanko-red/20 relative overflow-hidden group">
+      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-hanko-red/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+      <p class="text-washi-light font-bold flex items-center gap-2 text-sm relative z-10" data-i18n-html="banner.dev">
+        <span class="material-symbols-outlined text-hanko-red">build_circle</span>
+        fudami is currently under active development. <span class="text-hanko-red ml-1">Available soon!</span>
+      </p>
     </div>
   </div>
-  
-  <div class="flex-1 relative w-full min-h-[400px] md:h-[600px] flex items-center justify-center daruma-container z-10">
-    <!-- Interactive Mascot Floating Next to Mobile App Mockup -->
-    <div class="absolute -top-10 -right-6 w-36 h-36 z-20 cursor-pointer group">
-      <img alt="Interactive Daruma Mascot" class="daruma-mascot w-full h-full object-contain filter drop-shadow-2xl" src="assets/daruma-happy-no-bg.png" width="144" height="144"/>
-    </div>
-    
-    <!-- Mobile App Mockup -->
-    <div class="w-[280px] h-[580px] shrink-0 bg-surface rounded-[40px] border-8 border-sumi-ink shadow-2xl overflow-hidden relative flex flex-col mx-auto border-outline-variant">
-      <div class="bg-matcha-green h-20 w-full flex items-center justify-center text-washi-light font-bold text-xl shrink-0 shadow-md z-10">Level 5</div>
-      <div class="flex-1 p-6 flex flex-col gap-6 bg-charcoal-dark justify-center items-center">
-        <div class="w-full aspect-square bg-sumi-ink rounded-2xl flex items-center justify-center text-6xl text-washi-light font-kanji-display shadow-inner border border-washi-light/5">日</div>
-        <div class="flex justify-between gap-4 mt-auto w-full">
-          <div class="h-14 flex-1 bg-surface-container-highest rounded-xl shadow-[0_4px_0px_0_rgba(0,0,0,0.5)] border border-washi-light/5 flex items-center justify-center">
-            <span class="material-symbols-outlined text-outline">close</span>
+
+
+  <!-- ── Hero Section ───────────────────────────────────────────────────── -->
+  <section class="relative overflow-hidden pt-12 md:pt-20 pb-16 md:pb-28 px-6 md:px-8">
+    <!-- Ambient background glows -->
+    <div class="glow-red w-[500px] h-[500px] -top-40 -right-20 opacity-60 animate-pulse-glow"></div>
+    <div class="glow-blue w-[400px] h-[400px] top-1/2 -left-40 opacity-40"></div>
+
+    <div class="max-w-[1200px] mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16 relative z-10">
+      <!-- Left: Copy -->
+      <div class="flex-1 flex flex-col gap-6 text-center lg:text-left">
+        <h1 class="text-hero-display text-washi-light" data-i18n-html="hero.title">
+          Learn Japanese.<br/>
+          <span class="text-hanko-red">Remember it.</span>
+        </h1>
+        <p class="text-lg md:text-xl text-washi-light/70 max-w-[540px] mx-auto lg:mx-0 leading-relaxed" data-i18n="hero.subtitle">
+          Spaced repetition meets calm design. Master Kanji through science-backed reviews in a workspace built for deep focus and lasting retention.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 mt-2 justify-center lg:justify-start">
+          <button id="clerk-hero-signup-btn" class="btn-hanko px-8 py-4 rounded-2xl text-base uppercase tracking-widest inline-flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined text-xl" style="font-variation-settings:'FILL' 1">notifications_active</span>
+            Join the waitlist
+          </button>
+        </div>
+        <!-- Social proof / stat strip -->
+        <div class="flex items-center gap-6 mt-4 justify-center lg:justify-start text-sm text-washi-light/50">
+          <div class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-matcha-green text-base" style="font-variation-settings:'FILL' 1">verified</span>
+            <span>FSRS algorithm</span>
           </div>
-          <div class="h-14 flex-1 bg-hanko-red rounded-xl shadow-[0_4px_0px_0_theme('colors.on-error')] border border-washi-light/5 flex items-center justify-center">
-            <span class="material-symbols-outlined text-washi-light">check</span>
+          <div class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-matcha-green text-base" style="font-variation-settings:'FILL' 1">lock</span>
+            <span>Privacy-first</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-matcha-green text-base" style="font-variation-settings:'FILL' 1">devices</span>
+            <span>Cross-platform</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: App Preview Mockup -->
+      <div class="flex-1 relative w-full max-w-[400px] lg:max-w-none flex items-center justify-center">
+        <div class="animate-float">
+          <!-- Phone frame -->
+          <div class="w-[260px] h-[540px] md:w-[280px] md:h-[580px] bg-surface rounded-[40px] border-[6px] border-surface-container-highest shadow-2xl overflow-hidden relative flex flex-col">
+            <!-- Status bar mockup -->
+            <div class="bg-hanko-red h-16 w-full flex items-center justify-between px-5 shrink-0 shadow-md z-10">
+              <span class="text-white/60 text-xs font-bold uppercase tracking-widest">fudami</span>
+              <span class="text-white font-bold text-lg">Level 5</span>
+              <span class="material-symbols-outlined text-white/60 text-lg" style="font-variation-settings:'FILL' 1">local_fire_department</span>
+            </div>
+            <!-- Card area -->
+            <div class="flex-1 p-5 flex flex-col gap-5 bg-charcoal-dark justify-center items-center">
+              <div class="w-full aspect-square bg-surface rounded-2xl flex items-center justify-center text-6xl md:text-7xl text-washi-light shadow-inner border border-white/5" style="font-family:'M PLUS Rounded 1c',sans-serif">
+                日
+              </div>
+              <!-- Grade buttons -->
+              <div class="flex justify-between gap-3 w-full">
+                <div class="h-12 flex-1 bg-surface-container-highest rounded-xl shadow-[0_3px_0_0_rgba(0,0,0,0.3)] border border-white/5 flex items-center justify-center gap-2">
+                  <span class="material-symbols-outlined text-hanko-red text-lg">close</span>
+                  <span class="text-xs font-bold text-washi-light/60 uppercase tracking-wider">Forgot</span>
+                </div>
+                <div class="h-12 flex-1 bg-matcha-green rounded-xl shadow-[0_3px_0_0_rgba(0,0,0,0.3)] border border-white/5 flex items-center justify-center gap-2">
+                  <span class="material-symbols-outlined text-white text-lg">check</span>
+                  <span class="text-xs font-bold text-white/80 uppercase tracking-wider">Got it</span>
+                </div>
+              </div>
+            </div>
+            <!-- Bottom nav mockup -->
+            <div class="h-14 bg-surface border-t border-white/5 flex items-center justify-around px-4 shrink-0">
+              <span class="material-symbols-outlined text-washi-light/30 text-xl">home</span>
+              <span class="material-symbols-outlined text-hanko-red text-xl" style="font-variation-settings:'FILL' 1">school</span>
+              <span class="material-symbols-outlined text-washi-light/30 text-xl">person</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- "The Fudami Way" (Approach) -->
-<section class="py-xl flex flex-col gap-xl relative z-10" id="approach">
-  <div class="text-center mb-lg">
-    <h2 class="text-headline-lg font-headline-lg text-washi-light font-bold text-shadow-dark" data-i18n="fudamiway.title">The Fudami Way</h2>
-  </div>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-xl">
-    <!-- Card 1 -->
-    <div class="liquid-glass rounded-2xl p-lg flex flex-col gap-md">
-      <div class="w-16 h-16 rounded-full bg-sumi-ink flex items-center justify-center mb-sm fudami-icon-container">
-        <span class="material-symbols-outlined text-4xl" style="color: theme('colors.matcha-green'); font-variation-settings: 'FILL' 1;">psychology</span>
-      </div>
-      <h3 class="text-headline-md font-headline-md text-washi-light font-bold" data-i18n="fudamiway.card1.title">Spaced Repetition</h3>
-      <p class="text-body-lg font-body-lg text-washi-light/80" data-i18n="fudamiway.card1.desc">
-        Our intelligent algorithm schedules reviews exactly when you are about to forget, maximizing long-term retention.
-      </p>
-    </div>
-    <!-- Card 2 -->
-    <div class="liquid-glass rounded-2xl p-lg flex flex-col gap-md relative overflow-hidden group">
-      <!-- Miniature interactive mascot inside Gamification Card -->
-      <div class="absolute bottom-2 right-2 w-14 h-14 opacity-40 group-hover:opacity-85 transition-opacity duration-300">
-        <img alt="Interactive Gamification Mascot" class="daruma-mascot w-full h-full object-contain" src="assets/daruma-happy-no-bg.png" width="56" height="56"/>
-      </div>
-      <div class="w-16 h-16 rounded-full bg-sumi-ink flex items-center justify-center mb-sm fudami-icon-container">
-        <span class="material-symbols-outlined text-4xl" style="color: theme('colors.hanko-red'); font-variation-settings: 'FILL' 1;">sports_esports</span>
-      </div>
-      <h3 class="text-headline-md font-headline-md text-washi-light font-bold" data-i18n="fudamiway.card2.title">Serene Gamification</h3>
-      <p class="text-body-lg font-body-lg text-washi-light/80" data-i18n="fudamiway.card2.desc">
-        Stay motivated with subtle, celebratory feedback loops and streaks that don't rely on sensory overload.
-      </p>
-    </div>
-    <!-- Card 3 -->
-    <div class="liquid-glass rounded-2xl p-lg flex flex-col gap-md">
-      <div class="w-16 h-16 rounded-full bg-sumi-ink flex items-center justify-center mb-sm fudami-icon-container">
-        <span class="material-symbols-outlined text-4xl" style="color: theme('colors.washi-light'); font-variation-settings: 'FILL' 1;">menu_book</span>
-      </div>
-      <h3 class="text-headline-md font-headline-md text-washi-light font-bold" data-i18n="fudamiway.card3.title">Deep Context</h3>
-      <p class="text-body-lg font-body-lg text-washi-light/80" data-i18n="fudamiway.card3.desc">
-        Learn Kanji through radicals, mnemonics, and real-world vocabulary to build a true understanding of the language.
-      </p>
-    </div>
-  </div>
-</section>
 
-<!-- "Efficacy" Section (Progress Radar) -->
-<section class="py-xl relative z-10">
-  <div class="liquid-glass rounded-2xl p-xl flex flex-col md:flex-row gap-xl items-center border border-white/5">
-    <div class="flex-1 flex flex-col gap-md">
-      <h2 class="text-headline-lg font-headline-lg text-washi-light font-bold text-shadow-dark" data-i18n="efficacy.title">Visualize Your Mastery</h2>
-      <p class="text-body-lg font-body-lg text-washi-light/80" data-i18n="efficacy.desc">
-        Track your progress across JLPT levels, vocabulary themes, and grammar structures with our dynamic knowledge graph. See exactly where you excel and where to focus next.
-      </p>
-      <!-- Clerk waitlist trigger inline -->
-      <div class="pt-4">
-        <button id="clerk-cta-btn" class="btn-lacquer px-xl py-md rounded-xl text-headline-sm font-headline-sm font-bold uppercase tracking-widest">
-          Join the waitlist
-        </button>
+  <!-- ── The fudami Way (Approach) ──────────────────────────────────────── -->
+  <section class="py-20 md:py-28 px-6 md:px-8 relative" id="approach">
+    <div class="glow-green w-[400px] h-[400px] top-0 right-0 opacity-30"></div>
+    <div class="max-w-[1200px] mx-auto relative z-10">
+      <div class="text-center mb-14 section-fade-in">
+        <span class="text-label-caps font-label-caps text-hanko-red uppercase tracking-widest mb-3 block">Methodology</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-washi-light" data-i18n="fudamiway.title">The fudami Way</h2>
+        <p class="text-washi-light/50 mt-3 max-w-lg mx-auto text-base" data-i18n="fudamiway.subtitle">
+          Three pillars that make Japanese stick — backed by cognitive science, not gimmicks.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Card 1: Spaced Repetition -->
+        <div class="card-glass rounded-[2rem] p-8 flex flex-col gap-4 section-fade-in hover:translate-y-[-2px] transition-transform duration-500 group">
+          <div class="w-14 h-14 rounded-2xl bg-hanko-red/10 border border-hanko-red/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+            <span class="material-symbols-outlined text-hanko-red text-2xl" style="font-variation-settings:'FILL' 1">psychology</span>
+          </div>
+          <h3 class="text-xl font-bold text-washi-light" data-i18n="fudamiway.card1.title">Spaced Repetition</h3>
+          <p class="text-sm text-washi-light/60 leading-relaxed" data-i18n="fudamiway.card1.desc">
+            Our FSRS-powered algorithm schedules reviews exactly when you're about to forget, maximizing long-term retention with minimal effort.
+          </p>
+        </div>
+        <!-- Card 2: Serene Gamification -->
+        <div class="card-glass rounded-[2rem] p-8 flex flex-col gap-4 section-fade-in hover:translate-y-[-2px] transition-transform duration-500 group" style="transition-delay:0.1s">
+          <div class="w-14 h-14 rounded-2xl bg-matcha-green/10 border border-matcha-green/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+            <span class="material-symbols-outlined text-matcha-green text-2xl" style="font-variation-settings:'FILL' 1">emoji_events</span>
+          </div>
+          <h3 class="text-xl font-bold text-washi-light" data-i18n="fudamiway.card2.title">Serene Gamification</h3>
+          <p class="text-sm text-washi-light/60 leading-relaxed" data-i18n="fudamiway.card2.desc">
+            Stay motivated with subtle streaks, daily goals, and celebratory feedback — progress you can feel without the sensory overload.
+          </p>
+        </div>
+        <!-- Card 3: Deep Context -->
+        <div class="card-glass rounded-[2rem] p-8 flex flex-col gap-4 section-fade-in hover:translate-y-[-2px] transition-transform duration-500 group" style="transition-delay:0.2s">
+          <div class="w-14 h-14 rounded-2xl bg-aizome-indigo/20 border border-aizome-indigo/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+            <span class="material-symbols-outlined text-aizome-indigo text-2xl" style="font-variation-settings:'FILL' 1">menu_book</span>
+          </div>
+          <h3 class="text-xl font-bold text-washi-light" data-i18n="fudamiway.card3.title">Deep Context</h3>
+          <p class="text-sm text-washi-light/60 leading-relaxed" data-i18n="fudamiway.card3.desc">
+            Learn Kanji through radicals, mnemonics, and real-world vocabulary — building true understanding, not just rote memorization.
+          </p>
+        </div>
       </div>
     </div>
-    <div class="flex-1 w-full min-h-[300px] bg-sumi-ink/60 rounded-2xl border border-washi-light/5 relative overflow-hidden flex items-center justify-center shadow-inner">
-      <!-- Abstract representation of a radar chart -->
-      <div class="relative w-64 h-64">
-        <svg class="w-full h-full opacity-90" viewbox="0 0 100 100">
-          <polygon class="text-washi-light/20" fill="none" points="50,10 90,40 75,90 25,90 10,40" stroke="currentColor" stroke-width="1"></polygon>
-          <polygon class="text-washi-light/20" fill="none" points="50,30 75,50 65,80 35,80 25,50" stroke="currentColor" stroke-width="1"></polygon>
-          <line class="text-washi-light/20" stroke="currentColor" stroke-width="1" x1="50" x2="50" y1="50" y2="10"></line>
-          <line class="text-washi-light/20" stroke="currentColor" stroke-width="1" x1="50" x2="90" y1="50" y2="40"></line>
-          <line class="text-washi-light/20" stroke="currentColor" stroke-width="1" x1="50" x2="75" y1="50" y2="90"></line>
-          <line class="text-washi-light/20" stroke="currentColor" stroke-width="1" x1="50" x2="25" y1="50" y2="90"></line>
-          <line class="text-washi-light/20" stroke="currentColor" stroke-width="1" x1="50" x2="10" y1="50" y2="40"></line>
-          <!-- The Data Area -->
-          <polygon fill="rgba(0, 169, 104, 0.4)" points="50,20 85,45 60,85 30,75 15,45" stroke="#00A968" stroke-width="2"></polygon>
-          <!-- Nodes -->
-          <circle cx="50" cy="20" fill="#00A968" r="3"></circle>
-          <circle cx="85" cy="45" fill="#00A968" r="3"></circle>
-          <circle cx="60" cy="85" fill="#00A968" r="3"></circle>
-          <circle cx="30" cy="75" fill="#00A968" r="3"></circle>
-          <circle cx="15" cy="45" fill="#00A968" r="3"></circle>
-        </svg>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- Credits Section -->
-<section class="py-xl mt-xl relative z-10">
-  <div class="text-center mb-lg">
-    <h2 class="text-headline-md font-headline-md text-washi-light font-bold text-shadow-dark" data-i18n="credits.title">Studies &amp; Credits</h2>
-  </div>
-  <div class="liquid-glass rounded-2xl p-lg text-body-md text-washi-light/80 border border-white/5 shadow-lg">
-    <ul class="list-disc pl-6 flex flex-col gap-2">
-      <li data-i18n="credits.item1">Spaced Repetition Algorithms based on research by Ebbinghaus and modern SM-2 variations.</li>
-      <li data-i18n="credits.item2">Kanji stroke order data provided by KanjiVG.</li>
-      <li data-i18n="credits.item3">Typography utilizes Google Fonts: M PLUS Rounded 1c for a friendly, legible aesthetic.</li>
-      <li data-i18n="credits.item4">Design system inspired by principles of Zen simplicity and playful modern UI patterns.</li>
-    </ul>
-  </div>
-</section>
+
+  <!-- ── How It Works ───────────────────────────────────────────────────── -->
+  <section class="py-20 md:py-28 px-6 md:px-8 relative">
+    <div class="max-w-[1200px] mx-auto relative z-10">
+      <div class="text-center mb-14 section-fade-in">
+        <span class="text-label-caps font-label-caps text-hanko-red uppercase tracking-widest mb-3 block">Getting Started</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-washi-light">Three steps to fluency</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 section-fade-in">
+        <!-- Step 1 -->
+        <div class="flex flex-col items-center text-center gap-4">
+          <div class="w-16 h-16 rounded-full bg-hanko-red flex items-center justify-center text-white text-2xl font-bold shadow-lg">1</div>
+          <h3 class="text-lg font-bold text-washi-light">Master Kana first</h3>
+          <p class="text-sm text-washi-light/60 leading-relaxed max-w-[280px]">Start with Hiragana and Katakana — the foundation. Our guided path ensures you're ready before moving to Kanji.</p>
+        </div>
+        <!-- Step 2 -->
+        <div class="flex flex-col items-center text-center gap-4">
+          <div class="w-16 h-16 rounded-full bg-hanko-red flex items-center justify-center text-white text-2xl font-bold shadow-lg">2</div>
+          <h3 class="text-lg font-bold text-washi-light">Review daily</h3>
+          <p class="text-sm text-washi-light/60 leading-relaxed max-w-[280px]">Short 10–20 card sessions, scheduled by the algorithm. Commute-friendly, one-handed, always progressing.</p>
+        </div>
+        <!-- Step 3 -->
+        <div class="flex flex-col items-center text-center gap-4">
+          <div class="w-16 h-16 rounded-full bg-hanko-red flex items-center justify-center text-white text-2xl font-bold shadow-lg">3</div>
+          <h3 class="text-lg font-bold text-washi-light">Watch mastery grow</h3>
+          <p class="text-sm text-washi-light/60 leading-relaxed max-w-[280px]">Visualize your progress with our skill radar. See exactly where you excel across JLPT levels and where to focus next.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── Visualize Your Mastery (Efficacy) ──────────────────────────────── -->
+  <section class="py-20 md:py-28 px-6 md:px-8 relative">
+    <div class="glow-red w-[500px] h-[500px] bottom-0 left-0 opacity-20"></div>
+    <div class="max-w-[1200px] mx-auto relative z-10">
+      <div class="liquid-glass rounded-[2rem] p-8 md:p-12 flex flex-col md:flex-row gap-10 items-center border border-white/5 section-fade-in">
+        <div class="flex-1 flex flex-col gap-5">
+          <span class="text-label-caps font-label-caps text-hanko-red uppercase tracking-widest">Progress</span>
+          <h2 class="text-3xl md:text-4xl font-bold text-washi-light" data-i18n="efficacy.title">Visualize Your Mastery</h2>
+          <p class="text-base text-washi-light/60 leading-relaxed" data-i18n="efficacy.desc">
+            Track your progress across JLPT levels, vocabulary themes, and grammar structures with our dynamic knowledge graph. See exactly where you excel and where to focus next.
+          </p>
+          <div class="pt-2">
+            <button id="clerk-cta-btn" class="btn-hanko px-8 py-4 rounded-2xl text-sm uppercase tracking-widest inline-flex items-center gap-2">
+              <span class="material-symbols-outlined text-lg">rocket_launch</span>
+              Join the waitlist
+            </button>
+          </div>
+        </div>
+        <!-- Radar chart -->
+        <div class="flex-1 w-full min-h-[300px] rounded-2xl border border-white/5 relative overflow-hidden flex items-center justify-center" style="background:rgba(var(--surface-rgb),0.3)">
+          <div class="relative w-56 h-56 md:w-64 md:h-64">
+            <svg class="w-full h-full" viewBox="-15 -10 130 120" style="overflow: visible;">
+              <!-- Grid -->
+              <polygon fill="none" points="50,10 90,40 75,90 25,90 10,40" stroke="rgba(var(--text-muted-rgb),0.15)" stroke-width="0.5"/>
+              <polygon fill="none" points="50,30 75,50 65,80 35,80 25,50" stroke="rgba(var(--text-muted-rgb),0.1)" stroke-width="0.5"/>
+              <line stroke="rgba(var(--text-muted-rgb),0.1)" stroke-width="0.5" x1="50" x2="50" y1="50" y2="10"/>
+              <line stroke="rgba(var(--text-muted-rgb),0.1)" stroke-width="0.5" x1="50" x2="90" y1="50" y2="40"/>
+              <line stroke="rgba(var(--text-muted-rgb),0.1)" stroke-width="0.5" x1="50" x2="75" y1="50" y2="90"/>
+              <line stroke="rgba(var(--text-muted-rgb),0.1)" stroke-width="0.5" x1="50" x2="25" y1="50" y2="90"/>
+              <line stroke="rgba(var(--text-muted-rgb),0.1)" stroke-width="0.5" x1="50" x2="10" y1="50" y2="40"/>
+              <!-- Data -->
+              <polygon fill="rgba(var(--primary-rgb),0.2)" points="50,20 85,45 60,85 30,75 15,45" stroke="rgb(var(--primary-rgb))" stroke-width="1.5"/>
+              <!-- Nodes -->
+              <circle cx="50" cy="20" fill="rgb(var(--primary-rgb))" r="3"/>
+              <circle cx="85" cy="45" fill="rgb(var(--primary-rgb))" r="3"/>
+              <circle cx="60" cy="85" fill="rgb(var(--primary-rgb))" r="3"/>
+              <circle cx="30" cy="75" fill="rgb(var(--primary-rgb))" r="3"/>
+              <circle cx="15" cy="45" fill="rgb(var(--primary-rgb))" r="3"/>
+              <!-- Labels -->
+              <text x="50" y="6" fill="rgb(var(--text-muted-rgb))" font-size="5" text-anchor="middle" font-weight="600">Kanji</text>
+              <text x="95" y="42" fill="rgb(var(--text-muted-rgb))" font-size="5" text-anchor="start" font-weight="600">Grammar</text>
+              <text x="78" y="95" fill="rgb(var(--text-muted-rgb))" font-size="5" text-anchor="middle" font-weight="600">Vocab</text>
+              <text x="22" y="95" fill="rgb(var(--text-muted-rgb))" font-size="5" text-anchor="middle" font-weight="600">Reading</text>
+              <text x="5" y="42" fill="rgb(var(--text-muted-rgb))" font-size="5" text-anchor="end" font-weight="600">Listening</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── What Makes Us Different ────────────────────────────────────────── -->
+  <section class="py-20 md:py-28 px-6 md:px-8 relative">
+    <div class="max-w-[1200px] mx-auto relative z-10">
+      <div class="text-center mb-14 section-fade-in">
+        <span class="text-label-caps font-label-caps text-hanko-red uppercase tracking-widest mb-3 block">Why fudami</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-washi-light">Not another flashcard app</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 section-fade-in">
+        <div class="card-glass rounded-[2rem] p-8 flex gap-5 items-start">
+          <div class="w-10 h-10 rounded-xl bg-hanko-red/10 flex items-center justify-center shrink-0 mt-0.5">
+            <span class="material-symbols-outlined text-hanko-red" style="font-variation-settings:'FILL' 1">trending_up</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-washi-light mb-1">Progress, never debt</h3>
+            <p class="text-sm text-washi-light/60 leading-relaxed">We show momentum — rings filling, retention rising, mastery expanding. Never "353 cards overdue".</p>
+          </div>
+        </div>
+        <div class="card-glass rounded-[2rem] p-8 flex gap-5 items-start">
+          <div class="w-10 h-10 rounded-xl bg-matcha-green/10 flex items-center justify-center shrink-0 mt-0.5">
+            <span class="material-symbols-outlined text-matcha-green" style="font-variation-settings:'FILL' 1">science</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-washi-light mb-1">FSRS is sacred</h3>
+            <p class="text-sm text-washi-light/60 leading-relaxed">The state-of-the-art spaced repetition algorithm drives every scheduling decision — we celebrate it, never override it.</p>
+          </div>
+        </div>
+        <div class="card-glass rounded-[2rem] p-8 flex gap-5 items-start">
+          <div class="w-10 h-10 rounded-xl bg-aizome-indigo/20 flex items-center justify-center shrink-0 mt-0.5">
+            <span class="material-symbols-outlined text-aizome-indigo" style="font-variation-settings:'FILL' 1">shuffle</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-washi-light mb-1">Varied interactions</h3>
+            <p class="text-sm text-washi-light/60 leading-relaxed">The same card appears as flashcard, MCQ, typing, and sentence exercises — every review feels fresh.</p>
+          </div>
+        </div>
+        <div class="card-glass rounded-[2rem] p-8 flex gap-5 items-start">
+          <div class="w-10 h-10 rounded-xl bg-hanko-red/10 flex items-center justify-center shrink-0 mt-0.5">
+            <span class="material-symbols-outlined text-hanko-red" style="font-variation-settings:'FILL' 1">spa</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-washi-light mb-1">Calm by design</h3>
+            <p class="text-sm text-washi-light/60 leading-relaxed">No guilt trips, no sensory overload. A workspace you can open at 6am on a train or 11pm in bed.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── Final CTA ──────────────────────────────────────────────────────── -->
+  <section class="py-20 md:py-28 px-6 md:px-8 relative">
+    <div class="max-w-[800px] mx-auto text-center section-fade-in">
+      <h2 class="text-3xl md:text-4xl font-bold text-washi-light mb-4">Ready to learn Japanese<br/>the calm way?</h2>
+      <p class="text-washi-light/50 mb-8 max-w-lg mx-auto">Reserve your spot for early access. No spam, just a heads up when we launch.</p>
+      <button class="btn-hanko px-10 py-4 rounded-2xl text-base uppercase tracking-widest inline-flex items-center gap-2 clerk-signup-trigger">
+        <span class="material-symbols-outlined text-xl" style="font-variation-settings:'FILL' 1">notifications_active</span>
+        Join the waitlist
+      </button>
+    </div>
+  </section>
+
 </main>
 
-<!-- Fixed Language Selection Bar at Bottom -->
-<div class="w-full fixed bottom-0 left-0 right-0 p-md z-40 flex justify-center pb-lg pointer-events-none">
-  <div class="liquid-glass rounded-full px-lg py-sm flex items-center justify-center gap-md md:gap-xl overflow-x-auto border border-white/10 max-w-[800px] pointer-events-auto shadow-2xl">
-    
-    <!-- English (Default Active Highlighted) -->
-    <div class="flex flex-col items-center gap-2 min-w-max cursor-pointer group transition-transform" data-lang="en">
-      <div class="w-14 h-14 rounded-full bg-surface-container-high border-[4px] border-matcha-green overflow-hidden relative shadow-[0_4px_12px_rgba(46,202,127,0.3)] scale-110 -translate-y-1 transition-all duration-200">
-        <img class="w-full h-full object-cover" src="https://flagcdn.com/w80/us.png" alt="English (US) flag" />
-      </div>
-      <span class="text-[11px] font-label-caps text-matcha-green font-extrabold mt-1 transition-colors">ENGLISH</span>
-    </div>
-    
-    <!-- Spanish -->
-    <div class="flex flex-col items-center gap-2 min-w-max cursor-pointer group transition-transform" data-lang="es">
-      <div class="w-14 h-14 rounded-full bg-surface-container-high border-[4px] border-surface-container-highest group-hover:border-hanko-red transition-all duration-200 overflow-hidden relative shadow-md group-hover:-translate-y-1">
-        <img class="w-full h-full object-cover" alt="Spain flag" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABU3_TNOgMirIVh7sm5x1NN-VMYlKNNLqeWltEg8ys5FnFLXLRyAK9rsO1xVB-WzN3_x8ilGnWguvhAHOcxDBUJmYMC9wi92CsxWP1q4XPfod5JZKrHDhJObSJbG1a34_1WNS5eedkURR2HfQKFQA_qmDq1xH1vRGxGLzjvCO5O9bDyCSTSX7t86tDooYTfpgKL6MkqA12cMHKvdThQB7o6tFy9quwWUCGoOOiCtwudLMaF14nsg_OzxQljpBlnPF9CLHJCBSZpwE"/>
-      </div>
-      <span class="text-[11px] font-label-caps text-on-surface-variant group-hover:text-hanko-red transition-colors font-bold">SPANISH (INCOMING)</span>
-    </div>
-    
-    <!-- French -->
-    <div class="flex flex-col items-center gap-2 min-w-max cursor-pointer group transition-transform" data-lang="fr">
-      <div class="w-14 h-14 rounded-full bg-surface-container-high border-[4px] border-surface-container-highest group-hover:border-hanko-red transition-all duration-200 overflow-hidden relative shadow-md group-hover:-translate-y-1">
-        <img class="w-full h-full object-cover" alt="France flag" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlLHp70M8rltsJIR_OoBrCj2JBch8BnDIDYyETIUaTQIBVMyhCCOfe6dCzFdYewzoyXTmQatetarCw5djhGlaw9cC0L6jqPdEC44PmXSJ8BnXmTt9jCWoXyKA3mF8paHMeE9XI1WMrZa5goDoYLaswS1-vLrJ1CJ0c9FY4OYQXc-O2ciuxzLmojOU3apdPmjbCSCIQgVMTRJ3bAQasFSPRJfin2K66ltNlwAkl5xhKP5l5Ev8dklhTB3-3iPPWKPxHO_MtV0nw-4o"/>
-      </div>
-      <span class="text-[11px] font-label-caps text-on-surface-variant group-hover:text-hanko-red transition-colors font-bold">FRENCH (INCOMING)</span>
-    </div>
-    
-    <!-- German -->
-    <div class="flex flex-col items-center gap-2 min-w-max cursor-pointer group transition-transform" data-lang="de">
-      <div class="w-14 h-14 rounded-full bg-surface-container-high border-[4px] border-surface-container-highest group-hover:border-hanko-red transition-all duration-200 overflow-hidden relative shadow-md group-hover:-translate-y-1">
-        <img class="w-full h-full object-cover" alt="Germany flag" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9E8OFBu_GKC-QP2rauGSeBlxFLMm6qGS3OWH04cz0x0n1OlgGxOf7BoCbofCpang62bb-VNJTt3A93VtH7Qb2doT-KKnX5w0XEaBJKF4c1cAlAyXz2UvIoSiWZRbFBVsEsZTC8qp6tUCYc8ojEWXf42lxG3XPbehTMeV4yJbB5hFtIVw06WGQLg0Mwyp8-WDFBAb94u97elxPtWZdNUC8Q350Bvq19n-jn_UazfaTt92KPOUn-1lrDsppwxOpnl-SgEfWU6veXl8"/>
-      </div>
-      <span class="text-[11px] font-label-caps text-on-surface-variant group-hover:text-hanko-red transition-colors font-bold">GERMAN (INCOMING)</span>
-    </div>
-    
-    <!-- Italian -->
-    <div class="flex flex-col items-center gap-2 min-w-max cursor-pointer group transition-transform" data-lang="it">
-      <div class="w-14 h-14 rounded-full bg-surface-container-high border-[4px] border-surface-container-highest group-hover:border-hanko-red transition-all duration-200 overflow-hidden relative shadow-md group-hover:-translate-y-1">
-        <img class="w-full h-full object-cover" alt="Italy flag" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADHRtzV49UjwZyqTK5qEfLuV5irUfGtSVn-pkZwDPLXPlGZaxjhjkFTeZoqbv7T42kqevvsKVXyhlUBIlaHgC9oE0OOukD4_0rOV6Pl7dOVIz57hJMwhlIGswXMSxmt_edorJHuCWSdBVV206-byKWU0F1DI8TUmS2FVeM8R8bm6AUizoukrzjxtcsNUEOddvPsoYkJ-xF5g7IwjOp-X5dkPs6ZV4UEMWmzzcG0CGCFjINd7F3fe8nbAlYm6BQ7cCaUm1tA9qQyhI"/>
-      </div>
-      <span class="text-[11px] font-label-caps text-on-surface-variant group-hover:text-hanko-red transition-colors font-bold">ITALIAN (INCOMING)</span>
-    </div>
-    
-    <!-- Japanese -->
-    <div class="flex flex-col items-center gap-2 min-w-max cursor-pointer group transition-transform" data-lang="ja">
-      <div class="w-14 h-14 rounded-full bg-surface-container-high border-[4px] border-surface-container-highest group-hover:border-hanko-red transition-all duration-200 overflow-hidden relative shadow-md group-hover:-translate-y-1 transition-all duration-200">
-        <img class="w-full h-full object-cover" alt="Japan flag" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN5YiwD1qi1ATJuzzS2iHlI-1ptsOjZTEoo0GVzD1b7Ys9WO-3t4XC__ns0tfJlddssH5grwGCoFjHYWVW2sEUMIVgpXZr2mAcYhkECVICBHRQihsuMwuQN_pcyDYa1c7Euqu2uPbEo8LH4ju1KlFpP_7WtHfCQ1lqeBhgCVhIEejt6pnbP9ikBdD3DP54w6iVa7bYbWbe1bZFZ-Ylxr4KtlkaLLJCsLZO5VhbFAy02kc80aIKmbNOt43i5gDNPjkSyw57O1Zr05M"/>
-      </div>
-      <span class="text-[11px] font-label-caps text-on-surface-variant group-hover:text-hanko-red transition-colors font-bold transition-colors">JAPANESE (INCOMING)</span>
-    </div>
-    
-  </div>
-</div>
-
-<!-- Footer -->
-<footer class="bg-sumi-ink w-full py-xl text-washi-light/80 text-body-md font-body-md mt-auto border-t border-washi-light/5 z-10 relative">
-  <div class="flex flex-col md:flex-row justify-between items-center px-gutter-mobile max-w-[1200px] mx-auto gap-md">
-    <div class="flex flex-col items-center md:items-start gap-xs">
-      <span class="text-headline-sm font-headline-sm font-bold text-washi-light">Fudami</span>
-      <span class="text-sm">© 2026 Fudami. Master Kanji with Zen focus.</span>
-    </div>
-    <nav class="flex flex-wrap justify-center gap-md text-label-caps font-label-caps">
-      <a class="hover:text-washi-light transition-colors no-underline" href="#">Privacy Policy</a>
-      <a class="hover:text-washi-light transition-colors no-underline" href="#">Terms of Service</a>
-      <a class="hover:text-washi-light transition-colors no-underline" href="#">Contact Us</a>
-      <a class="hover:text-washi-light transition-colors no-underline" href="#">Support</a>
-    </nav>
-  </div>
-</footer>
-
-<script src="i18n.js"></script>
-<script src="shared.js"></script>
 </body>
 </html>
