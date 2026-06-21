@@ -1,272 +1,267 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>About — fudami</title>
 
-<meta name="description" content="fudami is crafted by a solo developer passionate about language acquisition, cognitive science, and elegant user interfaces."/>
+<!-- SEO -->
+<meta name="description" content="fudami was built on a simple premise: learning Japanese shouldn't feel like navigating a spreadsheet. Combining spaced repetition with a serene workspace."/>
 <meta name="robots" content="index, follow"/>
 <link rel="canonical" href="https://fudami.arno-wilhelm.dev/about.html"/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="fudami"/>
 <meta property="og:title" content="About — fudami"/>
-<meta property="og:description" content="Built by a solo developer passionate about language acquisition and cognitive science."/>
+<meta property="og:description" content="Built on a simple premise: learning Japanese shouldn't feel like navigating a spreadsheet."/>
 <meta property="og:url" content="https://fudami.arno-wilhelm.dev/about.html"/>
 <meta property="og:image" content="https://fudami.arno-wilhelm.dev/assets/favicon.png"/>
 <meta name="twitter:card" content="summary"/>
-<link rel="icon" href="assets/favicon.png" media="(prefers-color-scheme: dark)"/>
-<link rel="icon" href="assets/favicon-light.png" media="(prefers-color-scheme: light)"/>
 
-<!-- Apply theme before paint -->
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;family=M+PLUS+Rounded+1c:wght@500;700&amp;display=swap" rel="stylesheet"/>
+
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+<!-- Apply theme before paint to avoid flash -->
 <script>
   (function(){
     var s=localStorage.getItem('fudami-theme');
     var d=s?s==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;
-    document.documentElement.classList.add(d?'dark':'light');
+    document.documentElement.classList.toggle('dark', d);
+    document.documentElement.classList.toggle('light', !d);
   })();
 </script>
 
-<script>
-window.tailwind = {
-  config: {
-    darkMode: "class",
-    theme: {
-      extend: {
-        "colors": {
-          // Light Mode Brand Colors
-          "washi": "#F9F7F1",
-          "sumi": "#2C2A29",
-          "hanko": "#E83929",
-          "aizome": "#1D2F6F",
-          "matcha": "#00A968",
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-          // Dark Mode Material Colors
-          "on-tertiary-fixed": "#002110",
-          "on-secondary-fixed-variant": "#17409c",
-          "inverse-surface": "#e5e2e1",
-          "on-surface": "#e5e2e1",
-          "primary-fixed-dim": "#ffb3b0",
-          "surface-tint": "#ffb3b0",
-          "primary-container": "#f16161",
-          "secondary-fixed-dim": "#b4c5ff",
-          "tertiary-fixed": "#6cfdac",
-          "secondary-container": "#1b429f",
-          "on-tertiary-fixed-variant": "#00522f",
-          "on-error": "#690005",
-          "error-container": "#93000a",
-          "on-tertiary": "#00391f",
-          "on-primary-container": "#5c000c",
-          "surface-container-highest": "#353534",
-          "surface-container": "#201f1f",
-          "primary": "#ffb3b0",
-          "on-tertiary-container": "#00311a",
-          "on-secondary": "#002a78",
-          "background": "#131313",
-          "on-secondary-container": "#a0b6ff",
-          "surface-container-low": "#1c1b1b",
-          "surface-bright": "#393939",
-          "surface": "#131313",
-          "on-secondary-fixed": "#00174b",
-          "surface-variant": "#353534",
-          "outline": "#ac8883",
-          "on-primary": "#68000f",
-          "inverse-primary": "#ae2f34",
-          "error": "#ffb4ab",
-          "surface-container-high": "#2a2a2a",
-          "secondary-fixed": "#dbe1ff",
-          "outline-variant": "#5c403b",
-          "primary-fixed": "#ffdad8",
-          "inverse-on-surface": "#313030",
-          "surface-dim": "#131313",
-          "tertiary": "#4be092",
-          "on-surface-variant": "#e5bdb7",
-          "tertiary-container": "#00a664",
-          "secondary": "#b4c5ff",
-          "on-primary-fixed": "#410006",
-          "on-primary-fixed-variant": "#8c1520",
-          "on-error-container": "#ffdad6",
-          "surface-container-lowest": "#0e0e0e",
-          "on-background": "#e5e2e1",
-          "tertiary-fixed-dim": "#4be092"
-        },
-        "borderRadius": {
-          "DEFAULT": "1rem",
-          "lg": "2rem",
-          "xl": "3rem",
-          "full": "9999px"
-        },
-        "spacing": {
-          "xl": "32px",
-          "container-max": "800px",
-          "lg": "24px",
-          "gutter-mobile": "24px",
-          "sm": "12px",
-          "xs": "8px",
-          "md": "16px",
-          "base": "4px"
-        },
-        "fontFamily": {
-          "sans": ["Plus Jakarta Sans", "ui-sans-serif", "system-ui"],
-          "label-caps": ["Plus Jakarta Sans"],
-          "headline-lg": ["Plus Jakarta Sans"],
-          "body-lg": ["Nunito Sans"],
-          "body-md": ["Nunito Sans"],
-          "headline-md": ["Plus Jakarta Sans"]
-        },
-        "fontSize": {
-          "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "800"}],
-          "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-          "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-          "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-          "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+  window.tailwind = {
+    config: {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            // Theme Brand Palette
+            "washi": "#F9F7F1",
+            "washi-light": "#F9F7F1",
+            "sumi": "#2C2A29",
+            "sumi-ink": "#2C2A29",
+            "hanko": "#E83929",
+            "hanko-red": "#E83929",
+            "aizome": "#1D2F6F",
+            "aizome-indigo": "#1D2F6F",
+            "matcha": "#00A968",
+            "matcha-green": "#00A968",
+            "charcoal-dark": "#121212",
+
+            // Dark Mode Neutral Tokens
+            "surface": "#131313",
+            "background": "#131313",
+            "on-surface": "#ffffff",
+            "on-background": "#e5e2e1",
+            "on-surface-variant": "#e0bfbd",
+            "surface-container": "#201f1f",
+            "surface-container-low": "#1c1b1b",
+            "surface-container-high": "#2a2a2a",
+            "surface-container-highest": "#353534",
+            "surface-container-lowest": "#0e0e0e",
+            "outline": "#a78a88",
+            "outline-variant": "#584140",
+            
+            // System Alerts
+            "primary": "#ffb3b0",
+            "primary-container": "#ff6b6b",
+            "on-primary": "#68000f",
+            "on-primary-container": "#6d0010",
+            "secondary": "#b4c5ff",
+            "secondary-container": "#1b429f",
+            "on-secondary": "#002a78",
+            "on-secondary-container": "#a0b6ff",
+            "tertiary": "#4be092",
+            "tertiary-container": "#00b26b",
+            "on-tertiary": "#00391f",
+            "on-tertiary-container": "#003c21",
+            "error": "#ffb4ab",
+            "error-container": "#93000a",
+            "on-error": "#690005"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "xl-2": "1rem",
+            "xl-3": "1.5rem",
+            "xl-4": "2rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "xs": "8px",
+            "unit": "4px",
+            "sm": "12px",
+            "md": "16px",
+            "lg": "24px",
+            "xl": "32px",
+            "container-max": "800px",
+            "gutter-mobile": "24px"
+          },
+          "fontFamily": {
+            "headline-lg-mobile": ["\"M PLUS Rounded 1c\"", "sans-serif"],
+            "body-md": ["\"M PLUS Rounded 1c\"", "sans-serif"],
+            "headline-lg": ["\"M PLUS Rounded 1c\"", "sans-serif"],
+            "reading-guide": ["\"M PLUS Rounded 1c\"", "sans-serif"],
+            "kanji-display": ["KanjiStrokeOrders", "sans-serif"],
+            "label-caps": ["\"M PLUS Rounded 1c\"", "sans-serif"],
+            "headline-md": ["\"M PLUS Rounded 1c\"", "sans-serif"],
+            "body-lg": ["\"M PLUS Rounded 1c\"", "sans-serif"],
+            "stats-number": ["\"M PLUS Rounded 1c\"", "sans-serif"]
+          },
+          "fontSize": {
+            "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "reading-guide": ["22px", {"lineHeight": "28px", "letterSpacing": "0.1em", "fontWeight": "500"}],
+            "kanji-display": ["100px", {"lineHeight": "120px", "fontWeight": "400"}],
+            "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "800"}],
+            "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "500"}],
+            "stats-number": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+          },
+          "boxShadow": {
+            "playful": "0 8px 0px 0 theme('colors.on-error')",
+            "playful-sm": "0 4px 0px 0 theme('colors.on-error')"
+          }
         }
       }
     }
-  }
-};
+  };
 </script>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;600;700&amp;family=Plus+Jakarta+Sans:wght@500;700;800&amp;display=swap" rel="stylesheet"/>
 
 <style>
-        /* Liquid Glass Utilities (Light Mode Default) */
-        .glass-panel {
-            background: rgba(249, 247, 241, 0.65);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(44, 42, 41, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(44, 42, 41, 0.05);
-        }
-        
-        /* Subtle animated background gradient (Light Mode Default) */
-        .bg-fudami {
-            background: radial-gradient(circle at 50% 0%, rgba(29, 47, 111, 0.08) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(0, 169, 104, 0.08) 0%, transparent 40%),
-                        radial-gradient(circle at 20% 80%, rgba(232, 57, 41, 0.08) 0%, transparent 40%);
-            background-color: #F9F7F1;
-            background-attachment: fixed;
-            background-size: 200% 200%;
-            animation: breathe 15s ease-in-out infinite alternate;
-        }
+  body {
+      background-color: theme('colors.charcoal-dark');
+      color: theme('colors.washi-light');
+      background-image: 
+          radial-gradient(circle at 80% -20%, rgba(29, 47, 111, 0.05) 0%, transparent 50%);
+  }
 
-        @keyframes breathe {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 100% 100%; }
-        }
+  .liquid-glass {
+      background: rgba(44, 42, 41, 0.85); /* Sumi ink base */
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-top: 1px solid rgba(249, 247, 241, 0.1);
+      border-left: 1px solid rgba(249, 247, 241, 0.1);
+      box-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.6);
+  }
 
-        @keyframes mascot-bob-breathe {
-            0% { transform: translateY(0px) scale(1.0); }
-            50% { transform: translateY(-8px) scale(1.015); }
-            100% { transform: translateY(0px) scale(1.0); }
-        }
+  .chrome-glass {
+      background: rgba(18, 18, 18, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(249, 247, 241, 0.05);
+  }
 
-        .mascot-bob-container {
-            animation: mascot-bob-breathe 6s ease-in-out infinite;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+  .text-shadow-dark {
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.3);
+  }
 
-        .text-gradient {
-            background: linear-gradient(135deg, #1D2F6F 0%, #00A968 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+  .text-reading-guide-forced {
+      font-size: 22px;
+      line-height: 28px;
+      letter-spacing: 0.05em;
+      font-weight: 500;
+  }
 
-        /* ── Dark Mode Overrides ───────────────────────────────────────────── */
-        .dark .glass-panel {
-            background: rgba(19, 19, 19, 0.55);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-            border-bottom: none;
-            border-right: none;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-        }
-        
-        .dark .bg-fudami {
-            background: radial-gradient(circle at 50% 0%, #1b429f 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, #00a664 0%, transparent 40%),
-                        radial-gradient(circle at 20% 80%, #f16161 0%, transparent 40%);
-            background-color: #131313;
-        }
+  .text-reading-guide-title {
+       font-size: 48px;
+       line-height: 1.2;
+       font-weight: 700;
+       letter-spacing: -0.02em;
+  }
 
-        .dark .text-gradient {
-            background: linear-gradient(135deg, #e5e2e1 0%, #a0b6ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+  .btn-lacquer {
+      background-color: theme('colors.hanko-red');
+      color: theme('colors.washi-light');
+      transition: transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.1s;
+      box-shadow: 0 6px 0px 0 theme('colors.on-error');
+  }
+  .btn-lacquer:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0px 0 theme('colors.on-error');
+  }
 
-        .dark { color: #EAEAEA; }
-        .dark .text-sumi { color: #EAEAEA !important; }
-        .dark .text-sumi\/70 { color: #A0A0A0 !important; }
-        .dark .text-hanko { color: #FF6B6B !important; }
-        .dark .bg-hanko { background-color: #FF6B6B !important; }
-        .dark .text-matcha { color: #2ECA7F !important; }
-        .dark .text-aizome { color: #6D8DED !important; }
-        .dark .bg-washi\/70 { background-color: rgba(30,30,30,0.7) !important; }
-        .dark .bg-washi { background-color: #121212 !important; }
-        .dark .border-sumi\/10 { border-color: rgba(255,255,255,0.05) !important; }
+  .daruma-container {
+      animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+  }
+  
+  .fudami-icon-container {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+      border: 2px solid rgba(249, 247, 241,0.05);
+  }
 </style>
 </head>
+<body class="antialiased min-h-screen flex flex-col font-body-md text-body-md font-['M_PLUS_Rounded_1c'] selection:bg-hanko-red selection:text-white">
 
-<body class="bg-fudami text-sumi font-body-md min-h-screen flex flex-col selection:bg-hanko selection:text-white">
-
-<!-- ── Nav ────────────────────────────────────────────────────────────── -->
-<header class="fixed z-50 top-0 w-full bg-washi/70 dark:bg-charcoal/80 backdrop-blur-xl border-b border-sumi/10 shadow-sm">
-  <div class="flex justify-between items-center w-full px-5 md:px-8 max-w-[1200px] mx-auto h-20">
-    <a href="index.html" class="font-bold text-sumi dark:text-[#EAEAEA] tracking-tight flex items-center gap-2 text-xl no-underline">
-      <img src="assets/daruma-neutral-no-bg.png" alt="fudami" class="w-8 h-8 object-contain" width="32" height="32"/>
-      fudami
-    </a>
-    <nav class="hidden md:flex gap-8 items-center">
-      <a class="text-sumi-ink-muted hover:text-hanko-red transition-colors no-underline" href="index.html#learn" data-nav="index" data-i18n="nav.learn">Learn</a>
-      <a class="text-sumi-ink-muted hover:text-hanko-red transition-colors no-underline" href="index.html#roadmap" data-i18n="nav.roadmap">Roadmap</a>
-      <a class="text-sumi-ink-muted hover:text-hanko-red transition-colors no-underline" href="pricing.html" data-i18n="nav.pricing">Pricing</a>
-      <a class="text-hanko-red font-bold border-b-2 border-hanko-red no-underline" href="about.html" data-nav="about" data-i18n="nav.about">About</a>
-    </nav>
-    <div class="flex items-center gap-3">
-      <select id="lang-select" class="bg-transparent text-sumi-ink dark:text-[#F0EDE8] text-sm border border-white/40 dark:border-white/20 rounded-full px-3 py-1.5 cursor-pointer outline-none hover:border-hanko-red transition-colors">
-        <option value="en">🇬🇧 EN</option>
-        <option value="fr">🇫🇷 FR</option>
-        <option value="ja">🇯🇵 JA</option>
-        <option value="es">🇪🇸 ES</option>
-        <option value="de">🇩🇪 DE</option>
-      </select>
-      <button id="theme-toggle" class="text-sumi-ink dark:text-[#F0EDE8] bg-white/50 dark:bg-white/10 w-10 h-10 rounded-full flex items-center justify-center border border-white/60 dark:border-white/20 hover:scale-95 transition-transform">
-        <span class="material-symbols-outlined text-[20px]">dark_mode</span>
-      </button>
-      <button id="clerk-auth-btn" class="hidden md:block bg-hanko-red text-white px-4 py-2 rounded-full font-semibold hover:opacity-90 transition-opacity cursor-pointer" data-i18n="nav.signin">Sign In</button>
-    </div>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 chrome-glass">
+<div class="flex justify-between items-center w-full px-gutter-mobile md:px-lg max-w-[1200px] mx-auto h-16">
+  <!-- Brand Logo -->
+  <a class="text-headline-md font-headline-md font-bold text-washi-light flex items-center gap-2 hover:opacity-80 transition-opacity no-underline" href="index.html">
+    <img src="assets/daruma-happy-no-bg.png" alt="fudami logo" class="w-8 h-8 object-contain" width="32" height="32"/>
+    Fudami
+  </a>
+  <!-- Desktop Navigation -->
+  <nav class="hidden md:flex gap-xl">
+    <a class="text-washi-light/60 hover:text-washi-light transition-colors duration-200 font-body-md text-body-md no-underline" href="index.html#approach" data-i18n="nav.approach">Approach</a>
+    <a class="text-washi-light/60 hover:text-washi-light transition-colors duration-200 font-body-md text-body-md no-underline" href="pricing.html" data-i18n="nav.pricing">Pricing</a>
+    <a class="text-washi-light/80 hover:text-washi-light transition-colors duration-200 border-b-2 border-matcha-green font-body-md text-body-md no-underline" href="about.html" data-nav="about" data-i18n="nav.about">About</a>
+  </nav>
+  <!-- Trailing Action -->
+  <div class="flex items-center gap-md">
+    <button id="theme-toggle" class="text-washi-light hover:scale-95 transition-transform duration-200 bg-white/10 w-10 h-10 rounded-full flex items-center justify-center border border-white/5">
+      <span class="material-symbols-outlined text-[20px]">dark_mode</span>
+    </button>
+    <button id="clerk-auth-btn" class="btn-lacquer px-lg py-sm rounded-xl font-bold transition-all duration-150 uppercase tracking-widest text-xs">
+      Sign In
+    </button>
   </div>
+</div>
 </header>
 
-<!-- ── Main ───────────────────────────────────────────────────────────── -->
-<main class="flex-grow pt-32 pb-24 px-5 md:px-8 w-full max-w-[1200px] mx-auto flex flex-col gap-8 relative">
-  <!-- Decorative blobs -->
-  <div class="absolute top-0 left-1/4 w-96 h-96 bg-hanko-red-light rounded-full mix-blend-multiply filter blur-3xl opacity-40 dark:opacity-10 -z-10 pointer-events-none"></div>
-  <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-aizome-indigo-light rounded-full mix-blend-multiply filter blur-3xl opacity-40 dark:opacity-10 -z-10 pointer-events-none"></div>
+<!-- Main Content -->
+<main class="flex-grow pt-32 pb-24 px-gutter-mobile md:px-lg w-full max-w-[1200px] mx-auto flex flex-col gap-8 relative z-10">
+  <!-- Ambient glows -->
+  <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-hanko-red/5 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+  <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-matcha-green/5 rounded-full blur-[100px] pointer-events-none -z-10"></div>
 
   <!-- Who We Are -->
   <section class="max-w-3xl mx-auto w-full text-center md:text-left mb-16">
-    <h1 class="text-[28px] md:text-headline-lg text-sumi-ink font-bold mb-6">Mastery, the calm way.</h1>
-    <p class="text-body-lg text-sumi-ink-muted mb-8 leading-relaxed">
-      fudami was built on a simple premise: learning Japanese shouldn't feel like navigating a spreadsheet, nor should it be a superficial game. We combined the relentless efficiency of Anki's Spaced Repetition System with a modern, tactile interface designed to keep you focused and motivated.
+    <h1 class="text-[32px] md:text-reading-guide-title text-washi-light font-bold mb-6 text-shadow-dark">Mastery, the calm way.</h1>
+    <p class="text-reading-guide-forced text-washi-light/90 mb-8 leading-relaxed text-shadow-dark">
+      fudami was built on a simple premise: learning Japanese shouldn't feel like navigating a spreadsheet, nor should it be a superficial game. We combined the relentless efficiency of Spaced Repetition logic with a modern, tactile interface designed to keep you focused and motivated.
     </p>
 
     <!-- Creator card -->
-    <div class="glass-panel rounded-[2rem] p-8 flex flex-col md:flex-row items-center gap-6 mt-12 liquid-hover text-left group">
-      <div class="w-24 h-24 rounded-full overflow-hidden shrink-0 border-4 border-white/50 shadow-sm bg-hanko-red-light dark:bg-hanko/10 flex items-center justify-center">
-        <div class="mascot-bob-container w-20 h-20 flex items-center justify-center">
+    <div class="liquid-glass rounded-[2rem] p-8 flex flex-col md:flex-row items-center gap-6 mt-12 text-left border border-white/5 shadow-xl relative overflow-hidden group">
+      <div class="w-24 h-24 rounded-full overflow-hidden shrink-0 border-4 border-washi-light/20 shadow-sm bg-sumi-ink flex items-center justify-center relative">
+        <div class="daruma-container w-20 h-20 flex items-center justify-center">
           <img src="assets/daruma-happy-no-bg.png" alt="Arno" class="daruma-mascot w-full h-full object-contain" width="80" height="80"/>
         </div>
       </div>
       <div>
-        <h3 class="text-headline-md text-sumi-ink mb-2">Crafted by Arno</h3>
-        <p class="text-body-md text-sumi-ink-muted mb-4">A solo developer passionate about language acquisition, cognitive science, and elegant user interfaces. Building tools that respect your time and attention.</p>
-        <a class="inline-flex items-center gap-2 text-sumi-ink dark:text-[#F0EDE8] font-bold hover:text-hanko-red transition-colors no-underline" href="https://github.com/snonow/fudami-app">
+        <h3 class="text-headline-md font-headline-md text-washi-light mb-2">Crafted by Arno</h3>
+        <p class="text-body-lg text-washi-light/80 mb-4">A solo developer passionate about language acquisition, cognitive science, and elegant user interfaces. Building tools that respect your time and attention.</p>
+        <a class="inline-flex items-center gap-2 text-matcha-green font-bold hover:opacity-85 transition-opacity no-underline" href="https://github.com/snonow/fudami-app">
           <span class="material-symbols-outlined">code</span>
           View on GitHub
         </a>
@@ -276,44 +271,52 @@ window.tailwind = {
 
   <!-- Values -->
   <section class="max-w-3xl mx-auto w-full">
-    <h2 class="text-headline-md text-sumi-ink mb-8">What we believe</h2>
+    <h2 class="text-headline-lg font-headline-lg text-washi-light mb-8 text-shadow-dark">What we believe</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="glass-panel rounded-[2rem] p-6">
-        <div class="w-12 h-12 rounded-2xl bg-hanko-red-light flex items-center justify-center mb-4">
-          <span class="material-symbols-outlined text-hanko-red" style="font-variation-settings: 'FILL' 1">psychology</span>
+      <div class="liquid-glass rounded-[2rem] p-6 border border-white/5 flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-hanko-red/10 border border-hanko-red/30 flex items-center justify-center mb-4">
+            <span class="material-symbols-outlined text-hanko-red" style="font-variation-settings: 'FILL' 1">psychology</span>
+          </div>
+          <h4 class="text-base font-bold text-washi-light mb-2">Science-first</h4>
         </div>
-        <h4 class="text-base font-bold text-sumi-ink mb-2">Science-first</h4>
-        <p class="text-body-md text-sumi-ink-muted text-sm leading-relaxed">Every scheduling decision is backed by cognitive science research, not guesswork.</p>
+        <p class="text-body-md text-washi-light/70 leading-relaxed mt-2">Every scheduling decision is backed by Spaced Repetition cognitive science, not guesswork.</p>
       </div>
-      <div class="glass-panel rounded-[2rem] p-6">
-        <div class="w-12 h-12 rounded-2xl bg-matcha-green/10 flex items-center justify-center mb-4">
-          <span class="material-symbols-outlined text-matcha-green" style="font-variation-settings: 'FILL' 1">favorite</span>
+      
+      <div class="liquid-glass rounded-[2rem] p-6 border border-white/5 flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-matcha-green/10 border border-matcha-green/30 flex items-center justify-center mb-4">
+            <span class="material-symbols-outlined text-matcha-green" style="font-variation-settings: 'FILL' 1">favorite</span>
+          </div>
+          <h4 class="text-base font-bold text-washi-light mb-2">Respect your time</h4>
         </div>
-        <h4 class="text-base font-bold text-sumi-ink mb-2">Respect your time</h4>
-        <p class="text-body-md text-sumi-ink-muted text-sm leading-relaxed">No dark patterns. No infinite scroll. Just clean, purposeful reviews that end when they should.</p>
+        <p class="text-body-md text-washi-light/70 leading-relaxed mt-2">No dark patterns. No infinite scroll. Just clean, purposeful reviews that end when they should.</p>
       </div>
-      <div class="glass-panel rounded-[2rem] p-6">
-        <div class="w-12 h-12 rounded-2xl bg-aizome-indigo-light flex items-center justify-center mb-4">
-          <span class="material-symbols-outlined text-aizome-indigo" style="font-variation-settings: 'FILL' 1">open_source</span>
+      
+      <div class="liquid-glass rounded-[2rem] p-6 border border-white/5 flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-aizome-indigo/30 border border-aizome-indigo/50 flex items-center justify-center mb-4">
+            <span class="material-symbols-outlined text-matcha-green" style="color: theme('colors.matcha-green'); font-variation-settings: 'FILL' 1">lock</span>
+          </div>
+          <h4 class="text-base font-bold text-washi-light mb-2">Private &amp; Secure</h4>
         </div>
-        <h4 class="text-base font-bold text-sumi-ink mb-2">Open core</h4>
-        <p class="text-body-md text-sumi-ink-muted text-sm leading-relaxed">The core learning engine is open. You own your data. No vendor lock-in.</p>
+        <p class="text-body-md text-washi-light/70 leading-relaxed mt-2">You own your learning state. Your progress is kept secure and private. No third-party data broker selling.</p>
       </div>
     </div>
   </section>
 </main>
 
-<!-- ── Footer ─────────────────────────────────────────────────────────── -->
-<footer class="bg-transparent border-t border-washi-border pb-8 mt-auto">
-  <div class="flex flex-col md:flex-row justify-between items-center w-full py-12 px-5 max-w-[1200px] mx-auto gap-6">
-    <div>
-      <span class="text-label-caps text-sumi-ink-muted block mb-1">fudami</span>
-      <p class="text-body-md text-sumi-ink dark:text-[#F0EDE8]" data-i18n="footer.copy">© 2026 fudami.</p>
+<!-- Footer -->
+<footer class="bg-sumi-ink w-full py-xl text-washi-light/80 text-body-md font-body-md mt-auto border-t border-washi-light/5 relative z-10">
+  <div class="flex flex-col md:flex-row justify-between items-center px-gutter-mobile max-w-[1200px] mx-auto gap-md">
+    <div class="flex flex-col items-center md:items-start gap-xs">
+      <span class="text-headline-sm font-headline-sm font-bold text-washi-light">Fudami</span>
+      <span class="text-sm" data-i18n="footer.copy">© 2026 Fudami. Master Kanji with Zen focus.</span>
     </div>
-    <nav class="flex gap-6 text-base">
-      <a class="text-sumi-ink-muted hover:text-sumi-ink transition-colors no-underline" href="https://github.com/snonow/fudami-app">GitHub</a>
-      <a class="text-sumi-ink-muted hover:text-sumi-ink transition-colors no-underline" href="#">Privacy</a>
-      <a class="text-sumi-ink-muted hover:text-sumi-ink transition-colors no-underline" href="#">Terms</a>
+    <nav class="flex flex-wrap justify-center gap-md text-label-caps font-label-caps">
+      <a class="hover:text-washi-light transition-colors no-underline" href="https://github.com/snonow/fudami-app">GitHub</a>
+      <a class="hover:text-washi-light transition-colors no-underline" href="#">Privacy Policy</a>
+      <a class="hover:text-washi-light transition-colors no-underline" href="#">Terms of Service</a>
     </nav>
   </div>
 </footer>

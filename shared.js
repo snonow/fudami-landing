@@ -285,4 +285,15 @@ document.addEventListener('DOMContentLoaded', () => {
       _updateThemeIcon();
     }
   });
+
+  // Set up click listeners for the bottom language selector flags bar
+  document.querySelectorAll('[data-lang]').forEach(el => {
+    el.addEventListener('click', () => {
+      const code = el.getAttribute('data-lang');
+      if (typeof setLang === 'function') {
+        setLang(code);
+        initClerk(); // Re-initialize clerk to refresh button text translations
+      }
+    });
+  });
 });
