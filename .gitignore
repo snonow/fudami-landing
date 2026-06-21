@@ -4,3 +4,5 @@ SEO.md
 
 # Symlinked shared agent context (root-level .md files)
 .agents-context/
+.agents/
+.claude/
