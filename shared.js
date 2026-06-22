@@ -2,8 +2,10 @@
 
 // ── Configuration ──────────────────────────────────────────────────────────
 const CLERK_PK  = 'pk_test_a2luZC1odW1wYmFjay0xOS5jbGVyay5hY2NvdW50cy5kZXYk';
-const APP_URL   = 'https://fudami-app.arno-wilhelm.dev';
-const API_URL   = 'https://fudami-api.arno-wilhelm.dev';
+const APP_URL   = 'https://app.fudami.net';
+// The Worker serves BOTH the app and the API on one origin — there is no
+// separate api subdomain. The landing calls /api/* cross-origin (CORS-allowed).
+const API_URL   = 'https://app.fudami.net';
 
 /**
  * Loads ClerkJS from CDN and wires up auth elements:
