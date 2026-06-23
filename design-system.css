@@ -8,6 +8,14 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Clip horizontal overflow so the decorative glow orbs (positioned off the
+   edges with negative offsets) can't create a sideways scrollbar. The nav is
+   position:fixed, so this is safe. */
+html,
+body {
+  overflow-x: hidden;
+}
+
 /* ── 1. CSS Custom Properties ───────────────────────────────────────────── */
 :root {
   /* Canvas, surface & text — Light mode (washi paper) */
