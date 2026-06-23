@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate HTML
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install HTMLHint
+        run: npm install -g htmlhint
+
+      - name: Lint HTML files
+        run: htmlhint "*.html" --format unix
+
+  links:
+    name: Check Links
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check for broken internal links
+        run: |
+          EXIT_CODE=0
+          for file in *.html; do
+            # Extract href values pointing to local files
+            grep -oP 'href="\K[^"#?]+' "$file" 2>/dev/null | while read -r link; do
+              # Skip external URLs, mailto, tel, javascript
+              case "$link" in
+                http://*|https://*|mailto:*|tel:*|javascript:*) continue ;;
+              esac
+              # Check if the referenced file exists
+              if [ ! -f "$link" ] && [ ! -d "$link" ]; then
+                echo "::error file=$file::Broken link: $link"
+                EXIT_CODE=1
+              fi
+            done
+          done
+          exit $EXIT_CODE
