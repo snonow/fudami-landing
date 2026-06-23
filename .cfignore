@@ -17,3 +17,7 @@ wrangler.jsonc
 # Documentation — not web assets
 README.md
 SEO.md
+
+# Large directories
+node_modules/
+evaluate/
