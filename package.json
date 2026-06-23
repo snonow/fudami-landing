@@ -5,7 +5,7 @@
   "main": "components.js",
   "scripts": {
     "dev": "tailwindcss -i ./input.css -o ./design-system.css --watch",
-    "build": "tailwindcss -i ./input.css -o ./design-system.css -m && mkdir -p dist && cp *.html *.js robots.txt sitemap.xml design-system.css _headers dist/"
+    "build": "tailwindcss -i ./input.css -o ./design-system.css -m"
   },
   "repository": {
     "type": "git",
