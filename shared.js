@@ -36,43 +36,43 @@ function initClerk() {
       // 1. Navbar auth button
       const authBtn = document.getElementById('clerk-auth-btn');
       if (authBtn) {
-        authBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL + '/onboarding/welcome'; };
+        authBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
       }
 
       // Mobile Nav auth button
       const mobileAuthBtn = document.getElementById('clerk-mobile-auth-btn');
       if (mobileAuthBtn) {
-        mobileAuthBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL + '/onboarding/welcome'; };
+        mobileAuthBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
       }
 
       // 2. Hero Start Learning button (Sign Up flow)
       const heroStartBtn = document.getElementById('clerk-hero-signup-btn');
       if (heroStartBtn) {
-        heroStartBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL + '/onboarding/welcome'; };
+        heroStartBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
       }
 
       // 3. Hero Open Web App button (Sign In flow) - Removed in HTML but kept for safety
       const heroOpenBtn = document.getElementById('clerk-hero-signin-btn');
       if (heroOpenBtn) {
-        heroOpenBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL + '/onboarding/welcome'; };
+        heroOpenBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
       }
 
       // 4. CTA section button (Sign Up flow)
       const ctaBtn = document.getElementById('clerk-cta-btn');
       if (ctaBtn) {
-        ctaBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL + '/onboarding/welcome'; };
+        ctaBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
       }
 
       // 5. Pricing Plan Free button (Sign Up flow)
       const pricingFreeBtn = document.getElementById('clerk-pricing-free-btn');
       if (pricingFreeBtn) {
-        pricingFreeBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL + '/onboarding/welcome'; };
+        pricingFreeBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
       }
 
       // 6. Inline SignUp buttons
       const inlineSignupBtns = document.querySelectorAll('.clerk-signup-trigger');
       inlineSignupBtns.forEach(btn => {
-        btn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL + '/onboarding/welcome'; };
+        btn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
       });
 
     } catch (err) {

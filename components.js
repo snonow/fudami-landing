@@ -117,7 +117,7 @@ function injectFooter() {
           '</div>' +
           '<div class="flex flex-col gap-2">' +
             '<span class="text-xs font-bold uppercase tracking-widest text-washi-light/40 mb-1">Legal</span>' +
-            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="#">Privacy</a>' +
+            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="privacy.html">Privacy</a>' +
             '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="#">Terms</a>' +
           '</div>' +
         '</div>' +
