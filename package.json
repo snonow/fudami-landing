@@ -4,7 +4,8 @@
   "description": "<p align=\"center\">   <img src=\"assets/favicon.png\" alt=\"fudami — Daruma mascot\" width=\"96\" height=\"96\" /> </p>",
   "main": "components.js",
   "scripts": {
-    "build": "tailwindcss -i input.css -o design-system.css --minify"
+    "dev": "tailwindcss -i ./input.css -o ./design-system.css --watch",
+    "build": "tailwindcss -i ./input.css -o ./design-system.css -m && mkdir -p dist && cp *.html *.js robots.txt sitemap.xml design-system.css _headers dist/"
   },
   "repository": {
     "type": "git",
