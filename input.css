@@ -1,0 +1,315 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   design-system.css — fudami landing design system
+   Single source of truth. Every page imports this one file.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── 0. Smooth Scrolling ────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Clip horizontal overflow so the decorative glow orbs (positioned off the
+   edges with negative offsets) can't create a sideways scrollbar. The nav is
+   position:fixed, so this is safe. */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* ── 1. CSS Custom Properties ───────────────────────────────────────────── */
+:root {
+  /* Canvas, surface & text — Light mode (washi paper) */
+  --background-rgb: 249, 247, 241;   /* washi-paper: #F9F7F1 */
+  --surface-rgb: 255, 255, 255;      /* washi-light: #FFFFFF */
+  --surface-light-rgb: 242, 239, 233;/* washi-paper-dark: #F2EFE9 */
+  --text-rgb: 44, 42, 41;            /* sumi-ink: #2C2A29 */
+  --text-muted-rgb: 107, 102, 97;    /* sumi-muted: #6B6661 */
+  --emphasis-rgb: 17, 16, 15;        /* sumi-ink-dark: #11100F */
+
+  /* Brand accents — Light mode */
+  --primary-rgb: 232, 57, 41;        /* hanko-red: #E83929 */
+  --success-rgb: 0, 169, 104;        /* matcha-green: #00A968 */
+  --secondary-rgb: 29, 47, 111;      /* aizome-indigo: #1D2F6F */
+
+  /* Computed fallbacks for raw usage */
+  --background: rgb(var(--background-rgb));
+  --surface: rgb(var(--surface-rgb));
+  --surface-light: rgb(var(--surface-light-rgb));
+  --text: rgb(var(--text-rgb));
+  --text-muted: rgb(var(--text-muted-rgb));
+  --emphasis: rgb(var(--emphasis-rgb));
+  --primary: rgb(var(--primary-rgb));
+  --success: rgb(var(--success-rgb));
+  --secondary: rgb(var(--secondary-rgb));
+
+  /* Glass material tokens — Light mode */
+  --glass-bg: rgba(255, 255, 255, 0.40);
+  --glass-border: rgba(255, 255, 255, 0.50);
+  --glass-shadow: rgba(0, 0, 0, 0.05);
+}
+
+/* ── Dark mode overrides ────────────────────────────────────────────────── */
+.dark {
+  --background-rgb: 18, 18, 18;      /* charcoal: #121212 */
+  --surface-rgb: 30, 30, 30;         /* charcoal-light: #1E1E1E */
+  --surface-light-rgb: 42, 42, 42;   /* charcoal-lighter: #2A2A2A */
+  --text-rgb: 234, 234, 234;         /* off-white: #EAEAEA */
+  --text-muted-rgb: 160, 160, 160;   /* muted grey: #A0A0A0 */
+  --emphasis-rgb: 255, 255, 255;     /* white: #FFFFFF */
+
+  /* Brand accents — Dark mode (softened for comfort) */
+  --primary-rgb: 255, 107, 107;      /* hanko-red softened: #FF6B6B */
+  --success-rgb: 46, 202, 127;       /* matcha-green softened: #2ECA7F */
+  --secondary-rgb: 109, 141, 237;    /* aizome-indigo softened: #6D8DED */
+
+  /* Glass material tokens — Dark mode */
+  --glass-bg: rgba(30, 30, 30, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --glass-shadow: rgba(0, 0, 0, 0.30);
+}
+
+
+/* ── 2. Body Base ───────────────────────────────────────────────────────── */
+body {
+  background-color: var(--background);
+  color: var(--text);
+  /* Subtle ambient radial — hanko-red tint, very faint */
+  background-image:
+    radial-gradient(ellipse at 80% -10%, rgba(var(--primary-rgb), 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 100%, rgba(var(--secondary-rgb), 0.03) 0%, transparent 50%);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+::selection {
+  background: rgb(var(--primary-rgb));
+  color: #fff;
+}
+
+
+/* ── 3. Glass Materials ─────────────────────────────────────────────────── */
+
+/* Hero-level glass: blur(24px), full shadow + edge-highlight */
+.liquid-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-top: 1px solid var(--glass-border);
+  border-left: 1px solid var(--glass-border);
+  box-shadow: 0 12px 32px 0 var(--glass-shadow);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Card-level glass: blur(16px) */
+.card-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 24px 0 var(--glass-shadow);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Chrome/nav glass: blur(16px), bottom-border only */
+.chrome-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--glass-border);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+
+/* ── 4. Typography Helpers ──────────────────────────────────────────────── */
+
+.text-reading-guide-forced {
+  font-size: 22px;
+  line-height: 28px;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+.text-reading-guide-title {
+  font-size: 48px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.text-hero-display {
+  font-size: 44px;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+@media (min-width: 768px) {
+  .text-hero-display {
+    font-size: 64px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .text-hero-display {
+    font-size: 72px;
+  }
+}
+
+
+/* ── 5. Button Styles ───────────────────────────────────────────────────── */
+
+/* Primary CTA — solid hanko-red, soft lift shadow */
+.btn-hanko {
+  background-color: rgb(var(--primary-rgb));
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.3);
+  transition:
+    transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.15s ease,
+    filter 0.15s ease;
+}
+
+.btn-hanko:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(var(--primary-rgb), 0.4);
+}
+
+.btn-hanko:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(var(--primary-rgb), 0.25);
+}
+
+/* Outline variant */
+.btn-outline {
+  background: transparent;
+  border: 2px solid rgba(var(--primary-rgb), 0.4);
+  color: rgb(var(--primary-rgb));
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-outline:hover {
+  background: rgba(var(--primary-rgb), 0.08);
+  border-color: rgb(var(--primary-rgb));
+}
+
+/* Ghost — no border, text only */
+.btn-ghost {
+  background: transparent;
+  border: none;
+  color: rgb(var(--text-rgb));
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-ghost:hover {
+  background: rgba(var(--text-rgb), 0.05);
+}
+
+
+/* ── 6. Utilities ───────────────────────────────────────────────────────── */
+
+.fudami-icon-container {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(249, 247, 241, 0.05);
+}
+
+/* Scroll-reveal animation (pairs with IntersectionObserver in components.js) */
+.section-fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.section-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Ambient glow orbs */
+.glow-red {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--primary-rgb), 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(60px);
+}
+
+.glow-green {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--success-rgb), 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(60px);
+}
+
+.glow-blue {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--secondary-rgb), 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(60px);
+}
+
+
+/* ── 7. Animations ──────────────────────────────────────────────────────── */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s ease-out both;
+}
+
+
+/* ── 8. Scrollbar ───────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(var(--text-muted-rgb), 0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--text-muted-rgb), 0.4);
+}
