@@ -1,7 +1,12 @@
 /* shared.js — theme, nav active state, lang init, Clerk auth, and language request poll */
 
 // ── Configuration ──────────────────────────────────────────────────────────
-const CLERK_PK  = 'pk_test_a2luZC1odW1wYmFjay0xOS5jbGVyay5hY2NvdW50cy5kZXYk';
+// Production origins use the PROD Clerk instance (clerk.fudami.net); previews and
+// localhost use the DEV instance. Publishable keys are public, so we pick by host.
+// (Kept identical to the app's rule in fudami-app/constants/clerk.ts.)
+const CLERK_PK  = ['fudami.net', 'www.fudami.net'].includes(location.hostname)
+  ? 'pk_live_Y2xlcmsuZnVkYW1pLm5ldCQ'                              // prod instance
+  : 'pk_test_a2luZC1odW1wYmFjay0xOS5jbGVyay5hY2NvdW50cy5kZXYk';   // dev instance
 const APP_URL   = 'https://app.fudami.net';
 // The Worker serves BOTH the app and the API on one origin — there is no
 // separate api subdomain. The landing calls /api/* cross-origin (CORS-allowed).
