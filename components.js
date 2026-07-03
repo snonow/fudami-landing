@@ -101,7 +101,7 @@ function injectFooter() {
           '<a href="index.html" class="inline-block no-underline">' +
             '<span class="text-lg font-bold text-washi-light font-[\'Plus_Jakarta_Sans\']">fudami</span>' +
           '</a>' +
-          '<p class="text-sm text-washi-light/50 max-w-[280px]" data-i18n="footer.tagline">Master Japanese through science-backed spaced repetition in a calm, focused workspace.</p>' +
+          '<p class="text-sm text-washi-light/50 max-w-[280px]" data-i18n="footer.tagline">Memory science with the pull of a game. Japanese that stays learned.</p>' +
         '</div>' +
         '<!-- Links -->' +
         '<div class="grid grid-cols-2 sm:grid-cols-3 gap-x-12 gap-y-10 md:flex md:gap-16">' +
@@ -113,7 +113,7 @@ function injectFooter() {
           '<div class="flex flex-col gap-2">' +
             '<span class="text-xs font-bold uppercase tracking-widest text-washi-light/40 mb-1">Company</span>' +
             '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="about.html" data-i18n="nav.about">About</a>' +
-            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://github.com/snonow/fudami-app">GitHub</a>' +
+            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://github.com/snonow/fudami-landing">GitHub</a>' +
           '</div>' +
           '<div class="flex flex-col gap-2">' +
             '<span class="text-xs font-bold uppercase tracking-widest text-washi-light/40 mb-1">Legal</span>' +
