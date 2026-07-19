@@ -123,164 +123,21 @@ function initNav() {
   });
 }
 
-// ── Language Support Poll ────────────────────────────────────────────────────
-const INCOMING_LANGS = {
-  es: { name: 'Spanish', emoji: '🇪🇸' },
-  fr: { name: 'French', emoji: '🇫🇷' },
-  de: { name: 'German', emoji: '🇩🇪' },
-  it: { name: 'Italian', emoji: '🇮🇹' },
-  ja: { name: 'Japanese', emoji: '🇯🇵' }
-};
-
-function initPollModal() {
-  const modal = document.getElementById('poll-modal');
-  if (!modal) return;
-
-  const closeBtn = document.getElementById('close-poll-modal');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', hidePollModal);
-  }
-
-  // Click outside to close
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) hidePollModal();
-  });
-
-  // Wire up option buttons inside the modal
-  const optionBtns = document.querySelectorAll('.poll-option-btn');
-  optionBtns.forEach(btn => {
-    const langCode = btn.getAttribute('data-lang');
-    updatePollButtonVotedState(btn, langCode);
-    btn.addEventListener('click', () => {
-      submitPollVote(langCode, btn);
-    });
-  });
-
-  // Wire up navbar trigger
-  const trigger = document.getElementById('lang-poll-trigger');
-  if (trigger) {
-    trigger.addEventListener('click', () => {
-      showPollModal();
-    });
-  }
-}
-
-function updatePollButtonVotedState(btn, langCode) {
-  if (localStorage.getItem(`fudami-voted-${langCode}`)) {
-    btn.disabled = true;
-    btn.classList.add('cursor-not-allowed', 'border-matcha-green/30', 'bg-matcha-green/5');
-    btn.classList.remove('hover:bg-white/10');
-    const icon = btn.querySelector('.material-symbols-outlined');
-    if (icon) {
-      icon.textContent = 'check';
-      icon.classList.remove('opacity-0', 'group-hover:opacity-100');
-      icon.classList.add('opacity-100');
-    }
-  }
-}
-
-function showPollModal() {
-  const modal = document.getElementById('poll-modal');
-  if (!modal) return;
-
-  // Set loading placeholder for counts
-  const countEls = modal.querySelectorAll('.poll-count');
-  countEls.forEach(el => {
-    el.textContent = 'Loading...';
-  });
-
-  // Show modal
-  modal.classList.remove('opacity-0', 'pointer-events-none');
-  const inner = modal.querySelector('.liquid-glass');
-  if (inner) inner.classList.remove('translate-y-4');
-
-  // Fetch counts for all languages
-  fetch(`${API_URL}/api/request-language`)
-    .then(res => res.json())
-    .then(data => {
-      const counts = data.counts || {};
-      const optionBtns = modal.querySelectorAll('.poll-option-btn');
-      optionBtns.forEach(btn => {
-        const langCode = btn.getAttribute('data-lang');
-        const count = counts[langCode] !== undefined ? counts[langCode] : 0;
-        const countEl = btn.querySelector('.poll-count');
-        if (countEl) {
-          countEl.textContent = `${count} request${count !== 1 ? 's' : ''}`;
-        }
-        updatePollButtonVotedState(btn, langCode);
-      });
-    })
-    .catch(err => {
-      console.error('[Poll] failed to fetch counts:', err);
-      const optionBtns = modal.querySelectorAll('.poll-option-btn');
-      optionBtns.forEach(btn => {
-        const countEl = btn.querySelector('.poll-count');
-        if (countEl) countEl.textContent = 'N/A';
-      });
-    });
-}
-
-function hidePollModal() {
-  const modal = document.getElementById('poll-modal');
-  if (!modal) return;
-
-  modal.classList.add('opacity-0', 'pointer-events-none');
-  const inner = modal.querySelector('.liquid-glass');
-  if (inner) inner.classList.add('translate-y-4');
-}
-
-async function submitPollVote(langCode, btn) {
-  if (!langCode || !btn) return;
-
-  if (localStorage.getItem(`fudami-voted-${langCode}`)) {
-    showToast('You have already requested this language!');
-    return;
-  }
-
-  // Set loading state on this button
-  const countEl = btn.querySelector('.poll-count');
-  const originalCountText = countEl ? countEl.textContent : '';
-  if (countEl) countEl.textContent = 'Voting...';
-
-  try {
-    const res = await fetch(`${API_URL}/api/request-language`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ lang: langCode })
-    });
-
-    const data = await res.json();
-    if (res.ok && data.success) {
-      localStorage.setItem(`fudami-voted-${langCode}`, '1');
-      if (countEl) {
-        countEl.textContent = `${data.count} request${data.count !== 1 ? 's' : ''}`;
-      }
-      updatePollButtonVotedState(btn, langCode);
-      showToast(`Request submitted for ${INCOMING_LANGS[langCode]?.name || langCode}!`);
-    } else if (data.error === 'already_voted') {
-      localStorage.setItem(`fudami-voted-${langCode}`, '1');
-      updatePollButtonVotedState(btn, langCode);
-      showToast('You have already requested this language!');
-    } else {
-      throw new Error(data.error || 'Server error');
-    }
-  } catch (err) {
-    console.error('[Poll] vote submission failed:', err);
-    if (countEl) countEl.textContent = originalCountText;
-    showToast('Failed to submit request. Please try again.');
-  }
-}
+// ── Language Support Removed ───────────────────────────────────────────────────
 
 // ── DOM Initialization ───────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initNav();
   initClerk();
-  initPollModal();
   initWikiModal();
   if (typeof initLang === 'function') initLang();
+
+  // Prevent FOUT on app mockup
+  document.fonts.ready.then(() => {
+    const mockup = document.getElementById('app-mockup');
+    if (mockup) mockup.classList.remove('opacity-0');
+  });
 
   const themeBtn = document.getElementById('theme-toggle');
   if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
@@ -352,15 +209,18 @@ function initWikiModal() {
   const modal = document.getElementById('wiki-modal');
   if (!modal) return;
 
-  const closeBtn = document.getElementById('close-wiki-modal');
-  if (closeBtn) closeBtn.addEventListener('click', hideWikiModal);
-
   modal.addEventListener('click', (e) => {
     if (e.target === modal) hideWikiModal();
   });
 
-  // Attach to trigger words
+  // Attach to trigger words and close button via delegation
   document.body.addEventListener('click', (e) => {
+    // Close button
+    if (e.target.closest('#close-wiki-modal')) {
+      hideWikiModal();
+      return;
+    }
+
     const trigger = e.target.closest('[data-wiki-trigger]');
     if (trigger) {
       e.preventDefault();
@@ -372,28 +232,32 @@ function initWikiModal() {
 }
 
 function showWikiModal(term) {
-  const modal = document.getElementById('wiki-modal');
-  const data = WIKI_DATA[term];
-  if (!modal || !data) return;
+  document.fonts.ready.then(() => {
+    const modal = document.getElementById('wiki-modal');
+    if (!modal) return;
 
-  const titleEl = document.getElementById('wiki-modal-title');
-  if (titleEl) {
-    titleEl.textContent = data.title;
-    titleEl.className = `text-3xl font-extrabold capitalize font-['Plus_Jakarta_Sans'] ${data.colorClass}`;
-  }
-  
-  const descEl = document.getElementById('wiki-modal-desc');
-  if (descEl) descEl.textContent = data.desc;
+    const data = WIKI_DATA[term];
+    if (!data) return;
 
-  const symbolEl = document.getElementById('wiki-modal-symbol');
-  if (symbolEl) {
-    symbolEl.textContent = data.symbol;
-    symbolEl.className = `text-2xl font-bold font-['M_PLUS_Rounded_1c'] ${data.colorClass}`;
-  }
+    const titleEl = document.getElementById('wiki-modal-title');
+    if (titleEl) {
+      titleEl.textContent = data.title;
+      titleEl.className = `text-2xl font-extrabold capitalize font-['Plus_Jakarta_Sans'] ${data.colorClass}`;
+    }
+    
+    const descEl = document.getElementById('wiki-modal-desc');
+    if (descEl) descEl.innerHTML = data.desc;
 
-  modal.classList.remove('opacity-0', 'pointer-events-none');
-  const inner = modal.querySelector('.bg-charcoal-dark');
-  if (inner) inner.classList.remove('translate-y-4');
+    const symbolEl = document.getElementById('wiki-modal-symbol');
+    if (symbolEl) {
+      symbolEl.textContent = data.symbol;
+      symbolEl.className = `text-2xl font-bold font-['M_PLUS_Rounded_1c'] ${data.colorClass}`;
+    }
+
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+    const inner = modal.querySelector('.bg-charcoal-dark');
+    if (inner) inner.classList.remove('translate-y-4');
+  });
 }
 
 function hideWikiModal() {

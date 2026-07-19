@@ -44,9 +44,6 @@ function injectHeader(activePage) {
       '</nav>' +
       '<!-- Actions -->' +
       '<div class="flex items-center gap-3">' +
-        '<button id="lang-poll-trigger" class="text-washi-light/70 hover:text-washi-light hover:scale-105 transition-all duration-200 w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/5" title="Request translation" aria-label="Request language support">' +
-          '<span class="material-symbols-outlined text-[18px]">language</span>' +
-        '</button>' +
         '<button id="theme-toggle" class="text-washi-light/70 hover:text-washi-light hover:scale-105 transition-all duration-200 w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/5" aria-label="Toggle theme">' +
           '<span class="material-symbols-outlined text-[18px]">dark_mode</span>' +
         '</button>' +
@@ -132,52 +129,6 @@ function injectFooter() {
     '</div>';
 
   document.body.appendChild(footer);
-}
-
-
-/**
- * Injects the language request poll modal.
- */
-function injectPollModal() {
-  var langs = [
-    { code: 'es', name: 'Spanish',  emoji: '\uD83C\uDDEA\uD83C\uDDF8' },
-    { code: 'fr', name: 'French',   emoji: '\uD83C\uDDEB\uD83C\uDDF7' },
-    { code: 'de', name: 'German',   emoji: '\uD83C\uDDE9\uD83C\uDDEA' },
-    { code: 'it', name: 'Italian',  emoji: '\uD83C\uDDEE\uD83C\uDDF9' },
-    { code: 'ja', name: 'Japanese', emoji: '\uD83C\uDDEF\uD83C\uDDF5' },
-  ];
-
-  var buttons = langs.map(function(lang) {
-    return '<button class="poll-option-btn relative z-10 w-full flex items-center justify-between p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all group" data-lang="' + lang.code + '">' +
-      '<div class="flex items-center gap-3">' +
-        '<span class="text-2xl">' + lang.emoji + '</span>' +
-        '<span class="font-bold text-base text-washi-light">' + lang.name + '</span>' +
-      '</div>' +
-      '<div class="flex items-center gap-3">' +
-        '<span class="poll-count text-sm text-washi-light/60 font-medium">0 requests</span>' +
-        '<span class="material-symbols-outlined text-matcha-green opacity-0 group-hover:opacity-100 transition-opacity text-xl">thumb_up</span>' +
-      '</div>' +
-    '</button>';
-  }).join('');
-
-  var modal = document.createElement('div');
-  modal.id = 'poll-modal';
-  modal.className = 'fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300';
-
-  modal.innerHTML =
-    '<div class="liquid-glass border border-white/10 rounded-[2rem] max-w-sm w-full p-8 shadow-2xl relative translate-y-4 transition-transform duration-300 overflow-hidden">' +
-      '<div class="absolute -right-6 -bottom-6 text-[140px] opacity-[0.07] pointer-events-none select-none text-hanko-red">' +
-        '<span class="material-symbols-outlined text-[140px]">language</span>' +
-      '</div>' +
-      '<button id="close-poll-modal" class="absolute top-4 right-4 text-washi-light/60 hover:text-washi-light transition-colors w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center z-20">' +
-        '<span class="material-symbols-outlined text-lg" style="font-variation-settings:\'wght\' 700">close</span>' +
-      '</button>' +
-      '<div class="flex flex-col gap-3 relative z-10" id="poll-options-container">' +
-        buttons +
-      '</div>' +
-    '</div>';
-
-  document.body.appendChild(modal);
 }
 
 
