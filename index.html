@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>fudami — Master Japanese with calm focus</title>
+<title>fudami | Make Japanese impossible to forget</title>
 
 <!-- SEO -->
-<meta name="description" content="Learn Japanese Kanji through science-backed spaced repetition in a calm, focused workspace. fudami bridges deep SRS with a serene learning experience."/>
+<meta name="description" content="fudami fuses serious memory science (FSRS spaced repetition) with the habit-building pull of a great game. One connected knowledge graph from kana to kanji so your Japanese stays learned."/>
 <meta name="keywords" content="Japanese learning, Kanji, FSRS, Spaced Repetition, SRS, Anki alternative, learn Japanese, JLPT"/>
 <meta name="author" content="fudami"/>
-<meta property="og:title" content="fudami — Master Japanese with calm focus"/>
-<meta property="og:description" content="Learn Japanese Kanji through spaced repetition and gamification in a serene workspace."/>
+<meta property="og:title" content="fudami | Make Japanese impossible to forget"/>
+<meta property="og:description" content="The proven memory science of Anki meets the engaging flow of Duolingo, with none of the baggage. fudami perfectly times every kana, kanji, and word right before you forget them, ensuring your knowledge stays locked in."/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="fudami"/>
 <meta property="og:url" content="https://fudami.arno-wilhelm.dev/"/>
@@ -53,7 +53,7 @@
     // Inject shared components
     injectHeader('index');
     injectFooter();
-    injectPollModal();
+    injectWikiModal();
     initScrollReveal();
   });
 </script>
@@ -88,11 +88,11 @@
       <!-- Left: Copy -->
       <div class="flex-1 flex flex-col gap-6 text-center lg:text-left">
         <h1 class="text-hero-display text-washi-light" data-i18n-html="hero.title">
-          Learn Japanese.<br/>
-          <span class="text-hanko-red">Remember it.</span>
+          Make Japanese<br/>
+          <span class="text-hanko-red">impossible to forget.</span>
         </h1>
-        <p class="text-lg md:text-xl text-washi-light/70 max-w-[540px] mx-auto lg:mx-0 leading-relaxed" data-i18n="hero.subtitle">
-          Spaced repetition meets calm design. Master Kanji through science-backed reviews in a workspace built for deep focus and lasting retention.
+        <p class="text-lg md:text-xl text-washi-light/70 max-w-[540px] mx-auto lg:mx-0 leading-relaxed" data-i18n-html="hero.subtitle">
+          The proven <strong>memory science</strong> of <strong style="color: #0095ff;">Anki</strong> meets the <strong>engaging flow</strong> of <strong style="color: #58cc02;">Duolingo</strong>, with none of the baggage. fudami <strong>perfectly times</strong> every <button data-wiki-trigger="kana" class="inline border-b border-dashed border-washi-light/50 hover:border-washi-light hover:text-washi-light transition-colors focus:outline-none bg-transparent p-0 m-0 cursor-pointer">kana</button>, <button data-wiki-trigger="kanji" class="inline border-b border-dashed border-washi-light/50 hover:border-washi-light hover:text-washi-light transition-colors focus:outline-none bg-transparent p-0 m-0 cursor-pointer">kanji</button>, and word right before you forget them, ensuring your knowledge <strong>stays locked in</strong>.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 mt-2 justify-center lg:justify-start">
           <button id="clerk-hero-signup-btn" onclick="window.location.href='https://app.fudami.net'" class="btn-hanko px-8 py-4 rounded-2xl text-base uppercase tracking-widest inline-flex items-center justify-center gap-2">
@@ -121,10 +121,10 @@
       <div class="flex-1 relative w-full max-w-[400px] lg:max-w-none flex items-center justify-center">
         <div class="animate-float">
           <!-- Phone frame -->
-          <div class="w-[260px] h-[540px] md:w-[280px] md:h-[580px] bg-surface rounded-[40px] border-[6px] border-surface-container-highest shadow-2xl overflow-hidden relative flex flex-col">
+          <div id="app-mockup" class="w-[260px] h-[540px] md:w-[280px] md:h-[580px] bg-surface rounded-[40px] border-[6px] border-surface-container-highest shadow-2xl overflow-hidden relative flex flex-col opacity-0 transition-opacity duration-1000">
             <!-- Status bar mockup -->
             <div class="bg-hanko-red h-16 w-full flex items-center justify-between px-5 shrink-0 shadow-md z-10">
-              <span class="text-white/60 text-xs font-bold uppercase tracking-widest">fudami</span>
+              <span class="text-white/60 text-xs font-bold tracking-widest font-['Plus_Jakarta_Sans'] lowercase">fudami</span>
               <span class="text-white font-bold text-lg">Level 5</span>
               <span class="material-symbols-outlined text-white/60 text-lg" style="font-variation-settings:'FILL' 1">local_fire_department</span>
             </div>
@@ -164,9 +164,9 @@
     <div class="max-w-[1200px] mx-auto relative z-10">
       <div class="text-center mb-14 section-fade-in">
         <span class="text-label-caps font-label-caps text-hanko-red uppercase tracking-widest mb-3 block">Methodology</span>
-        <h2 class="text-3xl md:text-4xl font-bold text-washi-light" data-i18n="fudamiway.title">The fudami Way</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-washi-light" data-i18n-html="fudamiway.title">The fudami Way</h2>
         <p class="text-washi-light/50 mt-3 max-w-lg mx-auto text-base" data-i18n="fudamiway.subtitle">
-          Three pillars that make Japanese stick — backed by cognitive science, not gimmicks.
+          Three pillars make Japanese stick: memory science, honest game design, and one connected graph. No gimmicks.
         </p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -177,7 +177,7 @@
           </div>
           <h3 class="text-xl font-bold text-washi-light" data-i18n="fudamiway.card1.title">Spaced Repetition</h3>
           <p class="text-sm text-washi-light/60 leading-relaxed" data-i18n="fudamiway.card1.desc">
-            Our FSRS-powered algorithm schedules reviews exactly when you're about to forget, maximizing long-term retention with minimal effort.
+            FSRS, the state-of-the-art scheduling algorithm, plans each review for the moment just before you'd forget. Maximum retention, minimum reviews.
           </p>
         </div>
         <!-- Card 2: Serene Gamification -->
@@ -185,9 +185,9 @@
           <div class="w-14 h-14 rounded-2xl bg-matcha-green/10 border border-matcha-green/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
             <span class="material-symbols-outlined text-matcha-green text-2xl" style="font-variation-settings:'FILL' 1">emoji_events</span>
           </div>
-          <h3 class="text-xl font-bold text-washi-light" data-i18n="fudamiway.card2.title">Serene Gamification</h3>
+          <h3 class="text-xl font-bold text-washi-light" data-i18n="fudamiway.card2.title">A Game That Respects You</h3>
           <p class="text-sm text-washi-light/60 leading-relaxed" data-i18n="fudamiway.card2.desc">
-            Stay motivated with subtle streaks, daily goals, and celebratory feedback — progress you can feel without the sensory overload.
+            Streaks, daily goals and quiet celebrations pull you back every day. XP is always tied to a real goal like JLPT N5, never a meaningless leaderboard.
           </p>
         </div>
         <!-- Card 3: Deep Context -->
@@ -195,9 +195,9 @@
           <div class="w-14 h-14 rounded-2xl bg-aizome-indigo/20 border border-aizome-indigo/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
             <span class="material-symbols-outlined text-aizome-indigo text-2xl" style="font-variation-settings:'FILL' 1">menu_book</span>
           </div>
-          <h3 class="text-xl font-bold text-washi-light" data-i18n="fudamiway.card3.title">Deep Context</h3>
+          <h3 class="text-xl font-bold text-washi-light" data-i18n="fudamiway.card3.title">One Living Graph</h3>
           <p class="text-sm text-washi-light/60 leading-relaxed" data-i18n="fudamiway.card3.desc">
-            Learn Kanji through radicals, mnemonics, and real-world vocabulary — building true understanding, not just rote memorization.
+            Kana, radicals, kanji, vocabulary and grammar form one connected graph instead of isolated decks. Mastering each node strengthens its neighbours.
           </p>
         </div>
       </div>
@@ -216,8 +216,8 @@
         <!-- Step 1 -->
         <div class="flex flex-col items-center text-center gap-4">
           <div class="w-16 h-16 rounded-full bg-hanko-red flex items-center justify-center text-white text-2xl font-bold shadow-lg">1</div>
-          <h3 class="text-lg font-bold text-washi-light">Master Kana first</h3>
-          <p class="text-sm text-washi-light/60 leading-relaxed max-w-[280px]">Start with Hiragana and Katakana — the foundation. Our guided path ensures you're ready before moving to Kanji.</p>
+          <h3 class="text-lg font-bold text-washi-light">Clear the kana gate</h3>
+          <p class="text-sm text-washi-light/60 leading-relaxed max-w-[280px]">Everything starts with Hiragana and Katakana, the sound system of Japanese. Already know them? Test out in minutes during onboarding.</p>
         </div>
         <!-- Step 2 -->
         <div class="flex flex-col items-center text-center gap-4">
@@ -292,7 +292,7 @@
   <section class="py-20 md:py-28 px-6 md:px-8 relative">
     <div class="max-w-[1200px] mx-auto relative z-10">
       <div class="text-center mb-14 section-fade-in">
-        <span class="text-label-caps font-label-caps text-hanko-red uppercase tracking-widest mb-3 block">Why fudami</span>
+        <span class="text-label-caps font-label-caps text-hanko-red tracking-widest mb-3 block uppercase">Why <span class="font-['Plus_Jakarta_Sans'] font-bold lowercase">fudami</span></span>
         <h2 class="text-3xl md:text-4xl font-bold text-washi-light">Not another flashcard app</h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 section-fade-in">
@@ -302,7 +302,7 @@
           </div>
           <div>
             <h3 class="font-bold text-washi-light mb-1">Progress, never debt</h3>
-            <p class="text-sm text-washi-light/60 leading-relaxed">We show momentum — rings filling, retention rising, mastery expanding. Never "353 cards overdue".</p>
+            <p class="text-sm text-washi-light/60 leading-relaxed">We show momentum: rings filling, retention rising, mastery expanding. Never "353 cards overdue".</p>
           </div>
         </div>
         <div class="card-glass rounded-[2rem] p-8 flex gap-5 items-start">
@@ -311,7 +311,7 @@
           </div>
           <div>
             <h3 class="font-bold text-washi-light mb-1">FSRS is sacred</h3>
-            <p class="text-sm text-washi-light/60 leading-relaxed">The state-of-the-art spaced repetition algorithm drives every scheduling decision — we celebrate it, never override it.</p>
+            <p class="text-sm text-washi-light/60 leading-relaxed">The state-of-the-art spaced repetition algorithm drives every scheduling decision. We celebrate it, never override it.</p>
           </div>
         </div>
         <div class="card-glass rounded-[2rem] p-8 flex gap-5 items-start">
@@ -320,7 +320,7 @@
           </div>
           <div>
             <h3 class="font-bold text-washi-light mb-1">Varied interactions</h3>
-            <p class="text-sm text-washi-light/60 leading-relaxed">The same card appears as flashcard, MCQ, typing, and sentence exercises — every review feels fresh.</p>
+            <p class="text-sm text-washi-light/60 leading-relaxed">The same card appears as flashcard, MCQ, typing, and sentence exercises, so every review feels fresh.</p>
           </div>
         </div>
         <div class="card-glass rounded-[2rem] p-8 flex gap-5 items-start">
@@ -340,8 +340,8 @@
   <!-- ── Final CTA ──────────────────────────────────────────────────────── -->
   <section class="py-20 md:py-28 px-6 md:px-8 relative">
     <div class="max-w-[800px] mx-auto text-center section-fade-in">
-      <h2 class="text-3xl md:text-4xl font-bold text-washi-light mb-4">Ready to learn Japanese<br/>the calm way?</h2>
-      <p class="text-washi-light/50 mb-8 max-w-lg mx-auto">Reserve your spot for early access. No spam, just a heads up when we launch.</p>
+      <h2 class="text-3xl md:text-4xl font-bold text-washi-light mb-4">Ready to remember<br/>everything you learn?</h2>
+      <p class="text-washi-light/50 mb-8 max-w-lg mx-auto">Reserve your spot for early access. No spam, just a heads-up when we launch.</p>
       <button onclick="window.location.href='https://app.fudami.net'" class="btn-hanko px-10 py-4 rounded-2xl text-base uppercase tracking-widest inline-flex items-center gap-2 clerk-signup-trigger">
         <span class="material-symbols-outlined text-xl" style="font-variation-settings:'FILL' 1">notifications_active</span>
         Join the waitlist

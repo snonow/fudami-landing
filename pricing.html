@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Pricing — fudami</title>
+<title>Pricing | fudami</title>
 
 <!-- SEO -->
 <meta name="description" content="Start learning Japanese for free with fudami's FSRS-powered SRS. Premium features coming soon."/>
@@ -11,7 +11,7 @@
 <link rel="canonical" href="https://fudami.arno-wilhelm.dev/pricing.html"/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="fudami"/>
-<meta property="og:title" content="Pricing — fudami"/>
+<meta property="og:title" content="Pricing | fudami"/>
 <meta property="og:description" content="Start for free. Premium features coming soon."/>
 <meta property="og:url" content="https://fudami.arno-wilhelm.dev/pricing.html"/>
 <meta property="og:image" content="https://fudami.arno-wilhelm.dev/assets/favicon.png"/>
@@ -51,7 +51,7 @@
     // Inject shared components
     injectHeader('pricing');
     injectFooter();
-    injectPollModal();
+    injectWikiModal();
     initScrollReveal();
   });
 </script>
@@ -66,7 +66,7 @@
 
   <div class="text-center mb-16 md:mb-24 section-fade-in">
     <h1 class="text-4xl md:text-5xl text-washi-light font-bold mb-4 tracking-tight">Invest in Your Fluency</h1>
-    <p class="text-xl text-washi-light/80 max-w-2xl mx-auto font-medium">Start building your foundation for free, or prepare for the ultimate immersive experience with our upcoming Premium tier.</p>
+    <p class="text-xl text-washi-light/80 max-w-2xl mx-auto font-medium">Start building your foundation for <strong class="text-washi-light">free</strong>, or prepare for the <strong class="text-hanko-red">ultimate immersive experience</strong> with our upcoming Premium tier.</p>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch max-w-4xl mx-auto section-fade-in" style="transition-delay: 0.1s">
@@ -85,7 +85,7 @@
         <ul class="space-y-4 mb-8">
           <li class="flex items-start gap-3">
             <span class="material-symbols-outlined text-matcha-green mt-0.5 text-xl" style="font-variation-settings: 'FILL' 1">check_circle</span>
-            <span class="text-base text-washi-light">Curated Dictionaries</span>
+            <span class="text-base text-washi-light">Kana &amp; core Kanji path</span>
           </li>
           <li class="flex items-start gap-3">
             <span class="material-symbols-outlined text-matcha-green mt-0.5 text-xl" style="font-variation-settings: 'FILL' 1">check_circle</span>
@@ -93,27 +93,31 @@
           </li>
           <li class="flex items-start gap-3">
             <span class="material-symbols-outlined text-matcha-green mt-0.5 text-xl" style="font-variation-settings: 'FILL' 1">check_circle</span>
-            <span class="text-base text-washi-light">Offline Access</span>
+            <span class="text-base text-washi-light">Offline review of recent lessons</span>
           </li>
           <li class="flex items-start gap-3">
             <span class="material-symbols-outlined text-matcha-green mt-0.5 text-xl" style="font-variation-settings: 'FILL' 1">check_circle</span>
-            <span class="text-base text-washi-light">Community Decks</span>
+            <span class="text-base text-washi-light">Progress &amp; mastery tracking</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-matcha-green mt-0.5 text-xl" style="font-variation-settings: 'FILL' 1">check_circle</span>
+            <span class="text-base text-washi-light">Cross-Device Cloud Sync</span>
           </li>
         </ul>
       </div>
-      <button id="clerk-pricing-free-btn" class="w-full bg-sumi-ink text-washi-light font-bold py-4 rounded-xl text-center block hover:bg-surface-container-high transition-colors border border-white/5 shadow-md clerk-signup-trigger">
+      <button id="clerk-pricing-free-btn" onclick="window.location.href='https://app.fudami.net'" class="w-full btn-hanko text-washi-light font-bold py-4 rounded-xl text-center block shadow-md clerk-signup-trigger transition-colors hover:brightness-110">
         Join Waitlist
       </button>
     </div>
 
     <!-- Premium tier -->
-    <div class="liquid-glass rounded-[2rem] p-8 flex flex-col justify-between h-full relative overflow-hidden border border-hanko-red/20 shadow-[0_12px_40px_rgba(232,57,41,0.15)] transform md:scale-105 z-10">
-      <div class="absolute top-0 right-0 w-48 h-48 bg-hanko-red/10 rounded-bl-full opacity-60 z-0 pointer-events-none blur-xl"></div>
+    <div class="card-glass rounded-[2rem] p-8 flex flex-col justify-between h-full relative overflow-hidden border-2 border-hanko-red/60 shadow-[0_0_60px_rgba(232,57,41,0.3)] transform md:scale-110 z-20 transition-transform duration-500 hover:scale-[1.12]">
+      <div class="absolute top-0 right-0 w-48 h-48 bg-hanko-red/20 rounded-bl-full opacity-70 z-0 pointer-events-none blur-xl"></div>
       <div class="relative z-10">
         <div class="mb-8 border-b border-white/10 pb-6">
           <div class="flex justify-between items-center mb-4">
-            <span class="inline-block bg-aizome-indigo/30 border border-aizome-indigo/60 text-washi-light text-xs font-bold px-3 py-1 rounded-full tracking-widest uppercase">EARLY ACCESS</span>
-            <span class="inline-flex items-center gap-1 bg-white/10 text-washi-light/80 text-xs font-bold px-2 py-1 rounded border border-white/10">
+            <span class="inline-block bg-hanko-red text-white text-xs font-bold px-3 py-1 rounded-full tracking-widest uppercase shadow-[0_0_15px_rgba(232,57,41,0.5)]">EARLY ACCESS</span>
+            <span class="inline-flex items-center gap-1 bg-white/10 text-washi-light text-xs font-bold px-2 py-1 rounded border border-white/20">
               <span class="material-symbols-outlined text-sm">hourglass_empty</span> Coming Soon
             </span>
           </div>
@@ -123,40 +127,33 @@
           <div class="flex items-baseline gap-1">
             <span class="text-5xl font-bold text-washi-light tracking-tight">TBD</span>
           </div>
-          <p class="text-sm text-washi-light/70 mt-4 leading-relaxed">Unlock AI-driven personalization and advanced production skills.</p>
+          <p class="text-sm text-washi-light/70 mt-4 leading-relaxed">Master speaking and writing with intelligent tools built to give you perfect feedback.</p>
         </div>
         <ul class="space-y-6 mb-8">
           <li class="flex items-start gap-3">
             <span class="material-symbols-outlined text-hanko-red mt-1 text-xl">psychology</span>
             <div>
-              <span class="text-base text-washi-light font-bold block mb-0.5">AI Personalized Tutor</span>
-              <span class="text-sm text-washi-light/70 leading-relaxed">Adaptive feedback tailored to your weak points.</span>
+              <span class="text-base text-washi-light font-bold block mb-0.5">Personalized Tutor</span>
+              <span class="text-sm text-washi-light/70 leading-relaxed">Adaptive feedback that targets exactly what you need to review.</span>
             </div>
           </li>
           <li class="flex items-start gap-3">
             <span class="material-symbols-outlined text-hanko-red mt-1 text-xl">record_voice_over</span>
             <div>
-              <span class="text-base text-washi-light font-bold block mb-0.5">Oral Expression Drills</span>
-              <span class="text-sm text-washi-light/70 leading-relaxed">Pitch-accent analysis and speaking practice.</span>
+              <span class="text-base text-washi-light font-bold block mb-0.5">Speaking Practice</span>
+              <span class="text-sm text-washi-light/70 leading-relaxed">Real-time pitch-accent and pronunciation feedback.</span>
             </div>
           </li>
           <li class="flex items-start gap-3">
             <span class="material-symbols-outlined text-hanko-red mt-1 text-xl">edit</span>
             <div>
-              <span class="text-base text-washi-light font-bold block mb-0.5">Writing &amp; Stroke Order</span>
-              <span class="text-sm text-washi-light/70 leading-relaxed">Canvas recognition for perfect Kanji writing.</span>
-            </div>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="material-symbols-outlined text-hanko-red mt-1 text-xl">cloud_sync</span>
-            <div>
-              <span class="text-base text-washi-light font-bold block mb-0.5">Cross-Device Cloud Sync</span>
-              <span class="text-sm text-washi-light/70 leading-relaxed">Seamless progress across web and mobile.</span>
+              <span class="text-base text-washi-light font-bold block mb-0.5">Kanji Drawing</span>
+              <span class="text-sm text-washi-light/70 leading-relaxed">On-screen canvas that corrects your stroke order and shape.</span>
             </div>
           </li>
         </ul>
       </div>
-      <button class="relative z-10 w-full btn-hanko text-washi-light font-bold py-4 rounded-xl shadow-lg mt-auto clerk-signup-trigger">
+      <button class="relative z-10 w-full btn-hanko text-washi-light font-bold py-4 rounded-xl shadow-lg mt-auto clerk-signup-trigger transition-colors hover:brightness-110" onclick="window.location.href='https://app.fudami.net'">
         Join the Waitlist
       </button>
     </div>

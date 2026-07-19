@@ -1,4 +1,4 @@
-/* components.js — Shared UI components for fudami landing pages
+/* components.js - Shared UI components for fudami landing pages
    Provides: injectHeader(), injectFooter(), injectPollModal(), initScrollReveal() */
 
 /**
@@ -12,7 +12,6 @@ function injectHeader(activePage) {
 
   const navItems = [
     { id: 'index',    href: 'index.html',           label: 'Home',     i18n: 'nav.home' },
-    { id: 'approach', href: 'index.html#approach',   label: 'Approach', i18n: 'nav.approach' },
     { id: 'about',    href: 'about.html',            label: 'About',    i18n: 'nav.about' },
     { id: 'pricing',  href: 'pricing.html',          label: 'Pricing',  i18n: 'nav.pricing' },
   ];
@@ -45,13 +44,10 @@ function injectHeader(activePage) {
       '</nav>' +
       '<!-- Actions -->' +
       '<div class="flex items-center gap-3">' +
-        '<button id="lang-poll-trigger" class="text-washi-light/70 hover:text-washi-light hover:scale-105 transition-all duration-200 w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/5" title="Request translation" aria-label="Request language support">' +
-          '<span class="material-symbols-outlined text-[18px]">language</span>' +
-        '</button>' +
         '<button id="theme-toggle" class="text-washi-light/70 hover:text-washi-light hover:scale-105 transition-all duration-200 w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/5" aria-label="Toggle theme">' +
           '<span class="material-symbols-outlined text-[18px]">dark_mode</span>' +
         '</button>' +
-        '<button id="clerk-auth-btn" class="btn-hanko px-5 py-2 rounded-xl text-xs uppercase tracking-widest hidden md:inline-flex items-center gap-1.5">' +
+        '<button id="clerk-auth-btn" onclick="window.location.href=\'https://app.fudami.net\'" class="btn-hanko px-5 py-2 rounded-xl text-xs uppercase tracking-widest hidden md:inline-flex items-center gap-1.5">' +
           'Join Waitlist' +
         '</button>' +
         '<!-- Mobile menu -->' +
@@ -64,7 +60,7 @@ function injectHeader(activePage) {
     '<div id="mobile-nav" class="md:hidden hidden border-t border-white/5" style="background:rgba(var(--surface-rgb),0.95);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)">' +
       '<nav class="flex flex-col px-6 py-4 gap-1">' +
         mobileLinks +
-        '<button id="clerk-mobile-auth-btn" class="btn-hanko mt-3 py-3 rounded-xl text-xs uppercase tracking-widest w-full">Join Waitlist</button>' +
+        '<button id="clerk-mobile-auth-btn" onclick="window.location.href=\'https://app.fudami.net\'" class="btn-hanko mt-3 py-3 rounded-xl text-xs uppercase tracking-widest w-full">Join Waitlist</button>' +
       '</nav>' +
     '</div>';
 
@@ -101,19 +97,18 @@ function injectFooter() {
           '<a href="index.html" class="inline-block no-underline">' +
             '<span class="text-lg font-bold text-washi-light font-[\'Plus_Jakarta_Sans\']">fudami</span>' +
           '</a>' +
-          '<p class="text-sm text-washi-light/50 max-w-[280px]" data-i18n="footer.tagline">Master Japanese through science-backed spaced repetition in a calm, focused workspace.</p>' +
+          '<p class="text-sm text-washi-light/50 max-w-[280px]" data-i18n="footer.tagline">Memory science with the pull of a game. Japanese that stays learned.</p>' +
         '</div>' +
         '<!-- Links -->' +
         '<div class="grid grid-cols-2 sm:grid-cols-3 gap-x-12 gap-y-10 md:flex md:gap-16">' +
           '<div class="flex flex-col gap-2">' +
             '<span class="text-xs font-bold uppercase tracking-widest text-washi-light/40 mb-1">Product</span>' +
-            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="index.html#approach" data-i18n="nav.approach">Approach</a>' +
             '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="pricing.html" data-i18n="nav.pricing">Pricing</a>' +
           '</div>' +
           '<div class="flex flex-col gap-2">' +
             '<span class="text-xs font-bold uppercase tracking-widest text-washi-light/40 mb-1">Company</span>' +
             '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="about.html" data-i18n="nav.about">About</a>' +
-            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://github.com/snonow/fudami-app">GitHub</a>' +
+            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://github.com/snonow/fudami-landing">GitHub</a>' +
           '</div>' +
           '<div class="flex flex-col gap-2">' +
             '<span class="text-xs font-bold uppercase tracking-widest text-washi-light/40 mb-1">Legal</span>' +
@@ -134,57 +129,6 @@ function injectFooter() {
     '</div>';
 
   document.body.appendChild(footer);
-}
-
-
-/**
- * Injects the language request poll modal.
- */
-function injectPollModal() {
-  var langs = [
-    { code: 'es', name: 'Spanish',  emoji: '\uD83C\uDDEA\uD83C\uDDF8' },
-    { code: 'fr', name: 'French',   emoji: '\uD83C\uDDEB\uD83C\uDDF7' },
-    { code: 'de', name: 'German',   emoji: '\uD83C\uDDE9\uD83C\uDDEA' },
-    { code: 'it', name: 'Italian',  emoji: '\uD83C\uDDEE\uD83C\uDDF9' },
-    { code: 'ja', name: 'Japanese', emoji: '\uD83C\uDDEF\uD83C\uDDF5' },
-  ];
-
-  var buttons = langs.map(function(lang) {
-    return '<button class="poll-option-btn w-full flex items-center justify-between p-3.5 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 transition-all group" data-lang="' + lang.code + '">' +
-      '<div class="flex items-center gap-3">' +
-        '<span class="text-2xl">' + lang.emoji + '</span>' +
-        '<span class="font-bold text-sm text-washi-light">' + lang.name + '</span>' +
-      '</div>' +
-      '<div class="flex items-center gap-3">' +
-        '<span class="poll-count text-xs text-washi-light/60 font-semibold">0 requests</span>' +
-        '<span class="material-symbols-outlined text-matcha-green opacity-0 group-hover:opacity-100 transition-opacity text-xl">thumb_up</span>' +
-      '</div>' +
-    '</button>';
-  }).join('');
-
-  var modal = document.createElement('div');
-  modal.id = 'poll-modal';
-  modal.className = 'fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300';
-
-  modal.innerHTML =
-    '<div class="liquid-glass border border-white/10 rounded-[2rem] max-w-md w-full p-8 shadow-2xl relative translate-y-4 transition-transform duration-300">' +
-      '<button id="close-poll-modal" class="absolute top-4 right-4 text-washi-light/60 hover:text-washi-light transition-colors w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center">' +
-        '<span class="material-symbols-outlined text-lg" style="font-variation-settings:\'wght\' 700">close</span>' +
-      '</button>' +
-      '<div class="flex flex-col gap-5">' +
-        '<div class="text-center">' +
-          '<h3 class="text-2xl font-bold text-washi-light">Request Your Language</h3>' +
-          '<p class="text-sm text-washi-light/70 mt-2 leading-relaxed">' +
-            'fudami is currently English-only. Vote to help us prioritize upcoming translations!' +
-          '</p>' +
-        '</div>' +
-        '<div class="flex flex-col gap-3 mt-2" id="poll-options-container">' +
-          buttons +
-        '</div>' +
-      '</div>' +
-    '</div>';
-
-  document.body.appendChild(modal);
 }
 
 
@@ -213,4 +157,32 @@ function initScrollReveal() {
   document.querySelectorAll('.section-fade-in').forEach(function(el) {
     observer.observe(el);
   });
+}
+
+
+/**
+ * Injects the wiki definition modal.
+ */
+function injectWikiModal() {
+  var modal = document.createElement('div');
+  modal.id = 'wiki-modal';
+  modal.className = 'fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300';
+
+  modal.innerHTML =
+    '<div class="bg-charcoal-dark border border-white/10 rounded-[2rem] max-w-[320px] w-full p-6 shadow-2xl relative translate-y-4 transition-transform duration-300 overflow-hidden">' +
+      '<button id="close-wiki-modal" class="absolute top-4 right-4 text-washi-light/60 hover:text-washi-light transition-colors w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center z-10">' +
+        '<span class="material-symbols-outlined text-lg" style="font-variation-settings:\'wght\' 700">close</span>' +
+      '</button>' +
+      '<div class="flex flex-col gap-2 relative z-10">' +
+        '<div class="flex items-center gap-3 mb-2">' +
+          '<div id="wiki-modal-icon-wrapper" class="w-12 h-12 rounded-full flex items-center justify-center bg-white/5 shrink-0">' +
+            '<span id="wiki-modal-symbol" class="text-2xl font-bold font-[\'M_PLUS_Rounded_1c\']"></span>' +
+          '</div>' +
+          '<h3 id="wiki-modal-title" class="text-2xl font-extrabold capitalize font-[\'Plus_Jakarta_Sans\']"></h3>' +
+        '</div>' +
+        '<p id="wiki-modal-desc" class="text-sm text-washi-light/90 leading-relaxed"></p>' +
+      '</div>' +
+    '</div>';
+
+  document.body.appendChild(modal);
 }

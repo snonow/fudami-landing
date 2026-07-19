@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Studies & Credits — fudami</title>
+<title>Studies & Credits | fudami</title>
 
 <!-- SEO -->
 <meta name="description" content="The science, algorithms, and open-source projects that power fudami's Japanese learning platform."/>
 <meta name="robots" content="index, follow"/>
 <link rel="canonical" href="https://fudami.arno-wilhelm.dev/credits.html"/>
 <meta property="og:type" content="website"/>
-<meta property="og:title" content="Studies & Credits — fudami"/>
+<meta property="og:title" content="Studies & Credits | fudami"/>
 <meta property="og:url" content="https://fudami.arno-wilhelm.dev/credits.html"/>
 <meta property="og:image" content="https://fudami.arno-wilhelm.dev/assets/favicon.png"/>
 <link rel="icon" type="image/png" href="assets/favicon.png"/>
@@ -48,7 +48,6 @@
     // Inject shared components
     injectHeader('credits'); // or null since it's not in the main nav
     injectFooter();
-    injectPollModal();
     initScrollReveal();
   });
 </script>
@@ -57,10 +56,10 @@
 <body class="antialiased min-h-screen flex flex-col font-sans text-body-md">
 
 <main class="flex-grow pt-24 md:pt-32 pb-24 px-6 md:px-8 w-full max-w-[800px] mx-auto relative z-10">
-  <div class="text-center mb-12 section-fade-in">
+  <div class="text-center mb-16 section-fade-in">
     <h1 class="text-3xl md:text-5xl text-washi-light font-bold mb-4 tracking-tight" data-i18n="credits.title">Studies &amp; Credits</h1>
-    <p class="text-lg text-washi-light/70 max-w-2xl mx-auto" data-i18n="credits.desc">
-      fudami stands on the shoulders of giants. We are deeply grateful to the researchers and open-source projects that make this platform possible.
+    <p class="text-lg text-washi-light/70 max-w-2xl mx-auto" data-i18n-html="credits.desc">
+      <span class="font-['Plus_Jakarta_Sans'] font-bold">fudami</span> stands on the shoulders of giants. We are deeply grateful to the researchers and open-source projects that make this platform possible.
     </p>
   </div>
 
