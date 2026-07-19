@@ -1,4 +1,4 @@
-/* components.js — Shared UI components for fudami landing pages
+/* components.js - Shared UI components for fudami landing pages
    Provides: injectHeader(), injectFooter(), injectPollModal(), initScrollReveal() */
 
 /**

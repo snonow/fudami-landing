@@ -1,7 +1,7 @@
 {
   "name": "fudami-landing",
   "version": "1.0.0",
-  "description": "<p align=\"center\">   <img src=\"assets/favicon.png\" alt=\"fudami — Daruma mascot\" width=\"96\" height=\"96\" /> </p>",
+  "description": "<p align=\"center\">   <img src=\"assets/favicon.png\" alt=\"fudami | Daruma mascot\" width=\"96\" height=\"96\" /> </p>",
   "main": "components.js",
   "scripts": {
     "dev": "tailwindcss -i ./input.css -o ./design-system.css --watch",

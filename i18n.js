@@ -1,4 +1,4 @@
-/* i18n.js — fudami landing translations (EN support active, others incoming) */
+/* i18n.js - fudami landing translations (EN support active, others incoming) */
 
 const TRANSLATIONS = {
   en: {
@@ -17,13 +17,13 @@ const TRANSLATIONS = {
     'hero.cta.signin': 'I already have an account',
     'hero.preview.status': 'Coming Soon 2026',
     'fudamiway.title': 'The <span class="font-[\'Plus_Jakarta_Sans\'] font-bold">fudami</span> Way',
-    'fudamiway.subtitle': 'Three pillars make Japanese stick — memory science, honest game design, and one connected graph. No gimmicks.',
+    'fudamiway.subtitle': 'Three pillars make Japanese stick: memory science, honest game design, and one connected graph. No gimmicks.',
     'fudamiway.card1.title': 'Spaced Repetition',
-    'fudamiway.card1.desc': 'FSRS — the state-of-the-art scheduling algorithm — plans each review for the moment just before you\'d forget. Maximum retention, minimum reviews.',
+    'fudamiway.card1.desc': 'FSRS, the state-of-the-art scheduling algorithm, plans each review for the moment just before you\'d forget. Maximum retention, minimum reviews.',
     'fudamiway.card2.title': 'A Game That Respects You',
-    'fudamiway.card2.desc': 'Streaks, daily goals and quiet celebrations pull you back every day — and XP is always tied to a real goal like JLPT N5, never a meaningless leaderboard.',
+    'fudamiway.card2.desc': 'Streaks, daily goals and quiet celebrations pull you back every day. XP is always tied to a real goal like JLPT N5, never a meaningless leaderboard.',
     'fudamiway.card3.title': 'One Living Graph',
-    'fudamiway.card3.desc': 'Kana, radicals, kanji, vocabulary and grammar form one connected graph — not isolated decks. Mastering each node strengthens its neighbours.',
+    'fudamiway.card3.desc': 'Kana, radicals, kanji, vocabulary and grammar form one connected graph instead of isolated decks. Mastering each node strengthens its neighbours.',
     'efficacy.title': 'Visualize Your Mastery',
     'efficacy.desc': 'Track your progress across JLPT levels, vocabulary themes, and grammar structures with our dynamic knowledge graph. See exactly where you excel and where to focus next.',
     'credits.title': 'Studies & Credits',
