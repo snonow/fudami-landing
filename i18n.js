@@ -12,7 +12,7 @@ const TRANSLATIONS = {
     'nav.openapp': 'Open App',
     'banner.dev': '<span class="w-2 h-2 rounded-full bg-hanko-red animate-pulse"></span> fudami is currently under active development. <span class="text-hanko-red ml-1">Available soon!</span>',
     'hero.title': 'Make Japanese<br/><span class="text-hanko-red">impossible to forget.</span>',
-    'hero.subtitle': 'The memory science of Anki, the pull of Duolingo — none of the baggage. fudami schedules every kana, kanji and word for the moment just before you\'d forget it, so what you learn stays learned.',
+    'hero.subtitle': 'The proven memory science of Anki meets the engaging flow of Duolingo, with none of the baggage. fudami perfectly times every kana, kanji, and word right before you forget them, ensuring your knowledge stays locked in.',
     'hero.cta.start': 'Start Learning',
     'hero.cta.signin': 'I already have an account',
     'hero.preview.status': 'Coming Soon 2026',

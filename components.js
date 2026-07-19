@@ -51,7 +51,7 @@ function injectHeader(activePage) {
         '<button id="theme-toggle" class="text-washi-light/70 hover:text-washi-light hover:scale-105 transition-all duration-200 w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/5" aria-label="Toggle theme">' +
           '<span class="material-symbols-outlined text-[18px]">dark_mode</span>' +
         '</button>' +
-        '<button id="clerk-auth-btn" class="btn-hanko px-5 py-2 rounded-xl text-xs uppercase tracking-widest hidden md:inline-flex items-center gap-1.5">' +
+        '<button id="clerk-auth-btn" onclick="window.location.href=\\'https://app.fudami.net\\'" class="btn-hanko px-5 py-2 rounded-xl text-xs uppercase tracking-widest hidden md:inline-flex items-center gap-1.5">' +
           'Join Waitlist' +
         '</button>' +
         '<!-- Mobile menu -->' +
@@ -64,7 +64,7 @@ function injectHeader(activePage) {
     '<div id="mobile-nav" class="md:hidden hidden border-t border-white/5" style="background:rgba(var(--surface-rgb),0.95);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)">' +
       '<nav class="flex flex-col px-6 py-4 gap-1">' +
         mobileLinks +
-        '<button id="clerk-mobile-auth-btn" class="btn-hanko mt-3 py-3 rounded-xl text-xs uppercase tracking-widest w-full">Join Waitlist</button>' +
+        '<button id="clerk-mobile-auth-btn" onclick="window.location.href=\\'https://app.fudami.net\\'" class="btn-hanko mt-3 py-3 rounded-xl text-xs uppercase tracking-widest w-full">Join Waitlist</button>' +
       '</nav>' +
     '</div>';
 
