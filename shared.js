@@ -21,10 +21,10 @@ function initClerk() {
   const script = document.createElement('script');
   script.src = 'https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js';
   script.crossOrigin = 'anonymous';
+  script.setAttribute('data-clerk-publishable-key', CLERK_PK);
   script.addEventListener('load', async () => {
     try {
-      const clerk = new window.Clerk(CLERK_PK);
-      await clerk.load();
+      await window.Clerk.load();
 
       // Retrieve current localized labels for dynamic button replacement
       const currentLang = localStorage.getItem('fudami-lang') || 'en';
@@ -279,6 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNav();
   initClerk();
   initPollModal();
+  initWikiModal();
   if (typeof initLang === 'function') initLang();
 
   const themeBtn = document.getElementById('theme-toggle');
@@ -329,4 +330,77 @@ function showToast(message) {
     toast.classList.add('opacity-0', 'translate-y-[-10px]');
     setTimeout(() => toast.remove(), 300);
   }, 2500);
+}
+
+// ── Wiki Modal ───────────────────────────────────────────────────────────────
+const WIKI_DATA = {
+  kana: {
+    title: 'Kana',
+    desc: 'Japanese phonetic characters used for spelling and grammar. Mastering them is the first step.',
+    symbol: 'あ',
+    colorClass: 'text-hanko-red'
+  },
+  kanji: {
+    title: 'Kanji',
+    desc: 'Complex characters representing entire concepts or roots of words. They make reading Japanese fast and clear.',
+    symbol: '水',
+    colorClass: 'text-matcha-green'
+  }
+};
+
+function initWikiModal() {
+  const modal = document.getElementById('wiki-modal');
+  if (!modal) return;
+
+  const closeBtn = document.getElementById('close-wiki-modal');
+  if (closeBtn) closeBtn.addEventListener('click', hideWikiModal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) hideWikiModal();
+  });
+
+  // Attach to trigger words
+  document.body.addEventListener('click', (e) => {
+    const trigger = e.target.closest('[data-wiki-trigger]');
+    if (trigger) {
+      e.preventDefault();
+      e.stopPropagation();
+      const term = trigger.getAttribute('data-wiki-trigger');
+      showWikiModal(term);
+    }
+  });
+}
+
+function showWikiModal(term) {
+  const modal = document.getElementById('wiki-modal');
+  const data = WIKI_DATA[term];
+  if (!modal || !data) return;
+
+  const titleEl = document.getElementById('wiki-modal-title');
+  if (titleEl) {
+    titleEl.textContent = data.title;
+    titleEl.className = `text-3xl font-extrabold capitalize font-['Plus_Jakarta_Sans'] ${data.colorClass}`;
+  }
+  
+  const descEl = document.getElementById('wiki-modal-desc');
+  if (descEl) descEl.textContent = data.desc;
+
+  const symbolEl = document.getElementById('wiki-modal-symbol');
+  if (symbolEl) {
+    symbolEl.textContent = data.symbol;
+    symbolEl.className = `absolute -right-6 -bottom-6 text-[140px] font-bold font-['M_PLUS_Rounded_1c'] opacity-[0.07] pointer-events-none select-none ${data.colorClass}`;
+  }
+
+  modal.classList.remove('opacity-0', 'pointer-events-none');
+  const inner = modal.querySelector('.liquid-glass');
+  if (inner) inner.classList.remove('translate-y-4');
+}
+
+function hideWikiModal() {
+  const modal = document.getElementById('wiki-modal');
+  if (!modal) return;
+
+  modal.classList.add('opacity-0', 'pointer-events-none');
+  const inner = modal.querySelector('.liquid-glass');
+  if (inner) inner.classList.add('translate-y-4');
 }

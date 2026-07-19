@@ -54,6 +54,7 @@
     injectHeader('index');
     injectFooter();
     injectPollModal();
+    injectWikiModal();
     initScrollReveal();
   });
 </script>
@@ -91,8 +92,8 @@
           Make Japanese<br/>
           <span class="text-hanko-red">impossible to forget.</span>
         </h1>
-        <p class="text-lg md:text-xl text-washi-light/70 max-w-[540px] mx-auto lg:mx-0 leading-relaxed" data-i18n="hero.subtitle">
-          The proven memory science of Anki meets the engaging flow of Duolingo, with none of the baggage. fudami perfectly times every kana, kanji, and word right before you forget them, ensuring your knowledge stays locked in.
+        <p class="text-lg md:text-xl text-washi-light/70 max-w-[540px] mx-auto lg:mx-0 leading-relaxed" data-i18n-html="hero.subtitle">
+          The proven <strong>memory science</strong> of <strong style="color: #0095ff;">Anki</strong> meets the <strong>engaging flow</strong> of <strong style="color: #58cc02;">Duolingo</strong>, with none of the baggage. fudami <strong>perfectly times</strong> every <button data-wiki-trigger="kana" class="inline border-b border-dashed border-washi-light/50 hover:border-washi-light hover:text-washi-light transition-colors focus:outline-none bg-transparent p-0 m-0 cursor-pointer">kana</button>, <button data-wiki-trigger="kanji" class="inline border-b border-dashed border-washi-light/50 hover:border-washi-light hover:text-washi-light transition-colors focus:outline-none bg-transparent p-0 m-0 cursor-pointer">kanji</button>, and word right before you forget them, ensuring your knowledge <strong>stays locked in</strong>.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 mt-2 justify-center lg:justify-start">
           <button id="clerk-hero-signup-btn" onclick="window.location.href='https://app.fudami.net'" class="btn-hanko px-8 py-4 rounded-2xl text-base uppercase tracking-widest inline-flex items-center justify-center gap-2">
@@ -124,7 +125,7 @@
           <div class="w-[260px] h-[540px] md:w-[280px] md:h-[580px] bg-surface rounded-[40px] border-[6px] border-surface-container-highest shadow-2xl overflow-hidden relative flex flex-col">
             <!-- Status bar mockup -->
             <div class="bg-hanko-red h-16 w-full flex items-center justify-between px-5 shrink-0 shadow-md z-10">
-              <span class="text-white/60 text-xs font-bold uppercase tracking-widest">fudami</span>
+              <span class="text-white/60 text-xs font-bold tracking-widest font-['Plus_Jakarta_Sans'] lowercase">fudami</span>
               <span class="text-white font-bold text-lg">Level 5</span>
               <span class="material-symbols-outlined text-white/60 text-lg" style="font-variation-settings:'FILL' 1">local_fire_department</span>
             </div>
@@ -164,7 +165,7 @@
     <div class="max-w-[1200px] mx-auto relative z-10">
       <div class="text-center mb-14 section-fade-in">
         <span class="text-label-caps font-label-caps text-hanko-red uppercase tracking-widest mb-3 block">Methodology</span>
-        <h2 class="text-3xl md:text-4xl font-bold text-washi-light" data-i18n="fudamiway.title">The fudami Way</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-washi-light" data-i18n-html="fudamiway.title">The fudami Way</h2>
         <p class="text-washi-light/50 mt-3 max-w-lg mx-auto text-base" data-i18n="fudamiway.subtitle">
           Three pillars make Japanese stick — memory science, honest game design, and one connected graph. No gimmicks.
         </p>
@@ -292,7 +293,7 @@
   <section class="py-20 md:py-28 px-6 md:px-8 relative">
     <div class="max-w-[1200px] mx-auto relative z-10">
       <div class="text-center mb-14 section-fade-in">
-        <span class="text-label-caps font-label-caps text-hanko-red uppercase tracking-widest mb-3 block">Why fudami</span>
+        <span class="text-label-caps font-label-caps text-hanko-red tracking-widest mb-3 block uppercase">Why <span class="font-['Plus_Jakarta_Sans'] font-bold lowercase">fudami</span></span>
         <h2 class="text-3xl md:text-4xl font-bold text-washi-light">Not another flashcard app</h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 section-fade-in">

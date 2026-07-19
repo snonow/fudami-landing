@@ -51,7 +51,7 @@ function injectHeader(activePage) {
         '<button id="theme-toggle" class="text-washi-light/70 hover:text-washi-light hover:scale-105 transition-all duration-200 w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/5" aria-label="Toggle theme">' +
           '<span class="material-symbols-outlined text-[18px]">dark_mode</span>' +
         '</button>' +
-        '<button id="clerk-auth-btn" onclick="window.location.href=\\'https://app.fudami.net\\'" class="btn-hanko px-5 py-2 rounded-xl text-xs uppercase tracking-widest hidden md:inline-flex items-center gap-1.5">' +
+        '<button id="clerk-auth-btn" onclick="window.location.href=\'https://app.fudami.net\'" class="btn-hanko px-5 py-2 rounded-xl text-xs uppercase tracking-widest hidden md:inline-flex items-center gap-1.5">' +
           'Join Waitlist' +
         '</button>' +
         '<!-- Mobile menu -->' +
@@ -64,7 +64,7 @@ function injectHeader(activePage) {
     '<div id="mobile-nav" class="md:hidden hidden border-t border-white/5" style="background:rgba(var(--surface-rgb),0.95);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)">' +
       '<nav class="flex flex-col px-6 py-4 gap-1">' +
         mobileLinks +
-        '<button id="clerk-mobile-auth-btn" onclick="window.location.href=\\'https://app.fudami.net\\'" class="btn-hanko mt-3 py-3 rounded-xl text-xs uppercase tracking-widest w-full">Join Waitlist</button>' +
+        '<button id="clerk-mobile-auth-btn" onclick="window.location.href=\'https://app.fudami.net\'" class="btn-hanko mt-3 py-3 rounded-xl text-xs uppercase tracking-widest w-full">Join Waitlist</button>' +
       '</nav>' +
     '</div>';
 
@@ -150,13 +150,13 @@ function injectPollModal() {
   ];
 
   var buttons = langs.map(function(lang) {
-    return '<button class="poll-option-btn w-full flex items-center justify-between p-3.5 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 transition-all group" data-lang="' + lang.code + '">' +
+    return '<button class="poll-option-btn relative z-10 w-full flex items-center justify-between p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all group" data-lang="' + lang.code + '">' +
       '<div class="flex items-center gap-3">' +
         '<span class="text-2xl">' + lang.emoji + '</span>' +
-        '<span class="font-bold text-sm text-washi-light">' + lang.name + '</span>' +
+        '<span class="font-bold text-base text-washi-light">' + lang.name + '</span>' +
       '</div>' +
       '<div class="flex items-center gap-3">' +
-        '<span class="poll-count text-xs text-washi-light/60 font-semibold">0 requests</span>' +
+        '<span class="poll-count text-sm text-washi-light/60 font-medium">0 requests</span>' +
         '<span class="material-symbols-outlined text-matcha-green opacity-0 group-hover:opacity-100 transition-opacity text-xl">thumb_up</span>' +
       '</div>' +
     '</button>';
@@ -167,20 +167,15 @@ function injectPollModal() {
   modal.className = 'fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300';
 
   modal.innerHTML =
-    '<div class="liquid-glass border border-white/10 rounded-[2rem] max-w-md w-full p-8 shadow-2xl relative translate-y-4 transition-transform duration-300">' +
-      '<button id="close-poll-modal" class="absolute top-4 right-4 text-washi-light/60 hover:text-washi-light transition-colors w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center">' +
+    '<div class="liquid-glass border border-white/10 rounded-[2rem] max-w-sm w-full p-8 shadow-2xl relative translate-y-4 transition-transform duration-300 overflow-hidden">' +
+      '<div class="absolute -right-6 -bottom-6 text-[140px] opacity-[0.07] pointer-events-none select-none text-hanko-red">' +
+        '<span class="material-symbols-outlined text-[140px]">language</span>' +
+      '</div>' +
+      '<button id="close-poll-modal" class="absolute top-4 right-4 text-washi-light/60 hover:text-washi-light transition-colors w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center z-20">' +
         '<span class="material-symbols-outlined text-lg" style="font-variation-settings:\'wght\' 700">close</span>' +
       '</button>' +
-      '<div class="flex flex-col gap-5">' +
-        '<div class="text-center">' +
-          '<h3 class="text-2xl font-bold text-washi-light">Request Your Language</h3>' +
-          '<p class="text-sm text-washi-light/70 mt-2 leading-relaxed">' +
-            'fudami is currently English-only. Vote to help us prioritize upcoming translations!' +
-          '</p>' +
-        '</div>' +
-        '<div class="flex flex-col gap-3 mt-2" id="poll-options-container">' +
-          buttons +
-        '</div>' +
+      '<div class="flex flex-col gap-3 relative z-10" id="poll-options-container">' +
+        buttons +
       '</div>' +
     '</div>';
 
@@ -213,4 +208,31 @@ function initScrollReveal() {
   document.querySelectorAll('.section-fade-in').forEach(function(el) {
     observer.observe(el);
   });
+}
+
+
+/**
+ * Injects the wiki definition modal.
+ */
+function injectWikiModal() {
+  var modal = document.createElement('div');
+  modal.id = 'wiki-modal';
+  modal.className = 'fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300';
+
+  modal.innerHTML =
+    '<div class="liquid-glass border border-white/10 rounded-[2rem] max-w-sm w-full p-8 shadow-2xl relative translate-y-4 transition-transform duration-300 overflow-hidden">' +
+      '<div id="wiki-modal-symbol" class="absolute -right-6 -bottom-6 text-[140px] font-bold font-[\'M_PLUS_Rounded_1c\'] opacity-[0.07] pointer-events-none select-none"></div>' +
+      '<button id="close-wiki-modal" class="absolute top-4 right-4 text-washi-light/60 hover:text-washi-light transition-colors w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center z-10">' +
+        '<span class="material-symbols-outlined text-lg" style="font-variation-settings:\'wght\' 700">close</span>' +
+      '</button>' +
+      '<div class="flex flex-col gap-4 relative z-10">' +
+        '<div class="text-left mt-2">' +
+          '<h3 id="wiki-modal-title" class="text-3xl font-extrabold capitalize font-[\'Plus_Jakarta_Sans\']"></h3>' +
+          '<div class="h-1 w-12 bg-white/20 rounded-full mt-4 mb-4"></div>' +
+          '<p id="wiki-modal-desc" class="text-base text-washi-light/90 leading-relaxed"></p>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+
+  document.body.appendChild(modal);
 }
