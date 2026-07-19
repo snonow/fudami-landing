@@ -388,11 +388,11 @@ function showWikiModal(term) {
   const symbolEl = document.getElementById('wiki-modal-symbol');
   if (symbolEl) {
     symbolEl.textContent = data.symbol;
-    symbolEl.className = `absolute -right-6 -bottom-6 text-[140px] font-bold font-['M_PLUS_Rounded_1c'] opacity-[0.07] pointer-events-none select-none ${data.colorClass}`;
+    symbolEl.className = `text-2xl font-bold font-['M_PLUS_Rounded_1c'] ${data.colorClass}`;
   }
 
   modal.classList.remove('opacity-0', 'pointer-events-none');
-  const inner = modal.querySelector('.liquid-glass');
+  const inner = modal.querySelector('.bg-charcoal-dark');
   if (inner) inner.classList.remove('translate-y-4');
 }
 
@@ -401,6 +401,6 @@ function hideWikiModal() {
   if (!modal) return;
 
   modal.classList.add('opacity-0', 'pointer-events-none');
-  const inner = modal.querySelector('.liquid-glass');
+  const inner = modal.querySelector('.bg-charcoal-dark');
   if (inner) inner.classList.add('translate-y-4');
 }

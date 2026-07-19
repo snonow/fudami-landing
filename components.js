@@ -12,7 +12,6 @@ function injectHeader(activePage) {
 
   const navItems = [
     { id: 'index',    href: 'index.html',           label: 'Home',     i18n: 'nav.home' },
-    { id: 'approach', href: 'index.html#approach',   label: 'Approach', i18n: 'nav.approach' },
     { id: 'about',    href: 'about.html',            label: 'About',    i18n: 'nav.about' },
     { id: 'pricing',  href: 'pricing.html',          label: 'Pricing',  i18n: 'nav.pricing' },
   ];
@@ -107,7 +106,6 @@ function injectFooter() {
         '<div class="grid grid-cols-2 sm:grid-cols-3 gap-x-12 gap-y-10 md:flex md:gap-16">' +
           '<div class="flex flex-col gap-2">' +
             '<span class="text-xs font-bold uppercase tracking-widest text-washi-light/40 mb-1">Product</span>' +
-            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="index.html#approach" data-i18n="nav.approach">Approach</a>' +
             '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="pricing.html" data-i18n="nav.pricing">Pricing</a>' +
           '</div>' +
           '<div class="flex flex-col gap-2">' +
@@ -220,17 +218,18 @@ function injectWikiModal() {
   modal.className = 'fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300';
 
   modal.innerHTML =
-    '<div class="liquid-glass border border-white/10 rounded-[2rem] max-w-sm w-full p-8 shadow-2xl relative translate-y-4 transition-transform duration-300 overflow-hidden">' +
-      '<div id="wiki-modal-symbol" class="absolute -right-6 -bottom-6 text-[140px] font-bold font-[\'M_PLUS_Rounded_1c\'] opacity-[0.07] pointer-events-none select-none"></div>' +
+    '<div class="bg-charcoal-dark border border-white/10 rounded-[2rem] max-w-[320px] w-full p-6 shadow-2xl relative translate-y-4 transition-transform duration-300 overflow-hidden">' +
       '<button id="close-wiki-modal" class="absolute top-4 right-4 text-washi-light/60 hover:text-washi-light transition-colors w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center z-10">' +
         '<span class="material-symbols-outlined text-lg" style="font-variation-settings:\'wght\' 700">close</span>' +
       '</button>' +
-      '<div class="flex flex-col gap-4 relative z-10">' +
-        '<div class="text-left mt-2">' +
-          '<h3 id="wiki-modal-title" class="text-3xl font-extrabold capitalize font-[\'Plus_Jakarta_Sans\']"></h3>' +
-          '<div class="h-1 w-12 bg-white/20 rounded-full mt-4 mb-4"></div>' +
-          '<p id="wiki-modal-desc" class="text-base text-washi-light/90 leading-relaxed"></p>' +
+      '<div class="flex flex-col gap-2 relative z-10">' +
+        '<div class="flex items-center gap-3 mb-2">' +
+          '<div id="wiki-modal-icon-wrapper" class="w-12 h-12 rounded-full flex items-center justify-center bg-white/5 shrink-0">' +
+            '<span id="wiki-modal-symbol" class="text-2xl font-bold font-[\'M_PLUS_Rounded_1c\']"></span>' +
+          '</div>' +
+          '<h3 id="wiki-modal-title" class="text-2xl font-extrabold capitalize font-[\'Plus_Jakarta_Sans\']"></h3>' +
         '</div>' +
+        '<p id="wiki-modal-desc" class="text-sm text-washi-light/90 leading-relaxed"></p>' +
       '</div>' +
     '</div>';
 
