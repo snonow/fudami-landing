@@ -5,7 +5,8 @@
   "main": "components.js",
   "scripts": {
     "dev": "tailwindcss -i ./input.css -o ./design-system.css --watch",
-    "build": "tailwindcss -i ./input.css -o ./design-system.css -m"
+    "build": "tailwindcss -i ./input.css -o ./design-system.css -m",
+    "test": "node --test test/*.test.js"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,8 @@
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/forms": "^0.5.11",
     "tailwindcss": "^3.4.19"
+  },
+  "devDependencies": {
+    "jsdom": "^30.0.1"
   }
 }

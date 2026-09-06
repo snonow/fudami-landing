@@ -28,6 +28,24 @@ jobs:
       - name: Lint HTML files
         run: htmlhint "*.html" --format unix
 
+  test:
+    name: Page smoke tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run smoke tests
+        run: npm test
+
   links:
     name: Check Links
     runs-on: ubuntu-latest
@@ -37,19 +55,21 @@ jobs:
 
       - name: Check for broken internal links
         run: |
+          # The loop must NOT be on the right of a pipe: that runs it in a
+          # subshell, so EXIT_CODE=1 is set on a copy and discarded. This job
+          # printed its errors and exited 0 for its whole life. Verified
+          # 2026-09-06 against a deliberately broken link.
           EXIT_CODE=0
           for file in *.html; do
-            # Extract href values pointing to local files
-            grep -oP 'href="\K[^"#?]+' "$file" 2>/dev/null | while read -r link; do
+            while read -r link; do
               # Skip external URLs, mailto, tel, javascript
               case "$link" in
                 http://*|https://*|mailto:*|tel:*|javascript:*) continue ;;
               esac
-              # Check if the referenced file exists
-              if [ ! -f "$link" ] && [ ! -d "$link" ]; then
+              if [ ! -e "$link" ]; then
                 echo "::error file=$file::Broken link: $link"
                 EXIT_CODE=1
               fi
-            done
+            done < <(grep -oP 'href="\K[^"#?]+' "$file" 2>/dev/null)
           done
           exit $EXIT_CODE

@@ -1,91 +1,14 @@
-/* shared.js - theme, nav active state, lang init, Clerk auth, and language request poll */
+/* shared.js - theme, nav active state, wiki modal. */
 
-// ── Configuration ──────────────────────────────────────────────────────────
-// Production origins use the PROD Clerk instance (clerk.fudami.net); previews and
-// localhost use the DEV instance. Publishable keys are public, so we pick by host.
-// (Kept identical to the app's rule in fudami-app/constants/clerk.ts.)
-const CLERK_PK  = ['fudami.net', 'www.fudami.net'].includes(location.hostname)
-  ? 'pk_live_Y2xlcmsuZnVkYW1pLm5ldCQ'                              // prod instance
-  : 'pk_test_a2luZC1odW1wYmFjay0xOS5jbGVyay5hY2NvdW50cy5kZXYk';   // dev instance
-const APP_URL   = 'https://app.fudami.net';
-// The Worker serves BOTH the app and the API on one origin - there is no
-// separate api subdomain. The landing calls /api/* cross-origin (CORS-allowed).
-const API_URL   = 'https://app.fudami.net';
-
-/**
- * Loads ClerkJS from CDN and wires up auth elements:
- * - Navbar Sign In button: triggers clerk.openSignIn
- * - CTA, Hero Start Learning, and Free Plan buttons: trigger clerk.openSignUp
- *
- * If the user is already authenticated, it updates all buttons to display "Open App"
- * (localized via i18n keys) and redirect directly to the app URL.
- */
-function initClerk() {
-  if (CLERK_PK.includes('YOUR_CLERK')) return; // not configured - skip
-
-  const script = document.createElement('script');
-  script.src = 'https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js';
-  script.crossOrigin = 'anonymous';
-  script.setAttribute('data-clerk-publishable-key', CLERK_PK);
-  script.addEventListener('load', async () => {
-    try {
-      await window.Clerk.load();
-
-      // Retrieve current localized labels for dynamic button replacement
-      const currentLang = localStorage.getItem('fudami-lang') || 'en';
-      const langDict = (typeof TRANSLATIONS !== 'undefined' && TRANSLATIONS[currentLang]) || {};
-      const openAppText = langDict['nav.openapp'] || 'Open App';
-      const signInText = langDict['nav.signin'] || 'Sign In';
-      const signUpText = langDict['nav.signup'] || 'Sign Up';
-
-      // 1. Navbar auth button
-      const authBtn = document.getElementById('clerk-auth-btn');
-      if (authBtn) {
-        authBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
-      }
-
-      // Mobile Nav auth button
-      const mobileAuthBtn = document.getElementById('clerk-mobile-auth-btn');
-      if (mobileAuthBtn) {
-        mobileAuthBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
-      }
-
-      // 2. Hero Start Learning button (Sign Up flow)
-      const heroStartBtn = document.getElementById('clerk-hero-signup-btn');
-      if (heroStartBtn) {
-        heroStartBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
-      }
-
-      // 3. Hero Open Web App button (Sign In flow) - Removed in HTML but kept for safety
-      const heroOpenBtn = document.getElementById('clerk-hero-signin-btn');
-      if (heroOpenBtn) {
-        heroOpenBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
-      }
-
-      // 4. CTA section button (Sign Up flow)
-      const ctaBtn = document.getElementById('clerk-cta-btn');
-      if (ctaBtn) {
-        ctaBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
-      }
-
-      // 5. Pricing Plan Free button (Sign Up flow)
-      const pricingFreeBtn = document.getElementById('clerk-pricing-free-btn');
-      if (pricingFreeBtn) {
-        pricingFreeBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
-      }
-
-      // 6. Inline SignUp buttons
-      const inlineSignupBtns = document.querySelectorAll('.clerk-signup-trigger');
-      inlineSignupBtns.forEach(btn => {
-        btn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL; };
-      });
-
-    } catch (err) {
-      console.warn('[Clerk] init failed:', err);
-    }
-  });
-  document.head.appendChild(script);
-}
+// No Clerk here, deliberately. This page used to load @clerk/clerk-js from a
+// CDN and then never call it: no openSignIn, no session check, nothing but
+// `.load()`. All it did afterwards was re-bind click handlers that the HTML
+// already carries inline, three of them to ids that no longer exist in any
+// page. Net effect was an unpinned third-party script on the critical path,
+// and CTAs that stayed dead until jsDelivr answered. The buttons navigate to
+// the app via their own onclick attributes and work with JS disabled.
+// If sign-in state ever needs to show on this page, that is a feature to build
+// then - not an SDK to keep warm.
 
 // ── Theme management ─────────────────────────────────────────────────────────
 function initTheme() {
@@ -134,7 +57,6 @@ function initNav() {
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initNav();
-  initClerk();
   initWikiModal();
   if (typeof initLang === 'function') initLang();
 
@@ -149,10 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const langSel = document.getElementById('lang-select');
   if (langSel) langSel.addEventListener('change', e => {
-    if (typeof setLang === 'function') {
-      setLang(e.target.value);
-      initClerk();
-    }
+    if (typeof setLang === 'function') setLang(e.target.value);
   });
 
   // Sync with OS preferences
