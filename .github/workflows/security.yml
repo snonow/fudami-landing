@@ -35,7 +35,7 @@ jobs:
     name: Dependencies, secrets, IaC, SAST
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # Gates on HIGH/CRITICAL that have a fix published. Unfixed ones are
       # reported by the scheduled run but must not block a merge: there is
