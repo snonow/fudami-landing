@@ -50,6 +50,9 @@ jobs:
           ignore-unfixed: true
           exit-code: "1"
           skip-dirs: node_modules,.terraform,.venv,dist,build
+          # Accepted findings live in .trivyignore.yaml, path-scoped and with a
+          # written reason. Trivy does not pick that file up on its own.
+          trivyignores: .trivyignore.yaml
 
       # --error makes a finding fail the job. Excluded rules and paths are
       # justified below; anything else that fires is a real finding to fix or to

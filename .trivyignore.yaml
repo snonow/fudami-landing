@@ -1,0 +1,6 @@
+# Accepted findings, with the reason and the path they are accepted for.
+# Empty today. Path-scoped entries only: an unscoped ignore switches a rule off
+# for files nobody has looked at yet.
+misconfigurations: []
+vulnerabilities: []
+secrets: []
