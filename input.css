@@ -32,6 +32,8 @@ body {
 
   /* Brand accents — Light mode */
   --primary-rgb: 232, 57, 41;        /* hanko-red: #E83929 */
+  --primary-strong-rgb: 185, 35, 25; /* filled buttons only — white text needs 4.5:1 */
+  --primary-ink: #fff;               /* ink on a filled button */
   --success-rgb: 0, 169, 104;        /* matcha-green: #00A968 */
   --secondary-rgb: 29, 47, 111;      /* aizome-indigo: #1D2F6F */
 
@@ -63,6 +65,8 @@ body {
 
   /* Brand accents — Dark mode (softened for comfort) */
   --primary-rgb: 255, 107, 107;      /* hanko-red softened: #FF6B6B */
+  --primary-strong-rgb: 255, 107, 107; /* unchanged: the button darkens its ink instead */
+  --primary-ink: #1a1a1a;            /* white here is 2.78:1; near-black is 6.27:1 */
   --success-rgb: 46, 202, 127;       /* matcha-green softened: #2ECA7F */
   --secondary-rgb: 109, 141, 237;    /* aizome-indigo softened: #6D8DED */
 
@@ -162,9 +166,14 @@ body {
 /* ── 5. Button Styles ───────────────────────────────────────────────────── */
 
 /* Primary CTA — solid hanko-red, soft lift shadow */
+/* --primary-strong-rgb, not --primary-rgb: white on the brand red measures 4.16:1 in light
+   mode (AA normal wants 4.5) and 2.78:1 in dark (below even the 3.0 large-text floor), which
+   is what Lighthouse's colour-contrast audit failed on. The brand colour is unchanged for
+   text, borders and accents - only this filled surface darkens, and in dark mode the button
+   keeps the brand red and takes near-black ink instead. 6.33:1 and 6.27:1 respectively. */
 .btn-hanko {
-  background-color: rgb(var(--primary-rgb));
-  color: #fff;
+  background-color: rgb(var(--primary-strong-rgb));
+  color: var(--primary-ink);
   font-weight: 700;
   border: none;
   cursor: pointer;

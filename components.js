@@ -70,7 +70,10 @@ function injectWikiModal() {
     className:
       'fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md ' +
       'opacity-0 pointer-events-none transition-all duration-300',
-    attrs: { id: 'wiki-modal', role: 'dialog', 'aria-modal': 'true' },
+    // aria-labelledby, not just role=dialog: a dialog with no accessible name is what
+    // Lighthouse's aria-dialog-name audit fails on, and what a screen reader announces as
+    // nothing at all.
+    attrs: { id: 'wiki-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'wiki-modal-title' },
   });
 
   const panel = el('div', {
