@@ -32,7 +32,9 @@ function boot(page) {
     || ((q) => ({ matches: false, media: q, addEventListener() {}, removeEventListener() {} }));
   window.document.fonts = { ready: Promise.resolve() };
 
-  for (const script of ['i18n.js', 'components.js', 'shared.js']) {
+  // Same order the pages load them: the package defines FudamiDesign, which the two
+  // site files call at module scope.
+  for (const script of ['vendor/fudami-design.browser.js', 'i18n.js', 'components.js', 'shared.js']) {
     window.eval(fs.readFileSync(path.join(ROOT, script), 'utf8'));
   }
   // Each page calls these from its own inline script; mirror that here.
@@ -55,16 +57,20 @@ for (const page of PAGES) {
       'initTheme() set neither theme class',
     );
 
-    // Every call to action navigates by its own onclick attribute, so the page
-    // works with JS disabled and does not wait on any third-party script.
-    const ctas = [...doc.querySelectorAll('[id^="clerk-"], .clerk-signup-trigger')];
+    // Every call to action reaches the app without waiting on a third-party script.
+    // The header's CTA is now an <a href> built by fudami-design rather than a button
+    // carrying an inline onclick, so both forms count - an href is the stronger one: it
+    // survives JS being disabled and any CSP that forbids inline handlers.
+    const ctas = [...doc.querySelectorAll('[id^="clerk-"], .clerk-signup-trigger, a.btn-hanko')];
     assert.ok(ctas.length > 0, 'page has no call to action at all');
     for (const cta of ctas) {
-      assert.match(
-        cta.getAttribute('onclick') ?? '',
-        new RegExp(APP_URL),
-        `CTA ${cta.id || cta.className} does not navigate to the app`,
-      );
+      const target = `${cta.getAttribute('href') ?? ''} ${cta.getAttribute('onclick') ?? ''}`;
+      assert.match(target, new RegExp(APP_URL), `CTA ${cta.id || cta.className} does not reach the app`);
+    }
+
+    // No inline handler on anything the package builds.
+    for (const node of doc.querySelectorAll('#site-header *, #site-footer *')) {
+      assert.strictEqual(node.getAttribute('onclick'), null, 'package markup must carry no inline handler');
     }
   });
 }

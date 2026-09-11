@@ -1,4 +1,8 @@
-/* shared.js - theme, nav active state, wiki modal. */
+/* shared.js — landing's own behaviour: the wiki modal, and the page's init.
+ *
+ * Theme, scroll reveal and toast come from fudami-design (vendor/fudami-design.browser.js)
+ * and are re-exported here under their old names, so nothing that calls them changed.
+ */
 
 // No Clerk here, deliberately. This page used to load @clerk/clerk-js from a
 // CDN and then never call it: no openSignIn, no session check, nothing but
@@ -10,108 +14,28 @@
 // If sign-in state ever needs to show on this page, that is a feature to build
 // then - not an SDK to keep warm.
 
-// ── Theme management ─────────────────────────────────────────────────────────
-function initTheme() {
-  const saved = localStorage.getItem('fudami-theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const dark = saved ? saved === 'dark' : prefersDark;
-  document.documentElement.classList.toggle('dark', dark);
-  document.documentElement.classList.toggle('light', !dark);
-  _updateThemeIcon();
-}
-
-function toggleTheme() {
-  const isDark = document.documentElement.classList.contains('dark');
-  document.documentElement.classList.toggle('dark', !isDark);
-  document.documentElement.classList.toggle('light', isDark);
-  localStorage.setItem('fudami-theme', isDark ? 'light' : 'dark');
-  _updateThemeIcon();
-}
-
-function _updateThemeIcon() {
-  const btn = document.getElementById('theme-toggle');
-  if (!btn) return;
-  const isDark = document.documentElement.classList.contains('dark');
-  btn.innerHTML = `<span class="material-symbols-outlined text-[20px]">${isDark ? 'light_mode' : 'dark_mode'}</span>`;
-  btn.title = isDark ? 'Switch to light mode' : 'Switch to dark mode';
-}
-
-// ── Navigation ───────────────────────────────────────────────────────────────
-function initNav() {
-  const path = location.pathname;
-  document.querySelectorAll('[data-nav]').forEach(el => {
-    const page = el.getAttribute('data-nav');
-    const isActive =
-      (page === 'index' && (path === '/' || path.endsWith('/') || path.endsWith('index.html'))) ||
-      (page !== 'index' && path.endsWith(page + '.html'));
-    if (isActive) {
-      el.classList.add('text-hanko', 'font-bold');
-      el.classList.remove('text-sumi-muted');
-    }
-  });
-}
-
-// ── Language Support Removed ───────────────────────────────────────────────────
+// ── Theme, reveal, toast: fudami-design ──────────────────────────────────────
+// One implementation, shared with jisho. initTheme wires #theme-toggle itself and follows
+// the OS only while the visitor has never chosen; showToast puts its message in with
+// textContent, where this file used to interpolate it into markup.
+const initTheme = FudamiDesign.initTheme;
+const toggleTheme = FudamiDesign.toggleTheme;
+const showToast = FudamiDesign.showToast;
 
 // ── DOM Initialization ───────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
-  initNav();
   initWikiModal();
   if (typeof initLang === 'function') initLang();
 
-  // Prevent FOUT on app mockup
+  // Prevent FOUT on app mockup. Guarded: document.fonts is absent in older browsers, and an
+  // exception here would take the rest of this handler with it.
+  if (!document.fonts) return;
   document.fonts.ready.then(() => {
     const mockup = document.getElementById('app-mockup');
     if (mockup) mockup.classList.remove('opacity-0');
   });
-
-  const themeBtn = document.getElementById('theme-toggle');
-  if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
-
-  const langSel = document.getElementById('lang-select');
-  if (langSel) langSel.addEventListener('change', e => {
-    if (typeof setLang === 'function') setLang(e.target.value);
-  });
-
-  // Sync with OS preferences
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-    if (!localStorage.getItem('fudami-theme')) {
-      document.documentElement.classList.toggle('dark', e.matches);
-      document.documentElement.classList.toggle('light', !e.matches);
-      _updateThemeIcon();
-    }
-  });
 });
-
-// ── Floating Toast Notification ──────────────────────────────────────────────
-function showToast(message) {
-  const existing = document.getElementById('fudami-toast');
-  if (existing) existing.remove();
-
-  const toast = document.createElement('div');
-  toast.id = 'fudami-toast';
-  toast.className = 'fixed top-24 left-1/2 -translate-x-1/2 z-50 liquid-glass border border-hanko-red/30 text-washi-light px-6 py-3 rounded-xl shadow-2xl flex items-center gap-2 pointer-events-none transition-all duration-300 opacity-0 translate-y-[-10px]';
-  toast.style.backdropFilter = 'blur(16px)';
-  toast.style.webkitBackdropFilter = 'blur(16px)';
-  
-  toast.innerHTML = `
-    <span class="material-symbols-outlined text-hanko-red text-xl animate-pulse">info</span>
-    <span class="font-bold text-sm tracking-wide uppercase">${message}</span>
-  `;
-
-  document.body.appendChild(toast);
-  toast.offsetHeight;
-
-  toast.classList.remove('opacity-0', 'translate-y-[-10px]');
-  toast.classList.add('opacity-100', 'translate-y-0');
-
-  setTimeout(() => {
-    toast.classList.remove('opacity-100', 'translate-y-0');
-    toast.classList.add('opacity-0', 'translate-y-[-10px]');
-    setTimeout(() => toast.remove(), 300);
-  }, 2500);
-}
 
 // ── Wiki Modal ───────────────────────────────────────────────────────────────
 const WIKI_DATA = {
@@ -170,7 +94,7 @@ function showWikiModal(term) {
     }
     
     const descEl = document.getElementById('wiki-modal-desc');
-    if (descEl) descEl.innerHTML = data.desc;
+    if (descEl) descEl.textContent = data.desc;  // plain sentences; markup here would be a sink
 
     const symbolEl = document.getElementById('wiki-modal-symbol');
     if (symbolEl) {
