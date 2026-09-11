@@ -1,0 +1,49 @@
+# Does the live site still feel right? Lighthouse says most of it without an LLM:
+# performance, accessibility, best practices, SEO, on the pages a visitor actually loads.
+#
+# Deliberately NOT invented here. Lighthouse and lighthouse-ci-action are maintained by
+# Google and Treosh, run free on GitHub-hosted runners, and already answer "is it slow",
+# "is the contrast unreadable", "are there console errors in production". What no tool
+# answers - is it *pleasant* - is the part worth a human's time, and this exists so that a
+# human spends their time there instead of on a stopwatch.
+#
+# Runs against the deployed site, not a local build: the thing to measure is what visitors
+# get, through Cloudflare, with the real fonts and the real payload.
+name: Quality report
+
+on:
+  schedule:
+    - cron: "0 5 * * 1" # Monday morning, after the week's deploys have settled
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: # only when something that can move a score changes
+      - "**.html"
+      - "**.css"
+      - "**.js"
+      - "vendor/**"
+
+permissions:
+  contents: read
+
+jobs:
+  lighthouse:
+    name: Lighthouse on the live site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Pages needs a moment after a push before the new version is the one served.
+      - name: Wait for the deploy to land
+        if: github.event_name == 'push'
+        run: sleep 90
+
+      - uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            https://fudami.net/
+            https://fudami.net/about.html
+            https://fudami.net/pricing.html
+          configPath: ./.lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
