@@ -1,0 +1,82 @@
+# Dependency CVEs, leaked secrets, IaC misconfiguration and SAST — the part of
+# what Sonar / Veracode / Mend sell that is available as free OSS. Two tools,
+# no account, no token, no self-hosted server:
+#
+#   Trivy    — vulnerable dependencies (lockfiles), secrets, Dockerfile/Terraform
+#              misconfiguration.                          Apache-2.0
+#   Semgrep  — SAST: injection, unsafe deserialization, weak crypto, dangerous
+#              sinks, GitHub Actions script injection.     LGPL-2.1 (OSS engine)
+#
+# GitHub's own code scanning (CodeQL) is deliberately not used: it is free for
+# public repositories only, and every repo here but fudami-landing is private.
+#
+# This file is identical in all six repos. Change it in one, copy it to the rest.
+name: Security scan
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+  schedule:
+    # A CVE lands against code that has not changed, so a scan that only runs on
+    # push goes stale without ever going red.
+    - cron: "0 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: security-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  scan:
+    name: Dependencies, secrets, IaC, SAST
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Gates on HIGH/CRITICAL that have a fix published. Unfixed ones are
+      # reported by the scheduled run but must not block a merge: there is
+      # nothing to merge that would clear them.
+      - name: Trivy — dependencies, secrets, IaC
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln,secret,misconfig
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: "1"
+          skip-dirs: node_modules,.terraform,.venv,dist,build
+
+      # --error makes a finding fail the job. Excluded rules and paths are
+      # justified below; anything else that fires is a real finding to fix or to
+      # mark at the line with `# nosemgrep: <rule-id>` plus the reason.
+      #
+      #   sqlalchemy-execute-raw-query — fires on stdlib sqlite3
+      #     `cur.execute(sql, params)`. No repo here uses SQLAlchemy, and every
+      #     hit was already parameterised. 17 findings, 17 false.
+      #   detected-generic-secret — Trivy's secret scanner above covers this
+      #     class with far fewer false positives; Semgrep's version flags a
+      #     rotated placeholder quoted inside an ADR, and cannot be suppressed
+      #     in Markdown (HTML comments are not comments to its generic mode).
+      #   tests/fixtures — hostile payloads and http://example.com URLs are the
+      #     point of those files.
+      - name: Semgrep — SAST
+        run: >
+          pipx run semgrep scan
+          --config p/default
+          --severity ERROR
+          --error
+          --metrics off
+          --exclude-rule python.sqlalchemy.security.sqlalchemy-execute-raw-query.sqlalchemy-execute-raw-query
+          --exclude-rule generic.secrets.security.detected-generic-secret.detected-generic-secret
+          --exclude '*.test.*'
+          --exclude '*_test.*'
+          --exclude 'test_*'
+          --exclude tests
+          --exclude node_modules
+          --exclude .terraform
+          --exclude .venv

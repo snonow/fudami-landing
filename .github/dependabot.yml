@@ -1,0 +1,25 @@
+# Free on private repos and run by GitHub, so it is the one part of the
+# Sonar/Mend feature set we do not have to host: it opens the PR that clears the
+# CVE that security.yml's Trivy job goes red on.
+#
+# Grouped and weekly on purpose - ungrouped daily updates is how a dependency bot
+# gets muted, and a muted bot is worse than none.
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      npm-all:
+        patterns: ["*"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      github-actions-all:
+        patterns: ["*"]
