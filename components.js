@@ -40,7 +40,13 @@ function injectFooter() {
       brandHref: 'index.html',
       tagline: 'Memory science with the pull of a game. Japanese that stays learned.',
       columns: [
-        { title: 'Product', links: [{ label: 'Pricing', href: 'pricing.html', i18n: 'nav.pricing' }] },
+        {
+          title: 'Product',
+          links: [
+            { label: 'Pricing', href: 'pricing.html', i18n: 'nav.pricing' },
+            { label: 'Dictionary', href: 'https://jisho.fudami.net' },
+          ],
+        },
         {
           title: 'Company',
           links: [
