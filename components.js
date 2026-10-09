@@ -1,286 +1,120 @@
-/* components.js — Shared UI components for fudami landing pages
-   Provides: injectHeader(), injectFooter(), injectPollModal(), initScrollReveal() */
-
-/**
- * Injects the shared header/navbar into the page.
- * @param {string} activePage - Current page: 'index', 'about', or 'pricing'
+/* components.js — landing's site chrome, as configuration.
+ *
+ * The markup moved to fudami-design (vendor/fudami-design.browser.js), which builds DOM
+ * nodes instead of concatenating values into `header.innerHTML`. jisho renders from the
+ * same code: that is the whole point of the package, since the two sites' copies had
+ * already forked.
+ *
+ * What stays here is landing's own: its pages, its footer, and the wiki modal.
+ *
+ * The page API is unchanged - injectHeader(active), injectFooter(), injectWikiModal(),
+ * initScrollReveal() - so the HTML only gained one <script> tag.
  */
+
+const NAV = [
+  { id: 'index', href: 'index.html', label: 'Home', i18n: 'nav.home' },
+  { id: 'about', href: 'about.html', label: 'About', i18n: 'nav.about' },
+  { id: 'pricing', href: 'pricing.html', label: 'Pricing', i18n: 'nav.pricing' },
+  { id: 'jisho', href: 'https://jisho.fudami.net', label: 'Dictionary' },
+];
+
 function injectHeader(activePage) {
-  const header = document.createElement('header');
-  header.id = 'site-header';
-  header.className = 'fixed top-0 w-full z-50 chrome-glass';
+  const existing = document.getElementById('site-header');
+  if (existing) existing.remove();
 
-  const navItems = [
-    { id: 'index',    href: 'index.html',           label: 'Home',     i18n: 'nav.home' },
-    { id: 'approach', href: 'approach.html',        label: 'Approach', i18n: 'nav.approach' },
-    { id: 'about',    href: 'about.html',           label: 'About',    i18n: 'nav.about' },
-    { id: 'pricing',  href: 'pricing.html',         label: 'Pricing',  i18n: 'nav.pricing' },
-  ];
-
-  const desktopLinks = navItems.map(function(item) {
-    var isActive = item.id === activePage;
-    var cls = isActive
-      ? 'text-washi-light active-nav-link'
-      : 'text-washi-light/60 hover:text-washi-light';
-    return '<a class="' + cls + ' nav-link relative py-1 px-3 transition-colors duration-200 text-sm font-medium no-underline z-10" data-id="' + item.id + '" href="' + item.href + '" data-i18n="' + item.i18n + '">' + item.label + '</a>';
-  }).join('');
-
-  var mobileLinks = navItems.map(function(item) {
-    var isActive = item.id === activePage;
-    var cls = isActive
-      ? 'text-hanko-red bg-hanko-red/10'
-      : 'text-washi-light/80 hover:text-washi-light hover:bg-white/5';
-    return '<a class="py-3 px-4 rounded-xl text-sm font-medium no-underline transition-colors ' + cls + '" href="' + item.href + '" data-i18n="' + item.i18n + '">' + item.label + '</a>';
-  }).join('');
-
-  header.innerHTML =
-    '<div class="flex justify-between items-center w-full px-6 md:px-8 max-w-[1200px] mx-auto h-16">' +
-      '<!-- Brand -->' +
-      '<a class="text-xl font-bold tracking-tight hover:opacity-80 transition-opacity no-underline flex items-center gap-2 text-washi-light" href="index.html">' +
-        '<span class="font-[\'Plus_Jakarta_Sans\']">fudami</span>' +
-      '</a>' +
-      '<!-- Desktop Nav -->' +
-      '<nav id="desktop-nav" class="hidden md:flex items-center gap-2 relative">' +
-        '<div id="nav-cursor" class="absolute h-8 bg-white/10 rounded-full transition-all duration-300 ease-out pointer-events-none z-0" style="width: 0; left: 0; opacity: 0; backdrop-filter: blur(8px);"></div>' +
-        desktopLinks +
-      '</nav>' +
-      '<!-- Actions -->' +
-      '<div class="flex items-center gap-3">' +
-        '<button id="lang-poll-trigger" class="text-washi-light/70 hover:text-washi-light hover:scale-105 transition-all duration-200 w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/5" title="Request translation" aria-label="Request language support">' +
-          '<span class="material-symbols-outlined text-[18px]">language</span>' +
-        '</button>' +
-        '<button id="theme-toggle" class="text-washi-light/70 hover:text-washi-light hover:scale-105 transition-all duration-200 w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/5" aria-label="Toggle theme">' +
-          '<span class="material-symbols-outlined text-[18px]">dark_mode</span>' +
-        '</button>' +
-        '<button id="clerk-auth-btn" class="btn-hanko px-5 py-2 rounded-xl text-xs uppercase tracking-widest hidden md:inline-flex items-center gap-1.5">' +
-          'Join Waitlist' +
-        '</button>' +
-        '<!-- Mobile menu -->' +
-        '<button id="mobile-menu-toggle" class="md:hidden text-washi-light/70 hover:text-washi-light w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/5" aria-label="Menu">' +
-          '<span class="material-symbols-outlined text-[20px]">menu</span>' +
-        '</button>' +
-      '</div>' +
-    '</div>' +
-    '<!-- Mobile Nav Drawer -->' +
-    '<div id="mobile-nav" class="md:hidden hidden border-t border-white/5" style="background:rgba(var(--surface-rgb),0.95);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)">' +
-      '<nav class="flex flex-col px-6 py-4 gap-1">' +
-        mobileLinks +
-        '<button id="clerk-mobile-auth-btn" class="btn-hanko mt-3 py-3 rounded-xl text-xs uppercase tracking-widest w-full">Join Waitlist</button>' +
-      '</nav>' +
-    '</div>';
-
-  document.body.prepend(header);
-
-  // Wire mobile toggle
-  var menuToggle = document.getElementById('mobile-menu-toggle');
-  var mobileNav = document.getElementById('mobile-nav');
-  if (menuToggle && mobileNav) {
-    menuToggle.addEventListener('click', function() {
-      var isOpen = !mobileNav.classList.contains('hidden');
-      mobileNav.classList.toggle('hidden', isOpen);
-      var icon = menuToggle.querySelector('.material-symbols-outlined');
-      if (icon) icon.textContent = isOpen ? 'menu' : 'close';
-    });
-  }
-
-  // Smooth Cursor Logic
-  var desktopNav = document.getElementById('desktop-nav');
-  var navCursor = document.getElementById('nav-cursor');
-  var links = desktopNav ? desktopNav.querySelectorAll('.nav-link') : [];
-  
-  function updateCursor(link) {
-    if (!link || !navCursor) return;
-    var linkRect = link.getBoundingClientRect();
-    var navRect = desktopNav.getBoundingClientRect();
-    navCursor.style.width = linkRect.width + 'px';
-    navCursor.style.left = (linkRect.left - navRect.left) + 'px';
-    navCursor.style.opacity = '1';
-  }
-
-  var currentActiveLink = desktopNav ? desktopNav.querySelector('.active-nav-link') : null;
-  
-  setTimeout(function() {
-    if (currentActiveLink) updateCursor(currentActiveLink);
-  }, 100);
-
-  links.forEach(function(link) {
-    link.addEventListener('mouseenter', function() { updateCursor(link); });
-  });
-
-  if (desktopNav) {
-    desktopNav.addEventListener('mouseleave', function() {
-      if (currentActiveLink) {
-        updateCursor(currentActiveLink);
-      } else {
-        if (navCursor) navCursor.style.opacity = '0';
-      }
-    });
-  }
-
-  // ScrollSpy Logic for Approach vs Home
-  if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
-    var sections = document.querySelectorAll('section[id]');
-    var hero = document.querySelector('main > div.text-center');
-    if (hero) hero.id = 'hero-section';
-    
-    var allObserved = Array.from(sections);
-    if (hero) allObserved.unshift(hero);
-    
-    if (allObserved.length > 0) {
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            var id = entry.target.id;
-            var targetId = id === 'hero-section' ? 'index' : 'approach';
-            var matchingLink = Array.from(links).find(function(l) { return l.getAttribute('data-id') === targetId; });
-            
-            if (matchingLink) {
-              links.forEach(function(l) { 
-                l.classList.remove('active-nav-link', 'text-washi-light');
-                l.classList.add('text-washi-light/60');
-              });
-              matchingLink.classList.remove('text-washi-light/60');
-              matchingLink.classList.add('active-nav-link', 'text-washi-light');
-              currentActiveLink = matchingLink;
-              updateCursor(currentActiveLink);
-            }
-          }
-        });
-      }, { rootMargin: '-40% 0px -60% 0px' });
-      
-      allObserved.forEach(function(sec) { observer.observe(sec); });
-    }
-  }
+  document.body.prepend(
+    FudamiDesign.createHeader({
+      active: activePage,
+      nav: NAV,
+      brandHref: 'index.html',
+      cta: { label: 'Join Waitlist', href: 'waitlist' },
+    }),
+  );
 }
 
-
-/**
- * Injects the shared footer into the page.
- */
 function injectFooter() {
-  var footer = document.createElement('footer');
-  footer.id = 'site-footer';
-  footer.className = 'w-full py-12 mt-auto border-t border-white/5 relative z-10';
-  footer.style.backgroundColor = 'rgb(var(--surface-rgb))';
+  const existing = document.getElementById('site-footer');
+  if (existing) existing.remove();
 
-  footer.innerHTML =
-    '<div class="max-w-[1200px] mx-auto px-6 md:px-8">' +
-      '<div class="flex flex-col items-center text-center md:text-left md:flex-row md:items-start justify-between gap-12">' +
-        '<!-- Brand -->' +
-        '<div class="flex flex-col items-center md:items-start gap-4">' +
-          '<a href="index.html" class="inline-block no-underline">' +
-            '<span class="text-lg font-bold text-washi-light font-[\'Plus_Jakarta_Sans\']">fudami</span>' +
-          '</a>' +
-          '<p class="text-sm text-washi-light/50 max-w-[280px]" data-i18n="footer.tagline">Master Japanese through science-backed spaced repetition in a calm, focused workspace.</p>' +
-        '</div>' +
-        '<!-- Links -->' +
-        '<div class="grid grid-cols-1 sm:grid-cols-3 gap-x-12 gap-y-10 md:flex md:gap-16 w-full md:w-auto">' +
-          '<div class="flex flex-col items-center md:items-start gap-2">' +
-            '<span class="text-xs font-bold uppercase tracking-widest text-washi-light/40 mb-2">Product</span>' +
-            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline py-1" href="approach.html" data-i18n="nav.approach">Approach</a>' +
-            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline py-1" href="pricing.html" data-i18n="nav.pricing">Pricing</a>' +
-          '</div>' +
-          '<div class="flex flex-col items-center md:items-start gap-2">' +
-            '<span class="text-xs font-bold uppercase tracking-widest text-washi-light/40 mb-2">Company</span>' +
-            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline py-1" href="about.html" data-i18n="nav.about">About</a>' +
-            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline py-1" href="https://github.com/snonow" target="_blank" rel="noopener noreferrer">GitHub</a>' +
-          '</div>' +
-          '<div class="flex flex-col items-center md:items-start gap-2">' +
-            '<span class="text-xs font-bold uppercase tracking-widest text-washi-light/40 mb-2">Legal</span>' +
-            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline py-1" href="#">Privacy</a>' +
-            '<a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline py-1" href="#">Terms</a>' +
-          '</div>' +
-        '</div>' +
-      '</div>' +
-      '<!-- Bottom -->' +
-      '<div class="mt-10 pt-6 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-3">' +
-        '<span class="text-xs text-washi-light/40" data-i18n="footer.copy">\u00a9 2026 fudami. All rights reserved.</span>' +
-        '<div class="flex items-center gap-1 text-xs text-washi-light/30">' +
-          '<span>Crafted with</span>' +
-          '<span class="text-hanko-red">\u2665</span>' +
-          '<span>for Japanese learners</span>' +
-        '</div>' +
-      '</div>' +
-    '</div>';
-
-  document.body.appendChild(footer);
+  document.body.appendChild(
+    FudamiDesign.createFooter({
+      brandHref: 'index.html',
+      tagline: 'Memory science with the pull of a game. Japanese that stays learned.',
+      columns: [
+        {
+          title: 'Product',
+          links: [
+            { label: 'Pricing', href: 'pricing.html', i18n: 'nav.pricing' },
+            { label: 'Dictionary', href: 'https://jisho.fudami.net' },
+          ],
+        },
+        {
+          title: 'Company',
+          links: [
+            { label: 'About', href: 'about.html', i18n: 'nav.about' },
+            { label: 'GitHub', href: 'https://github.com/snonow/fudami-landing', external: true },
+          ],
+        },
+      ],
+      copyright: '\u00a9 2026 fudami. All rights reserved.',
+    }),
+  );
 }
 
+const initScrollReveal = FudamiDesign.initScrollReveal;
 
-/**
- * Injects the language request poll modal.
- */
-function injectPollModal() {
-  var langs = [
-    { code: 'es', name: 'Spanish',  emoji: '\uD83C\uDDEA\uD83C\uDDF8' },
-    { code: 'fr', name: 'French',   emoji: '\uD83C\uDDEB\uD83C\uDDF7' },
-    { code: 'de', name: 'German',   emoji: '\uD83C\uDDE9\uD83C\uDDEA' },
-    { code: 'it', name: 'Italian',  emoji: '\uD83C\uDDEE\uD83C\uDDF9' },
-    { code: 'ja', name: 'Japanese', emoji: '\uD83C\uDDEF\uD83C\uDDF5' },
-  ];
+/** The wiki definition modal. Landing-only: jisho has its own vocabulary UI. */
+function injectWikiModal() {
+  const { el } = FudamiDesign;
 
-  var buttons = langs.map(function(lang) {
-    return '<button class="poll-option-btn w-full flex items-center justify-between p-3.5 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 transition-all group" data-lang="' + lang.code + '">' +
-      '<div class="flex items-center gap-3">' +
-        '<span class="text-2xl">' + lang.emoji + '</span>' +
-        '<span class="font-bold text-sm text-washi-light">' + lang.name + '</span>' +
-      '</div>' +
-      '<div class="flex items-center gap-3">' +
-        '<span class="poll-count text-xs text-washi-light/60 font-semibold">0 requests</span>' +
-        '<span class="material-symbols-outlined text-matcha-green opacity-0 group-hover:opacity-100 transition-opacity text-xl">thumb_up</span>' +
-      '</div>' +
-    '</button>';
-  }).join('');
-
-  var modal = document.createElement('div');
-  modal.id = 'poll-modal';
-  modal.className = 'fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300';
-
-  modal.innerHTML =
-    '<div class="liquid-glass border border-white/10 rounded-[2rem] max-w-md w-full p-8 shadow-2xl relative translate-y-4 transition-transform duration-300">' +
-      '<button id="close-poll-modal" class="absolute top-4 right-4 text-washi-light/60 hover:text-washi-light transition-colors w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center">' +
-        '<span class="material-symbols-outlined text-lg" style="font-variation-settings:\'wght\' 700">close</span>' +
-      '</button>' +
-      '<div class="flex flex-col gap-5">' +
-        '<div class="text-center">' +
-          '<h3 class="text-2xl font-bold text-washi-light">Request Your Language</h3>' +
-          '<p class="text-sm text-washi-light/70 mt-2 leading-relaxed">' +
-            'fudami is currently English-only. Vote to help us prioritize upcoming translations!' +
-          '</p>' +
-        '</div>' +
-        '<div class="flex flex-col gap-3 mt-2" id="poll-options-container">' +
-          buttons +
-        '</div>' +
-      '</div>' +
-    '</div>';
-
-  document.body.appendChild(modal);
-}
-
-
-/**
- * Initializes scroll-based section reveal animations.
- * Call after DOM is ready and sections are in place.
- */
-function initScrollReveal() {
-  if (!('IntersectionObserver' in window)) {
-    // Fallback: show everything immediately
-    document.querySelectorAll('.section-fade-in').forEach(function(el) {
-      el.classList.add('section-visible');
-    });
-    return;
-  }
-
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('section-visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-  document.querySelectorAll('.section-fade-in').forEach(function(el) {
-    observer.observe(el);
+  const modal = el('div', {
+    className:
+      'fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md ' +
+      'opacity-0 pointer-events-none transition-all duration-300',
+    // aria-labelledby, not just role=dialog: a dialog with no accessible name is what
+    // Lighthouse's aria-dialog-name audit fails on, and what a screen reader announces as
+    // nothing at all.
+    attrs: { id: 'wiki-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'wiki-modal-title' },
   });
+
+  const panel = el('div', {
+    className:
+      'bg-charcoal-dark border border-white/10 rounded-[2rem] max-w-[320px] w-full p-6 shadow-2xl ' +
+      'relative translate-y-4 transition-transform duration-300 overflow-hidden',
+  });
+
+  const close = el('button', {
+    className:
+      'absolute top-4 right-4 text-washi-light/60 hover:text-washi-light transition-colors w-8 h-8 ' +
+      'rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center z-10',
+    attrs: { id: 'close-wiki-modal', type: 'button', 'aria-label': 'Close' },
+  });
+  const closeIcon = el('span', { className: 'material-symbols-outlined text-lg', text: 'close' });
+  closeIcon.style.fontVariationSettings = "'wght' 700";
+  close.appendChild(closeIcon);
+
+  const body = el('div', { className: 'flex flex-col gap-2 relative z-10' });
+  const head = el('div', { className: 'flex items-center gap-3 mb-2' });
+  const iconWrap = el('div', {
+    className: 'w-12 h-12 rounded-full flex items-center justify-center bg-white/5 shrink-0',
+    attrs: { id: 'wiki-modal-icon-wrapper' },
+  });
+  iconWrap.appendChild(
+    el('span', { className: "text-2xl font-bold font-jp", attrs: { id: 'wiki-modal-symbol' } }),
+  );
+  head.appendChild(iconWrap);
+  head.appendChild(
+    el('h3', {
+      className: "text-2xl font-extrabold capitalize font-['Plus_Jakarta_Sans']",
+      attrs: { id: 'wiki-modal-title' },
+    }),
+  );
+  body.appendChild(head);
+  body.appendChild(
+    el('p', { className: 'text-sm text-washi-light/90 leading-relaxed', attrs: { id: 'wiki-modal-desc' } }),
+  );
+
+  panel.append(close, body);
+  modal.appendChild(panel);
+  document.body.appendChild(modal);
 }

@@ -3,25 +3,23 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Studies & Credits — fudami</title>
+<meta name="theme-color" content="#f9f7f1"/>
+<title>Credits | fudami</title>
 
 <!-- SEO -->
-<meta name="description" content="The science, algorithms, and open-source projects that power fudami's Japanese learning platform."/>
+<meta name="description" content="The open data, research and fonts fudami is built on, with their licences: FSRS, JMdict and KANJIDIC2 (EDRDG), KanjiVG, Tatoeba, JLPT lists, Kanjium, JmdictFurigana."/>
 <meta name="robots" content="index, follow"/>
-<link rel="canonical" href="https://fudami.arno-wilhelm.dev/credits.html"/>
+<link rel="canonical" href="https://fudami.net/credits"/>
 <meta property="og:type" content="website"/>
-<meta property="og:title" content="Studies & Credits — fudami"/>
-<meta property="og:url" content="https://fudami.arno-wilhelm.dev/credits.html"/>
-<meta property="og:image" content="https://fudami.arno-wilhelm.dev/assets/favicon.svg"/>
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg"/>
+<meta property="og:title" content="Credits | fudami"/>
+<meta property="og:url" content="https://fudami.net/credits"/>
+<meta property="og:image" content="https://fudami.net/assets/favicon.png"/>
+<link rel="icon" type="image/png" href="assets/favicon.png"/>
+<link rel="apple-touch-icon" href="assets/favicon.png"/>
 
-<!-- Preconnect & Fonts -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=M+PLUS+Rounded+1c:wght@500;700&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 
 <!-- Design System CSS (single source of truth) -->
+<link rel="stylesheet" href="vendor/fonts/fonts.css"/>
 <link rel="stylesheet" href="design-system.css"/>
 
 <!-- Anti-flash: apply theme before paint -->
@@ -35,21 +33,18 @@
 </script>
 
 <!-- Tailwind CSS CDN -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script src="tailwind-config.js"></script>
+
 
 <!-- App scripts (deferred) -->
-<script src="i18n.js" defer></script>
+<script src="vendor/fudami-design.browser.js" defer></script>
 <script src="components.js" defer></script>
 <script src="shared.js" defer></script>
 
 <!-- Page-specific init -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Inject shared components
-    injectHeader('credits'); // or null since it's not in the main nav
+    injectHeader('credits');
     injectFooter();
-    injectPollModal();
     initScrollReveal();
   });
 </script>
@@ -57,54 +52,40 @@
 
 <body class="antialiased min-h-screen flex flex-col font-sans text-body-md">
 
-<main class="flex-grow pt-24 md:pt-32 pb-24 px-6 md:px-8 w-full max-w-[800px] mx-auto relative z-10">
-  <div class="text-center mb-12 section-fade-in">
-    <h1 class="text-3xl md:text-5xl text-washi-light font-bold mb-4 tracking-tight" data-i18n="credits.title">Studies &amp; Credits</h1>
-    <p class="text-lg text-washi-light/70 max-w-2xl mx-auto" data-i18n="credits.desc">
-      fudami stands on the shoulders of giants. We are deeply grateful to the researchers and open-source projects that make this platform possible.
-    </p>
-  </div>
+<main class="flex-grow pt-24 md:pt-32 pb-24 px-6 md:px-8 w-full relative z-10">
+  <article class="doc mx-auto section-fade-in">
+    <h1>Credits</h1>
+    <p class="doc-lead">fudami stands on open research and open data. Thank you to the people behind them; here is what we use and under which licence.</p>
 
-  <div class="card-glass rounded-[2rem] p-8 md:p-12 section-fade-in" style="transition-delay: 0.1s">
-    <ul class="space-y-8">
-      <li class="flex flex-col gap-2 border-b border-white/5 pb-8 last:border-0 last:pb-0">
-        <h3 class="text-xl font-bold text-washi-light flex items-center gap-2">
-          <span class="material-symbols-outlined text-matcha-green" style="font-variation-settings: 'FILL' 1">science</span>
-          Free Spaced Repetition Scheduler (FSRS)
-        </h3>
-        <p class="text-washi-light/70 leading-relaxed">
-          The core scheduling algorithm is based on FSRS, a state-of-the-art spaced repetition algorithm that significantly outperforms SM-2. Research by open-spaced-repetition.
-        </p>
-      </li>
-      <li class="flex flex-col gap-2 border-b border-white/5 pb-8 last:border-0 last:pb-0">
-        <h3 class="text-xl font-bold text-washi-light flex items-center gap-2">
-          <span class="material-symbols-outlined text-aizome-indigo" style="font-variation-settings: 'FILL' 1">draw</span>
-          KanjiVG
-        </h3>
-        <p class="text-washi-light/70 leading-relaxed">
-          Kanji stroke order data and SVG animations are powered by KanjiVG, an open-source database of Japanese kanji stroke diagrams created by Ulrich Apel.
-        </p>
-      </li>
-      <li class="flex flex-col gap-2 border-b border-white/5 pb-8 last:border-0 last:pb-0">
-        <h3 class="text-xl font-bold text-washi-light flex items-center gap-2">
-          <span class="material-symbols-outlined text-hanko-red" style="font-variation-settings: 'FILL' 1">translate</span>
-          JMdict &amp; KANJIDIC
-        </h3>
-        <p class="text-washi-light/70 leading-relaxed">
-          Dictionary definitions and kanji metadata utilize the JMdict and KANJIDIC dictionary files. These files are the property of the Electronic Dictionary Research and Development Group.
-        </p>
-      </li>
-      <li class="flex flex-col gap-2 last:border-0 last:pb-0">
-        <h3 class="text-xl font-bold text-washi-light flex items-center gap-2">
-          <span class="material-symbols-outlined text-washi-light/80" style="font-variation-settings: 'FILL' 1">text_fields</span>
-          Typography
-        </h3>
-        <p class="text-washi-light/70 leading-relaxed">
-          Typography utilizes Google Fonts: <strong>Plus Jakarta Sans</strong> for a highly legible UI and <strong>M PLUS Rounded 1c</strong> for a friendly, modern Japanese aesthetic. Kanji display utilizes the KanjiStrokeOrders font.
-        </p>
-      </li>
-    </ul>
-  </div>
+    <section>
+      <h2>FSRS</h2>
+      <p>Reviews are scheduled with the Free Spaced Repetition Scheduler by <a href="https://github.com/open-spaced-repetition" target="_blank" rel="noopener noreferrer">open-spaced-repetition</a>.</p>
+    </section>
+    <section>
+      <h2>JMdict and KANJIDIC2</h2>
+      <p>This publication has included material from the JMdict and KANJIDIC2 dictionary files in accordance with the licence provisions of the Electronic Dictionaries Research Group. See <a href="https://www.edrdg.org/" target="_blank" rel="noopener noreferrer">www.edrdg.org</a> (CC BY-SA).</p>
+    </section>
+    <section>
+      <h2>KanjiVG</h2>
+      <p>Kanji stroke order data from <a href="https://kanjivg.tagaini.net" target="_blank" rel="noopener noreferrer">KanjiVG</a> by Ulrich Apel (CC BY-SA 3.0).</p>
+    </section>
+    <section>
+      <h2>Tatoeba</h2>
+      <p>Example sentences from the <a href="https://tatoeba.org" target="_blank" rel="noopener noreferrer">Tatoeba</a> project (CC BY 2.0 FR).</p>
+    </section>
+    <section>
+      <h2>JLPT levels</h2>
+      <p>Word and kanji levels from Jonathan Waller's <a href="https://www.tanos.co.uk/jlpt/" target="_blank" rel="noopener noreferrer">JLPT resources</a> (CC BY), mapped to JMdict by <a href="https://github.com/stephenmk/yomitan-jlpt-vocab" target="_blank" rel="noopener noreferrer">yomitan-jlpt-vocab</a> and <a href="https://github.com/davidluzgouveia/kanji-data" target="_blank" rel="noopener noreferrer">kanji-data</a>. There is no official list: treat them as estimates.</p>
+    </section>
+    <section>
+      <h2>Pitch accent and furigana</h2>
+      <p>Pitch accent from <a href="https://github.com/mifunetoshiro/kanjium" target="_blank" rel="noopener noreferrer">Kanjium</a> and furigana from <a href="https://github.com/Doublevil/JmdictFurigana" target="_blank" rel="noopener noreferrer">JmdictFurigana</a> (CC BY-SA).</p>
+    </section>
+    <section>
+      <h2>Fonts and icons</h2>
+      <p>Plus Jakarta Sans (SIL Open Font License) and Material Symbols (Apache 2.0), served from our own sites; Japanese text uses your device's own fonts. Kanji stroke order in the app uses the KanjiStrokeOrders font.</p>
+    </section>
+  </article>
 </main>
 
 </body>

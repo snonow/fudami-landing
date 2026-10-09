@@ -1,0 +1,26 @@
+{
+  "name": "fudami-landing",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">   <img src=\"assets/favicon.png\" alt=\"fudami | Daruma mascot\" width=\"96\" height=\"96\" /> </p>",
+  "main": "components.js",
+  "scripts": {
+    "dev": "../fudami-design/node_modules/.bin/tailwindcss -c ../fudami-design/tailwind.config.js -i ../fudami-design/css/fudami.css --content \"./*.html,./*.js,./vendor/*.js\" -o ./design-system.css --watch",
+    "build": "../fudami-design/node_modules/.bin/tailwindcss -c ../fudami-design/tailwind.config.js -i ../fudami-design/css/fudami.css --content \"./*.html,./*.js,./vendor/*.js\" -o ./design-system.css -m",
+    "test": "node --test test/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snonow/fudami-landing.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/snonow/fudami-landing/issues"
+  },
+  "homepage": "https://github.com/snonow/fudami-landing#readme",
+  "devDependencies": {
+    "jsdom": "^30.0.1"
+  }
+}

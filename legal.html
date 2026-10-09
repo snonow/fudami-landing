@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="theme-color" content="#f9f7f1"/>
+<title>Legal notice | fudami</title>
+
+<!-- SEO -->
+<meta name="description" content="Legal notice of fudami: publisher, contact and hosting providers of fudami.net, jisho.fudami.net and app.fudami.net."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://fudami.net/legal"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Legal notice | fudami"/>
+<meta property="og:url" content="https://fudami.net/legal"/>
+<meta property="og:image" content="https://fudami.net/assets/favicon.png"/>
+<link rel="icon" type="image/png" href="assets/favicon.png"/>
+<link rel="apple-touch-icon" href="assets/favicon.png"/>
+
+
+<!-- Design System CSS (single source of truth) -->
+<link rel="stylesheet" href="vendor/fonts/fonts.css"/>
+<link rel="stylesheet" href="design-system.css"/>
+
+<!-- Anti-flash: apply theme before paint -->
+<script>
+  (function(){
+    var s=localStorage.getItem('fudami-theme');
+    var d=s?s==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.classList.toggle('dark', d);
+    document.documentElement.classList.toggle('light', !d);
+  })();
+</script>
+
+<!-- Tailwind CSS CDN -->
+
+
+<!-- App scripts (deferred) -->
+<script src="vendor/fudami-design.browser.js" defer></script>
+<script src="components.js" defer></script>
+<script src="shared.js" defer></script>
+
+<!-- Page-specific init -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    injectHeader('legal');
+    injectFooter();
+    initScrollReveal();
+  });
+</script>
+</head>
+
+<body class="antialiased min-h-screen flex flex-col font-sans text-body-md">
+
+<main class="flex-grow pt-24 md:pt-32 pb-24 px-6 md:px-8 w-full relative z-10">
+  <article class="doc mx-auto section-fade-in">
+    <h1>Legal notice</h1>
+    <p class="doc-lead">Who publishes fudami and who hosts it.</p>
+    <p class="doc-meta">Last updated: 9 October 2026</p>
+
+    <section>
+      <h2>Publisher</h2>
+      <p>fudami is a personal, non-commercial project published by Arno Wilhelm, as a private individual, who is also its director of publication. Contact: <a href="mailto:privacy@fudami.net">privacy@fudami.net</a>.</p>
+      <p>As a non-professional publisher, he has given his identity and address to the host rather than publishing them here, as article 6-III-2 of the French law n° 2004-575 (LCEN) allows.</p>
+    </section>
+    <section>
+      <h2>Hosting</h2>
+      <ul>
+        <li><strong>fudami.net</strong> and <strong>app.fudami.net</strong>: Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, United States, <a href="https://www.cloudflare.com" target="_blank" rel="noopener noreferrer">cloudflare.com</a>.</li>
+        <li><strong>jisho.fudami.net</strong>: the publisher's own server, delivered through Cloudflare's network.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Content and data</h2>
+      <p>The terms of use are on the <a href="terms">terms</a> page, the data licences on the <a href="credits">credits</a> page, and how personal data is handled on the <a href="privacy">privacy</a> page.</p>
+    </section>
+  </article>
+</main>
+
+</body>
+</html>

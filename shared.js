@@ -1,330 +1,119 @@
-/* shared.js — theme, nav active state, lang init, Clerk auth, and language request poll */
-
-// ── Configuration ──────────────────────────────────────────────────────────
-const CLERK_PK  = 'pk_test_a2luZC1odW1wYmFjay0xOS5jbGVyay5hY2NvdW50cy5kZXYk';
-const APP_URL   = 'https://fudami-app.arno-wilhelm.dev';
-const API_URL   = 'https://fudami-api.arno-wilhelm.dev';
-
-/**
- * Loads ClerkJS from CDN and wires up auth elements:
- * - Navbar Sign In button: triggers clerk.openSignIn
- * - CTA, Hero Start Learning, and Free Plan buttons: trigger clerk.openSignUp
+/* shared.js — landing's own behaviour: the wiki modal, and the page's init.
  *
- * If the user is already authenticated, it updates all buttons to display "Open App"
- * (localized via i18n keys) and redirect directly to the app URL.
+ * Theme, scroll reveal and toast come from fudami-design (vendor/fudami-design.browser.js)
+ * and are re-exported here under their old names, so nothing that calls them changed.
  */
-function initClerk() {
-  if (CLERK_PK.includes('YOUR_CLERK')) return; // not configured - skip
 
-  const script = document.createElement('script');
-  script.src = 'https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js';
-  script.crossOrigin = 'anonymous';
-  script.addEventListener('load', async () => {
-    try {
-      const clerk = new window.Clerk(CLERK_PK);
-      await clerk.load();
+// No Clerk here, deliberately. This page used to load @clerk/clerk-js from a
+// CDN and then never call it: no openSignIn, no session check, nothing but
+// `.load()`. All it did afterwards was re-bind click handlers that the HTML
+// already carries inline, three of them to ids that no longer exist in any
+// page. Net effect was an unpinned third-party script on the critical path,
+// and CTAs that stayed dead until jsDelivr answered. The buttons navigate to
+// the app via their own onclick attributes and work with JS disabled.
+// If sign-in state ever needs to show on this page, that is a feature to build
+// then - not an SDK to keep warm.
 
-      // Retrieve current localized labels for dynamic button replacement
-      const currentLang = localStorage.getItem('fudami-lang') || 'en';
-      const langDict = (typeof TRANSLATIONS !== 'undefined' && TRANSLATIONS[currentLang]) || {};
-      const openAppText = langDict['nav.openapp'] || 'Open App';
-      const signInText = langDict['nav.signin'] || 'Sign In';
-      const signUpText = langDict['nav.signup'] || 'Sign Up';
-
-      // 1. Navbar auth button
-      const authBtn = document.getElementById('clerk-auth-btn');
-      if (authBtn) {
-        authBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL + '/onboarding/welcome'; };
-      }
-
-      // Mobile Nav auth button
-      const mobileAuthBtn = document.getElementById('clerk-mobile-auth-btn');
-      if (mobileAuthBtn) {
-        mobileAuthBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL + '/onboarding/welcome'; };
-      }
-
-      // 2. Hero Start Learning button (Sign Up flow)
-      const heroStartBtn = document.getElementById('clerk-hero-signup-btn');
-      if (heroStartBtn) {
-        heroStartBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL + '/onboarding/welcome'; };
-      }
-
-      // 3. Hero Open Web App button (Sign In flow) - Removed in HTML but kept for safety
-      const heroOpenBtn = document.getElementById('clerk-hero-signin-btn');
-      if (heroOpenBtn) {
-        heroOpenBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL + '/onboarding/welcome'; };
-      }
-
-      // 4. CTA section button (Sign Up flow)
-      const ctaBtn = document.getElementById('clerk-cta-btn');
-      if (ctaBtn) {
-        ctaBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL + '/onboarding/welcome'; };
-      }
-
-      // 5. Pricing Plan Free button (Sign Up flow)
-      const pricingFreeBtn = document.getElementById('clerk-pricing-free-btn');
-      if (pricingFreeBtn) {
-        pricingFreeBtn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL + '/onboarding/welcome'; };
-      }
-
-      // 6. Inline SignUp buttons
-      const inlineSignupBtns = document.querySelectorAll('.clerk-signup-trigger');
-      inlineSignupBtns.forEach(btn => {
-        btn.onclick = (e) => { e.preventDefault(); window.location.href = APP_URL + '/onboarding/welcome'; };
-      });
-
-    } catch (err) {
-      console.warn('[Clerk] init failed:', err);
-    }
-  });
-  document.head.appendChild(script);
-}
-
-// ── Theme management ─────────────────────────────────────────────────────────
-function initTheme() {
-  const saved = localStorage.getItem('fudami-theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const dark = saved ? saved === 'dark' : prefersDark;
-  document.documentElement.classList.toggle('dark', dark);
-  document.documentElement.classList.toggle('light', !dark);
-  _updateThemeIcon();
-}
-
-function toggleTheme() {
-  const isDark = document.documentElement.classList.contains('dark');
-  document.documentElement.classList.toggle('dark', !isDark);
-  document.documentElement.classList.toggle('light', isDark);
-  localStorage.setItem('fudami-theme', isDark ? 'light' : 'dark');
-  _updateThemeIcon();
-}
-
-function _updateThemeIcon() {
-  const btn = document.getElementById('theme-toggle');
-  if (!btn) return;
-  const isDark = document.documentElement.classList.contains('dark');
-  btn.innerHTML = `<span class="material-symbols-outlined text-[20px]">${isDark ? 'light_mode' : 'dark_mode'}</span>`;
-  btn.title = isDark ? 'Switch to light mode' : 'Switch to dark mode';
-}
-
-// ── Navigation ───────────────────────────────────────────────────────────────
-function initNav() {
-  const path = location.pathname;
-  document.querySelectorAll('[data-nav]').forEach(el => {
-    const page = el.getAttribute('data-nav');
-    const isActive =
-      (page === 'index' && (path === '/' || path.endsWith('/') || path.endsWith('index.html'))) ||
-      (page !== 'index' && path.endsWith(page + '.html'));
-    if (isActive) {
-      el.classList.add('text-hanko', 'font-bold');
-      el.classList.remove('text-sumi-muted');
-    }
-  });
-}
-
-// ── Language Support Poll ────────────────────────────────────────────────────
-const INCOMING_LANGS = {
-  es: { name: 'Spanish', emoji: '🇪🇸' },
-  fr: { name: 'French', emoji: '🇫🇷' },
-  de: { name: 'German', emoji: '🇩🇪' },
-  it: { name: 'Italian', emoji: '🇮🇹' },
-  ja: { name: 'Japanese', emoji: '🇯🇵' }
-};
-
-function initPollModal() {
-  const modal = document.getElementById('poll-modal');
-  if (!modal) return;
-
-  const closeBtn = document.getElementById('close-poll-modal');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', hidePollModal);
-  }
-
-  // Click outside to close
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) hidePollModal();
-  });
-
-  // Wire up option buttons inside the modal
-  const optionBtns = document.querySelectorAll('.poll-option-btn');
-  optionBtns.forEach(btn => {
-    const langCode = btn.getAttribute('data-lang');
-    updatePollButtonVotedState(btn, langCode);
-    btn.addEventListener('click', () => {
-      submitPollVote(langCode, btn);
-    });
-  });
-
-  // Wire up navbar trigger
-  const trigger = document.getElementById('lang-poll-trigger');
-  if (trigger) {
-    trigger.addEventListener('click', () => {
-      showPollModal();
-    });
-  }
-}
-
-function updatePollButtonVotedState(btn, langCode) {
-  if (localStorage.getItem(`fudami-voted-${langCode}`)) {
-    btn.disabled = true;
-    btn.classList.add('cursor-not-allowed', 'border-matcha-green/30', 'bg-matcha-green/5');
-    btn.classList.remove('hover:bg-white/10');
-    const icon = btn.querySelector('.material-symbols-outlined');
-    if (icon) {
-      icon.textContent = 'check';
-      icon.classList.remove('opacity-0', 'group-hover:opacity-100');
-      icon.classList.add('opacity-100');
-    }
-  }
-}
-
-function showPollModal() {
-  const modal = document.getElementById('poll-modal');
-  if (!modal) return;
-
-  // Set loading placeholder for counts
-  const countEls = modal.querySelectorAll('.poll-count');
-  countEls.forEach(el => {
-    el.textContent = 'Loading...';
-  });
-
-  // Show modal
-  modal.classList.remove('opacity-0', 'pointer-events-none');
-  const inner = modal.querySelector('.liquid-glass');
-  if (inner) inner.classList.remove('translate-y-4');
-
-  // Fetch counts for all languages
-  fetch(`${API_URL}/api/request-language`)
-    .then(res => res.json())
-    .then(data => {
-      const counts = data.counts || {};
-      const optionBtns = modal.querySelectorAll('.poll-option-btn');
-      optionBtns.forEach(btn => {
-        const langCode = btn.getAttribute('data-lang');
-        const count = counts[langCode] !== undefined ? counts[langCode] : 0;
-        const countEl = btn.querySelector('.poll-count');
-        if (countEl) {
-          countEl.textContent = `${count} request${count !== 1 ? 's' : ''}`;
-        }
-        updatePollButtonVotedState(btn, langCode);
-      });
-    })
-    .catch(err => {
-      console.error('[Poll] failed to fetch counts:', err);
-      const optionBtns = modal.querySelectorAll('.poll-option-btn');
-      optionBtns.forEach(btn => {
-        const countEl = btn.querySelector('.poll-count');
-        if (countEl) countEl.textContent = 'N/A';
-      });
-    });
-}
-
-function hidePollModal() {
-  const modal = document.getElementById('poll-modal');
-  if (!modal) return;
-
-  modal.classList.add('opacity-0', 'pointer-events-none');
-  const inner = modal.querySelector('.liquid-glass');
-  if (inner) inner.classList.add('translate-y-4');
-}
-
-async function submitPollVote(langCode, btn) {
-  if (!langCode || !btn) return;
-
-  if (localStorage.getItem(`fudami-voted-${langCode}`)) {
-    showToast('You have already requested this language!');
-    return;
-  }
-
-  // Set loading state on this button
-  const countEl = btn.querySelector('.poll-count');
-  const originalCountText = countEl ? countEl.textContent : '';
-  if (countEl) countEl.textContent = 'Voting...';
-
-  try {
-    const res = await fetch(`${API_URL}/api/request-language`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ lang: langCode })
-    });
-
-    const data = await res.json();
-    if (res.ok && data.success) {
-      localStorage.setItem(`fudami-voted-${langCode}`, '1');
-      if (countEl) {
-        countEl.textContent = `${data.count} request${data.count !== 1 ? 's' : ''}`;
-      }
-      updatePollButtonVotedState(btn, langCode);
-      showToast(`Request submitted for ${INCOMING_LANGS[langCode]?.name || langCode}!`);
-    } else if (data.error === 'already_voted') {
-      localStorage.setItem(`fudami-voted-${langCode}`, '1');
-      updatePollButtonVotedState(btn, langCode);
-      showToast('You have already requested this language!');
-    } else {
-      throw new Error(data.error || 'Server error');
-    }
-  } catch (err) {
-    console.error('[Poll] vote submission failed:', err);
-    if (countEl) countEl.textContent = originalCountText;
-    showToast('Failed to submit request. Please try again.');
-  }
-}
+// ── Theme, reveal, toast: fudami-design ──────────────────────────────────────
+// One implementation, shared with jisho. initTheme wires #theme-toggle itself and follows
+// the OS only while the visitor has never chosen; showToast puts its message in with
+// textContent, where this file used to interpolate it into markup.
+const initTheme = FudamiDesign.initTheme;
+const toggleTheme = FudamiDesign.toggleTheme;
+const showToast = FudamiDesign.showToast;
 
 // ── DOM Initialization ───────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
-  initNav();
-  initClerk();
-  initPollModal();
-  if (typeof initLang === 'function') initLang();
+  initWikiModal();
+  // English only for now: the shared engine sets <html lang>; French is a dictionary away.
+  FudamiDesign.initI18n({});
 
-  const themeBtn = document.getElementById('theme-toggle');
-  if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
-
-  const langSel = document.getElementById('lang-select');
-  if (langSel) langSel.addEventListener('change', e => {
-    if (typeof setLang === 'function') {
-      setLang(e.target.value);
-      initClerk();
-    }
-  });
-
-  // Sync with OS preferences
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-    if (!localStorage.getItem('fudami-theme')) {
-      document.documentElement.classList.toggle('dark', e.matches);
-      document.documentElement.classList.toggle('light', !e.matches);
-      _updateThemeIcon();
-    }
+  // Prevent FOUT on app mockup. Guarded: document.fonts is absent in older browsers, and an
+  // exception here would take the rest of this handler with it.
+  if (!document.fonts) return;
+  document.fonts.ready.then(() => {
+    const mockup = document.getElementById('app-mockup');
+    if (mockup) mockup.classList.remove('opacity-0');
   });
 });
 
-// ── Floating Toast Notification ──────────────────────────────────────────────
-function showToast(message) {
-  const existing = document.getElementById('fudami-toast');
-  if (existing) existing.remove();
+// ── Wiki Modal ───────────────────────────────────────────────────────────────
+const WIKI_DATA = {
+  kana: {
+    title: 'Kana',
+    desc: 'Japanese phonetic characters used for spelling and grammar. Mastering them is the first step.',
+    symbol: 'あ',
+    colorClass: 'text-hanko-red'
+  },
+  kanji: {
+    title: 'Kanji',
+    desc: 'Complex characters representing entire concepts or roots of words. They make reading Japanese fast and clear.',
+    symbol: '水',
+    colorClass: 'text-matcha-green'
+  }
+};
 
-  const toast = document.createElement('div');
-  toast.id = 'fudami-toast';
-  toast.className = 'fixed top-24 left-1/2 -translate-x-1/2 z-50 liquid-glass border border-hanko-red/30 text-washi-light px-6 py-3 rounded-xl shadow-2xl flex items-center gap-2 pointer-events-none transition-all duration-300 opacity-0 translate-y-[-10px]';
-  toast.style.backdropFilter = 'blur(16px)';
-  toast.style.webkitBackdropFilter = 'blur(16px)';
-  
-  toast.innerHTML = `
-    <span class="material-symbols-outlined text-hanko-red text-xl animate-pulse">info</span>
-    <span class="font-bold text-sm tracking-wide uppercase">${message}</span>
-  `;
+function initWikiModal() {
+  const modal = document.getElementById('wiki-modal');
+  if (!modal) return;
 
-  document.body.appendChild(toast);
-  toast.offsetHeight;
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) hideWikiModal();
+  });
 
-  toast.classList.remove('opacity-0', 'translate-y-[-10px]');
-  toast.classList.add('opacity-100', 'translate-y-0');
+  // Attach to trigger words and close button via delegation
+  document.body.addEventListener('click', (e) => {
+    // Close button
+    if (e.target.closest('#close-wiki-modal')) {
+      hideWikiModal();
+      return;
+    }
 
-  setTimeout(() => {
-    toast.classList.remove('opacity-100', 'translate-y-0');
-    toast.classList.add('opacity-0', 'translate-y-[-10px]');
-    setTimeout(() => toast.remove(), 300);
-  }, 2500);
+    const trigger = e.target.closest('[data-wiki-trigger]');
+    if (trigger) {
+      e.preventDefault();
+      e.stopPropagation();
+      const term = trigger.getAttribute('data-wiki-trigger');
+      showWikiModal(term);
+    }
+  });
+}
+
+function showWikiModal(term) {
+  document.fonts.ready.then(() => {
+    const modal = document.getElementById('wiki-modal');
+    if (!modal) return;
+
+    const data = WIKI_DATA[term];
+    if (!data) return;
+
+    const titleEl = document.getElementById('wiki-modal-title');
+    if (titleEl) {
+      titleEl.textContent = data.title;
+      titleEl.className = `text-2xl font-extrabold capitalize font-['Plus_Jakarta_Sans'] ${data.colorClass}`;
+    }
+    
+    const descEl = document.getElementById('wiki-modal-desc');
+    if (descEl) descEl.textContent = data.desc;  // plain sentences; markup here would be a sink
+
+    const symbolEl = document.getElementById('wiki-modal-symbol');
+    if (symbolEl) {
+      symbolEl.textContent = data.symbol;
+      symbolEl.className = `text-2xl font-bold font-jp ${data.colorClass}`;
+    }
+
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+    const inner = modal.querySelector('.bg-charcoal-dark');
+    if (inner) inner.classList.remove('translate-y-4');
+  });
+}
+
+function hideWikiModal() {
+  const modal = document.getElementById('wiki-modal');
+  if (!modal) return;
+
+  modal.classList.add('opacity-0', 'pointer-events-none');
+  const inner = modal.querySelector('.bg-charcoal-dark');
+  if (inner) inner.classList.add('translate-y-4');
 }
