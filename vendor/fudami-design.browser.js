@@ -82,12 +82,13 @@
     const THEME_KEY = "fudami-theme";
     const LANG_KEY = "fudami-lang";
     
-    /** Where every fudami site sends its legal links. One copy, linked from all three sites. */
+    /** Where every fudami site sends its legal links. One copy, linked from all three sites.
+     *  Extensionless: Cloudflare Pages 308-redirects /privacy.html to /privacy. */
     const LEGAL = [
-      { label: "Privacy", href: "https://fudami.net/privacy.html" },
-      { label: "Terms", href: "https://fudami.net/terms.html" },
-      { label: "Legal notice", href: "https://fudami.net/legal.html" },
-      { label: "Credits", href: "https://fudami.net/credits.html" },
+      { label: "Privacy", href: "https://fudami.net/privacy" },
+      { label: "Terms", href: "https://fudami.net/terms" },
+      { label: "Legal notice", href: "https://fudami.net/legal" },
+      { label: "Credits", href: "https://fudami.net/credits" },
     ];
     
     // ── Language ───────────────────────────────────────────────────────────────
