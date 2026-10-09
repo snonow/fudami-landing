@@ -31,7 +31,7 @@ jobs:
     name: Lighthouse on the live site
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # Pages needs a moment after a push before the new version is the one served.
       - name: Wait for the deploy to land
