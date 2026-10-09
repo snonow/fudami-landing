@@ -15,6 +15,7 @@ const NAV = [
   { id: 'index', href: 'index.html', label: 'Home', i18n: 'nav.home' },
   { id: 'about', href: 'about.html', label: 'About', i18n: 'nav.about' },
   { id: 'pricing', href: 'pricing.html', label: 'Pricing', i18n: 'nav.pricing' },
+  { id: 'jisho', href: 'https://jisho.fudami.net', label: 'Dictionary' },
 ];
 
 function injectHeader(activePage) {
@@ -26,7 +27,7 @@ function injectHeader(activePage) {
       active: activePage,
       nav: NAV,
       brandHref: 'index.html',
-      cta: { label: 'Join Waitlist', href: 'https://app.fudami.net' },
+      cta: { label: 'Join Waitlist', href: 'waitlist' },
     }),
   );
 }

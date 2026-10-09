@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="theme-color" content="#f9f7f1"/>
+<title>Join the waitlist | fudami</title>
+
+<!-- SEO -->
+<meta name="description" content="Leave your email and hear from fudami once, the day it opens. Nothing else."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://fudami.net/waitlist"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Join the waitlist | fudami"/>
+<meta property="og:url" content="https://fudami.net/waitlist"/>
+<meta property="og:image" content="https://fudami.net/assets/favicon.png"/>
+<link rel="icon" type="image/png" href="assets/favicon.png"/>
+<link rel="apple-touch-icon" href="assets/favicon.png"/>
+
+
+<!-- Design System CSS (single source of truth) -->
+<link rel="stylesheet" href="vendor/fonts/fonts.css"/>
+<link rel="stylesheet" href="design-system.css"/>
+
+<!-- Anti-flash: apply theme before paint -->
+<script>
+  (function(){
+    var s=localStorage.getItem('fudami-theme');
+    var d=s?s==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.classList.toggle('dark', d);
+    document.documentElement.classList.toggle('light', !d);
+  })();
+</script>
+
+<!-- Tailwind CSS CDN -->
+
+
+<!-- App scripts (deferred) -->
+<script src="vendor/fudami-design.browser.js" defer></script>
+<script src="components.js" defer></script>
+<script src="shared.js" defer></script>
+
+<!-- Page-specific init -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    injectHeader('waitlist');
+    injectFooter();
+    initScrollReveal();
+  });
+</script>
+<style>
+  /* The function redirects back to #joined or #invalid; only the matching message shows. */
+  .waitlist-msg { display: none; scroll-margin-top: 40vh; }
+  .waitlist-msg:target { display: block; }
+</style>
+</head>
+
+<body class="antialiased min-h-screen flex flex-col font-sans text-body-md">
+
+<main class="flex-grow flex items-center justify-center pt-24 pb-24 px-6 relative overflow-hidden">
+  <div class="glow-red w-[500px] h-[500px] -top-40 -right-20 opacity-60"></div>
+  <div class="glow-blue w-[400px] h-[400px] top-1/2 -left-40 opacity-40"></div>
+
+  <div class="w-full max-w-[520px] text-center relative z-10 section-fade-in">
+    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-washi-light">Be first in.</h1>
+    <p class="text-lg text-sumi-ink/70 mt-4">fudami opens soon. Leave your email and we write once, the day it does.</p>
+
+    <form action="/api/waitlist" method="post" class="liquid-glass rounded-2xl p-2 mt-8 flex flex-col sm:flex-row gap-2">
+      <label for="email" class="sr-only">Email address</label>
+      <input id="email" name="email" type="email" required autocomplete="email" placeholder="you@example.com"
+             class="flex-1 bg-transparent border-0 px-4 py-3 text-washi-light placeholder:text-sumi-ink/40 focus:ring-0 focus:outline-none"/>
+      <!-- Honeypot: hidden from people, filled in by bots. -->
+      <input name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" class="hidden"/>
+      <button type="submit" class="btn-hanko rounded-xl px-6 py-3 text-xs uppercase tracking-widest">Notify me</button>
+    </form>
+
+    <p id="joined" class="waitlist-msg mt-6 font-bold text-matcha-green">You are on the list. We will write once, when fudami opens.</p>
+    <p id="invalid" class="waitlist-msg mt-6 font-bold text-hanko-red">That email address does not look right. Try again?</p>
+
+    <p class="text-xs text-sumi-ink/50 mt-6">Only your email, only for that. Delete it any time: <a class="underline" href="privacy">privacy</a>.</p>
+  </div>
+</main>
+
+</body>
+</html>

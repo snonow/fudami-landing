@@ -281,7 +281,7 @@
         className: "md:hidden hidden border-t border-white/5",
         attrs: { id: "mobile-nav" },
       });
-      drawer.style.background = "rgba(var(--surface-rgb),0.95)";
+      drawer.style.background = "rgb(var(--surface-rgb) / 0.95)";
       drawer.style.backdropFilter = "blur(24px)";
       const drawerNav = el("nav", { className: "flex flex-col px-6 py-4 gap-1" });
       for (const item of nav) {

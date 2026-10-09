@@ -3,7 +3,7 @@
  * see OFL.txt) and Material Symbols Outlined (Apache 2.0), subsetted to the icons the sites use.
  * Japanese text uses the system's Japanese fonts. Copy this folder to a site's vendor/fonts/.
  * Icons in the subset - a site's test checks every icon it uses is listed here:
- * icon_names=arrow_back,arrow_forward,check,check_circle,close,code,content_copy,dark_mode,devices,draw,edit,emoji_events,error,favorite,format_quote,history,home,hourglass_empty,hub,info,interests,light_mode,local_fire_department,lock,login,menu,menu_book,notifications_active,person,progress_activity,psychology,record_voice_over,rocket_launch,school,science,search,search_off,shuffle,spa,swap_horiz,text_fields,translate,trending_up,verified,workspace_premium
+ * icon_names=arrow_back,arrow_forward,cancel,check,check_circle,close,code,content_copy,dark_mode,devices,download,draw,edit,emoji_events,error,favorite,format_quote,history,home,hourglass_empty,hub,info,interests,light_mode,local_fire_department,lock,login,menu,menu_book,notifications_active,person,play_arrow,progress_activity,psychology,record_voice_over,rocket_launch,school,science,search,search_off,settings,shuffle,spa,star,swap_horiz,text_fields,translate,trending_up,upload,verified,volume_down,volume_up,workspace_premium
  * Adding one: fetch https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=<that list, sorted>&display=block
  * with a browser User-Agent and save the woff2 it points to over material-symbols-outlined.woff2. */
 /* latin-ext */
