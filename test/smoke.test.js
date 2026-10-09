@@ -92,3 +92,15 @@ test('i18n applies to the injected nav', () => {
   assert.ok(about, 'nav link carries no i18n key');
   assert.strictEqual(about.textContent, 'About');
 });
+
+test('every page points crawlers and link previews at fudami.net, not an old domain', () => {
+  // canonical and og:url sat on fudami.arno-wilhelm.dev long after the move: Google was told
+  // to index the old domain and every shared link previewed it.
+  for (const page of PAGES) {
+    const html = fs.readFileSync(path.join(ROOT, page), 'utf8');
+    const canonical = /<link rel="canonical" href="([^"]+)"/.exec(html)?.[1];
+    const ogUrl = /<meta property="og:url" content="([^"]+)"/.exec(html)?.[1];
+    assert.ok(canonical?.startsWith('https://fudami.net/'), `${page} canonical: ${canonical}`);
+    assert.strictEqual(ogUrl, canonical, `${page} og:url differs from canonical`);
+  }
+});

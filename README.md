@@ -12,8 +12,8 @@
   <a href="https://github.com/snonow/fudami-landing/actions/workflows/ci.yml">
     <img src="https://github.com/snonow/fudami-landing/actions/workflows/ci.yml/badge.svg" alt="CI" />
   </a>
-  <a href="https://fudami.arno-wilhelm.dev">
-    <img src="https://img.shields.io/website?url=https%3A%2F%2Ffudami.arno-wilhelm.dev&style=flat&label=website" alt="Website Status" />
+  <a href="https://fudami.net">
+    <img src="https://img.shields.io/website?url=https%3A%2F%2Ffudami.net&style=flat&label=website" alt="Website Status" />
   </a>
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT" />
@@ -37,7 +37,7 @@
 fudami is the middle path: real SRS depth inside a serene, game-like shell. This repository is the **public marketing and SEO landing page** — a multi-page static site deployed on Cloudflare Pages.
 
 <p align="center">
-  <a href="https://fudami.arno-wilhelm.dev"><strong>→ Visit the live site</strong></a>
+  <a href="https://fudami.net"><strong>→ Visit the live site</strong></a>
 </p>
 
 ---
