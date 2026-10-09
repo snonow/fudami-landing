@@ -17,8 +17,9 @@ const path = require('path');
 const { JSDOM } = require('jsdom');
 
 const ROOT = path.join(__dirname, '..');
-const PAGES = ['index.html', 'about.html', 'pricing.html', 'privacy.html', 'credits.html'];
-const APP_URL = 'app.fudami.net';
+const PAGES = ['index.html', 'about.html', 'pricing.html', 'privacy.html', 'terms.html', 'legal.html', 'credits.html', 'waitlist.html'];
+// The app is private for now: every call to action leads to the waitlist.
+const APP_URL = 'waitlist';
 
 /** Load one page with its scripts executed, as a browser would. */
 function boot(page) {
@@ -34,7 +35,7 @@ function boot(page) {
 
   // Same order the pages load them: the package defines FudamiDesign, which the two
   // site files call at module scope.
-  for (const script of ['vendor/fudami-design.browser.js', 'i18n.js', 'components.js', 'shared.js']) {
+  for (const script of ['vendor/fudami-design.browser.js', 'components.js', 'shared.js']) {
     window.eval(fs.readFileSync(path.join(ROOT, script), 'utf8'));
   }
   // Each page calls these from its own inline script; mirror that here.
@@ -91,4 +92,16 @@ test('i18n applies to the injected nav', () => {
   const about = doc.querySelector('[data-i18n="nav.about"]');
   assert.ok(about, 'nav link carries no i18n key');
   assert.strictEqual(about.textContent, 'About');
+});
+
+test('every page points crawlers and link previews at fudami.net, not an old domain', () => {
+  // canonical and og:url sat on fudami.arno-wilhelm.dev long after the move: Google was told
+  // to index the old domain and every shared link previewed it.
+  for (const page of PAGES) {
+    const html = fs.readFileSync(path.join(ROOT, page), 'utf8');
+    const canonical = /<link rel="canonical" href="([^"]+)"/.exec(html)?.[1];
+    const ogUrl = /<meta property="og:url" content="([^"]+)"/.exec(html)?.[1];
+    assert.ok(canonical?.startsWith('https://fudami.net/'), `${page} canonical: ${canonical}`);
+    assert.strictEqual(ogUrl, canonical, `${page} og:url differs from canonical`);
+  }
 });

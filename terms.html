@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="theme-color" content="#f9f7f1"/>
+<title>Terms of use | fudami</title>
+
+<!-- SEO -->
+<meta name="description" content="The terms of use of fudami: the dictionary, the app and fudami.net. Free use, accounts, the data licences, no guarantee, and the law that applies."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://fudami.net/terms"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Terms of use | fudami"/>
+<meta property="og:url" content="https://fudami.net/terms"/>
+<meta property="og:image" content="https://fudami.net/assets/favicon.png"/>
+<link rel="icon" type="image/png" href="assets/favicon.png"/>
+<link rel="apple-touch-icon" href="assets/favicon.png"/>
+
+
+<!-- Design System CSS (single source of truth) -->
+<link rel="stylesheet" href="vendor/fonts/fonts.css"/>
+<link rel="stylesheet" href="design-system.css"/>
+
+<!-- Anti-flash: apply theme before paint -->
+<script>
+  (function(){
+    var s=localStorage.getItem('fudami-theme');
+    var d=s?s==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.classList.toggle('dark', d);
+    document.documentElement.classList.toggle('light', !d);
+  })();
+</script>
+
+<!-- Tailwind CSS CDN -->
+
+
+<!-- App scripts (deferred) -->
+<script src="vendor/fudami-design.browser.js" defer></script>
+<script src="components.js" defer></script>
+<script src="shared.js" defer></script>
+
+<!-- Page-specific init -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    injectHeader('terms');
+    injectFooter();
+    initScrollReveal();
+  });
+</script>
+</head>
+
+<body class="antialiased min-h-screen flex flex-col font-sans text-body-md">
+
+<main class="flex-grow pt-24 md:pt-32 pb-24 px-6 md:px-8 w-full relative z-10">
+  <article class="doc mx-auto section-fade-in">
+    <h1>Terms of use</h1>
+    <p class="doc-lead">Short and plain: what you can expect from fudami, and what fudami expects from you.</p>
+    <p class="doc-meta">Last updated: 9 October 2026</p>
+
+    <section>
+      <h2>What fudami is</h2>
+      <p>fudami is fudami.net (this site), the free dictionary <strong>jisho.fudami.net</strong>, and a learning app in development. Using any of them means you accept these terms.</p>
+    </section>
+    <section>
+      <h2>Using the dictionary</h2>
+      <p>The dictionary is free and needs no account. Use it normally: do not scrape it automatically or send it traffic meant to overload it. We may limit or block traffic that does.</p>
+    </section>
+    <section>
+      <h2>Accounts</h2>
+      <p>An account needs a valid email address and is for one person. Keep your sign-in secure; you are responsible for what happens with your account. You can have it deleted at any time by writing to <a href="mailto:privacy@fudami.net">privacy@fudami.net</a>.</p>
+    </section>
+    <section>
+      <h2>Content and licences</h2>
+      <p>The dictionary data comes from open projects (JMdict, KANJIDIC2, KanjiVG, Tatoeba, the JLPT lists and others) under their own licences, listed on the <a href="credits">credits</a> page; you may reuse that data under those same licences. The source of fudami.net is published under the MIT licence on GitHub. The rest of fudami's own design, text and software belongs to its publisher.</p>
+    </section>
+    <section>
+      <h2>No guarantee</h2>
+      <p>fudami is provided as it is. Definitions, readings, pitch accents and JLPT levels come from community data and estimates and can be wrong: check what matters, such as an exam or a professional translation, against another source. Within the limits of the law, the publisher is not liable for indirect damage from using fudami. None of this limits your rights as a consumer under mandatory law.</p>
+    </section>
+    <section>
+      <h2>Paid plans</h2>
+      <p>Nothing is sold today. The pricing page shows planned plans; if they launch, their price and conditions will be shown to you, and accepted by you, before any payment.</p>
+    </section>
+    <section>
+      <h2>Changes and availability</h2>
+      <p>We may change, pause or stop any part of fudami. We post changes to these terms here with a new date, and tell account holders of significant changes by email.</p>
+    </section>
+    <section>
+      <h2>Law</h2>
+      <p>These terms are governed by French law. If you are a consumer, you keep the protection of the mandatory rules of the country where you live.</p>
+    </section>
+  </article>
+</main>
+
+</body>
+</html>

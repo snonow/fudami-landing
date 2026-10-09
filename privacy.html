@@ -3,25 +3,23 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="theme-color" content="#f9f7f1"/>
 <title>Privacy &amp; Cookies | fudami</title>
 
 <!-- SEO -->
-<meta name="description" content="How fudami handles your data and cookies: minimal collection, no third-party tracking, and your rights."/>
+<meta name="description" content="How fudami handles your data and cookies across fudami.net, jisho and the app: what, why, on what legal basis, for how long, and your GDPR rights."/>
 <meta name="robots" content="index, follow"/>
-<link rel="canonical" href="https://fudami.net/privacy.html"/>
+<link rel="canonical" href="https://fudami.net/privacy"/>
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="Privacy &amp; Cookies | fudami"/>
-<meta property="og:url" content="https://fudami.net/privacy.html"/>
+<meta property="og:url" content="https://fudami.net/privacy"/>
 <meta property="og:image" content="https://fudami.net/assets/favicon.png"/>
 <link rel="icon" type="image/png" href="assets/favicon.png"/>
+<link rel="apple-touch-icon" href="assets/favicon.png"/>
 
-<!-- Preconnect & Fonts -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=M+PLUS+Rounded+1c:wght@500;700&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 
 <!-- Design System CSS (single source of truth) -->
+<link rel="stylesheet" href="vendor/fonts/fonts.css"/>
 <link rel="stylesheet" href="design-system.css"/>
 
 <!-- Anti-flash: apply theme before paint -->
@@ -38,7 +36,6 @@
 
 
 <!-- App scripts (deferred) -->
-<script src="i18n.js" defer></script>
 <script src="vendor/fudami-design.browser.js" defer></script>
 <script src="components.js" defer></script>
 <script src="shared.js" defer></script>
@@ -55,84 +52,65 @@
 
 <body class="antialiased min-h-screen flex flex-col font-sans text-body-md">
 
-<main class="flex-grow pt-24 md:pt-32 pb-24 px-6 md:px-8 w-full max-w-[800px] mx-auto relative z-10">
-  <div class="text-center mb-12 section-fade-in">
-    <h1 class="text-3xl md:text-5xl text-washi-light font-bold mb-4 tracking-tight">Privacy &amp; Cookies</h1>
-    <p class="text-lg text-washi-light/70 max-w-2xl mx-auto">
-      We collect as little as possible, use no third-party tracking, and never sell your data. Here is exactly what happens.
-    </p>
-    <p class="text-sm text-washi-light/50 mt-3">Last updated: 23 June 2026</p>
-  </div>
+<main class="flex-grow pt-24 md:pt-32 pb-24 px-6 md:px-8 w-full relative z-10">
+  <article class="doc mx-auto section-fade-in">
+    <h1>Privacy &amp; Cookies</h1>
+    <p class="doc-lead">We collect as little as possible, use no tracking, load nothing from third parties we do not need, and never sell your data.</p>
+    <p class="doc-meta">Last updated: 9 October 2026</p>
 
-  <div class="card-glass rounded-[2rem] p-8 md:p-12 section-fade-in space-y-8" style="transition-delay: 0.1s">
-
-    <section class="space-y-2">
-      <h2 class="text-xl font-bold text-washi-light">Who we are</h2>
-      <p class="text-washi-light/70 leading-relaxed">
-        fudami is an independent Japanese-learning project. For any privacy question or to exercise your rights, contact us at
-        <a class="text-matcha-green hover:opacity-85 no-underline" href="mailto:privacy@fudami.net">privacy@fudami.net</a>.
-        This policy covers the marketing site (<strong>fudami.net</strong>) and the app (<strong>app.fudami.net</strong>).
-      </p>
+    <section>
+      <h2>Who is responsible</h2>
+      <p>The publisher of fudami (see the <a href="legal">legal notice</a>) is the data controller for everything on this page. Questions and requests: <a href="mailto:privacy@fudami.net">privacy@fudami.net</a>. This policy covers <strong>fudami.net</strong>, the dictionary <strong>jisho.fudami.net</strong> and the app <strong>app.fudami.net</strong>.</p>
     </section>
-
-    <section class="space-y-2 border-t border-white/5 pt-8">
-      <h2 class="text-xl font-bold text-washi-light">What we collect</h2>
-      <ul class="text-washi-light/70 leading-relaxed space-y-3 list-disc pl-5">
-        <li><strong>Account details</strong>: if you sign in, our authentication provider (Clerk) processes your email and basic profile from Google or Apple. We use it only to create and secure your account.</li>
-        <li><strong>Learning progress</strong>: once the app launches, your reviews are tied to your account ID so we can show your progress. No payment or sensitive special-category data is collected.</li>
-        <li><strong>Technical data</strong>: like any website, our infrastructure provider (Cloudflare) processes your IP address and request metadata to deliver the site and protect it from abuse.</li>
-        <li><strong>Language requests</strong>: if you vote in the “request a language” poll, we record that one vote per language using a short-lived per-IP marker to prevent duplicates. We do not build a profile from it.</li>
+    <section>
+      <h2>What we process, why, and on what basis</h2>
+      <ul>
+        <li><strong>Waitlist</strong>: if you join it, your email address, used only to tell you when fudami opens. Basis: your consent (GDPR Art. 6(1)(a)); ask us and it is deleted.</li>
+        <li><strong>Account (app)</strong>: your email, and your name and profile picture if you sign in with Google, processed by our authentication provider Clerk to create and secure your account. Basis: our contract with you (Art. 6(1)(b)).</li>
+        <li><strong>Learning progress (app, once study launches)</strong>: your reviews, tied to your account ID, to show and schedule your progress. Basis: contract.</li>
+        <li><strong>Dictionary searches (jisho)</strong>: the words you search are sent to our server to find the answer. They appear in its technical logs <em>without your IP address</em>, and those logs are overwritten as they rotate (30 MB at most). Basis: our legitimate interest in running and securing the dictionary (Art. 6(1)(f)).</li>
+        <li><strong>Technical and security data</strong>: Cloudflare processes your IP address and request metadata to deliver and protect all three sites; the app's server keeps a per-IP request counter for one hour to stop abuse. Basis: legitimate interest.</li>
+        <li><strong>Language poll</strong>: if you vote, we store one vote per language and a per-IP marker that expires within 24 hours to prevent duplicates. Basis: legitimate interest.</li>
+      </ul>
+      <p>An email address is needed for the waitlist or an account; nothing else is required. We make no automated decisions about you and build no profile.</p>
+    </section>
+    <section>
+      <h2>Cookies &amp; local storage</h2>
+      <p>No advertising, analytics or cross-site cookies. What we use is strictly necessary or something you asked for, so it needs no consent and we show no cookie banner:</p>
+      <ul>
+        <li><strong>Security cookies</strong> set by Cloudflare on all three sites (<code>cf_clearance</code>, <code>__cf_bm</code>, <code>_cfuvid</code>).</li>
+        <li><strong>Sign-in cookies</strong> set by Clerk when you open the app (<code>__client</code>, <code>__client_uat</code>), which manage your session.</li>
+        <li><strong>Local storage</strong>, which stays in your browser and is never sent to us: your theme and language, your jisho search history (clear it from the search box), and Clerk's settings cache in the app.</li>
+      </ul>
+      <p>Fonts are served from our own sites: your browser never contacts Google or any font provider.</p>
+    </section>
+    <section>
+      <h2>Who processes your data</h2>
+      <ul>
+        <li><strong>Cloudflare, Inc.</strong> (United States): hosting of fudami.net and the app, the waitlist database, network and security for all three sites.</li>
+        <li><strong>Clerk, Inc.</strong> (United States): accounts and sign-in.</li>
+        <li><strong>Google</strong>: only if you choose to sign in with Google.</li>
+      </ul>
+      <p>Transfers outside the EU rely on the EU–US Data Privacy Framework or the European Commission's standard contractual clauses in these providers' data processing terms. The dictionary runs on the publisher's own server, reached through Cloudflare. We do not sell or share your data with advertisers.</p>
+    </section>
+    <section>
+      <h2>How long we keep it</h2>
+      <ul>
+        <li>Waitlist: until fudami opens and you have been told, or until you ask us to delete it.</li>
+        <li>Account and progress: as long as your account exists; deleted when you delete it.</li>
+        <li>Dictionary logs: overwritten as they rotate. Request counters: one hour. Poll markers: 24 hours.</li>
+        <li>Cloudflare security logs: as set by Cloudflare for the protection of the network.</li>
       </ul>
     </section>
-
-    <section class="space-y-2 border-t border-white/5 pt-8">
-      <h2 class="text-xl font-bold text-washi-light">Cookies &amp; local storage</h2>
-      <p class="text-washi-light/70 leading-relaxed">
-        We use <strong>no advertising or analytics cookies</strong> and no cross-site trackers. What we do use:
-      </p>
-      <ul class="text-washi-light/70 leading-relaxed space-y-3 list-disc pl-5 mt-2">
-        <li><strong>Strictly necessary cookies</strong>: security cookies set by Cloudflare to keep the site available, and, <em>only after you sign in</em>, session cookies set by Clerk to keep you logged in.</li>
-        <li><strong>Functional local storage</strong>: your theme (light/dark), language, and language-poll choices are saved in your browser's local storage. This stays on your device and is not sent to us.</li>
-      </ul>
-      <p class="text-washi-light/70 leading-relaxed mt-2">
-        Because we use only strictly-necessary and functional storage, we don’t show a tracking-consent banner. If we ever add analytics, we’ll ask first.
-      </p>
+    <section>
+      <h2>Your rights</h2>
+      <p>You can ask to access, correct, delete, restrict or receive a copy of your data, withdraw your consent, and object to processing based on our legitimate interest. Write to <a href="mailto:privacy@fudami.net">privacy@fudami.net</a>; we answer within one month. You can also complain to your data protection authority, in France the <a href="https://www.cnil.fr/en/plaintes" target="_blank" rel="noopener noreferrer">CNIL</a>. fudami accounts are not meant for children under 15.</p>
     </section>
-
-    <section class="space-y-2 border-t border-white/5 pt-8">
-      <h2 class="text-xl font-bold text-washi-light">Who processes your data</h2>
-      <ul class="text-washi-light/70 leading-relaxed space-y-3 list-disc pl-5">
-        <li><strong>Cloudflare</strong>: hosting, DNS, and security (see Cloudflare’s privacy policy).</li>
-        <li><strong>Clerk</strong>: authentication and session management (see Clerk’s privacy policy).</li>
-        <li><strong>Google / Apple</strong>: only if you choose them to sign in.</li>
-      </ul>
-      <p class="text-washi-light/70 leading-relaxed mt-2">We do not sell or share your data with advertisers.</p>
+    <section>
+      <h2>Changes</h2>
+      <p>We update this page when our practices change and revise the date above; people on the waitlist and account holders are told of significant changes by email.</p>
     </section>
-
-    <section class="space-y-2 border-t border-white/5 pt-8">
-      <h2 class="text-xl font-bold text-washi-light">Retention</h2>
-      <p class="text-washi-light/70 leading-relaxed">
-        Account data lasts while your account exists; delete your account and we delete it. The poll’s per-IP marker expires automatically within 24 hours. Security logs are kept only as long as needed to protect the service.
-      </p>
-    </section>
-
-    <section class="space-y-2 border-t border-white/5 pt-8">
-      <h2 class="text-xl font-bold text-washi-light">Your rights</h2>
-      <p class="text-washi-light/70 leading-relaxed">
-        Depending on where you live (including under the GDPR), you can request access to, correction of, or deletion of your data, and object to certain processing. Email
-        <a class="text-matcha-green hover:opacity-85 no-underline" href="mailto:privacy@fudami.net">privacy@fudami.net</a>
-        and we’ll respond. fudami is not directed at children under 13, and we don’t knowingly collect their data.
-      </p>
-    </section>
-
-    <section class="space-y-2 border-t border-white/5 pt-8">
-      <h2 class="text-xl font-bold text-washi-light">Changes</h2>
-      <p class="text-washi-light/70 leading-relaxed">
-        We’ll update this page if our practices change and revise the “last updated” date above.
-      </p>
-    </section>
-
-  </div>
+  </article>
 </main>
 
 </body>

@@ -4,8 +4,8 @@
   "description": "<p align=\"center\">   <img src=\"assets/favicon.png\" alt=\"fudami | Daruma mascot\" width=\"96\" height=\"96\" /> </p>",
   "main": "components.js",
   "scripts": {
-    "dev": "tailwindcss -i ./input.css -o ./design-system.css --watch",
-    "build": "tailwindcss -i ./input.css -o ./design-system.css -m",
+    "dev": "../fudami-design/node_modules/.bin/tailwindcss -c ../fudami-design/tailwind.config.js -i ../fudami-design/css/fudami.css --content \"./*.html,./*.js,./vendor/*.js\" -o ./design-system.css --watch",
+    "build": "../fudami-design/node_modules/.bin/tailwindcss -c ../fudami-design/tailwind.config.js -i ../fudami-design/css/fudami.css --content \"./*.html,./*.js,./vendor/*.js\" -o ./design-system.css -m",
     "test": "node --test test/*.test.js"
   },
   "repository": {
@@ -21,9 +21,6 @@
   },
   "homepage": "https://github.com/snonow/fudami-landing#readme",
   "devDependencies": {
-    "@tailwindcss/container-queries": "^0.1.1",
-    "@tailwindcss/forms": "^0.5.11",
-    "jsdom": "^30.0.1",
-    "tailwindcss": "^3.4.19"
+    "jsdom": "^30.0.1"
   }
 }

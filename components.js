@@ -15,6 +15,7 @@ const NAV = [
   { id: 'index', href: 'index.html', label: 'Home', i18n: 'nav.home' },
   { id: 'about', href: 'about.html', label: 'About', i18n: 'nav.about' },
   { id: 'pricing', href: 'pricing.html', label: 'Pricing', i18n: 'nav.pricing' },
+  { id: 'jisho', href: 'https://jisho.fudami.net', label: 'Dictionary' },
 ];
 
 function injectHeader(activePage) {
@@ -26,7 +27,7 @@ function injectHeader(activePage) {
       active: activePage,
       nav: NAV,
       brandHref: 'index.html',
-      cta: { label: 'Join Waitlist', href: 'https://app.fudami.net' },
+      cta: { label: 'Join Waitlist', href: 'waitlist' },
     }),
   );
 }
@@ -40,19 +41,19 @@ function injectFooter() {
       brandHref: 'index.html',
       tagline: 'Memory science with the pull of a game. Japanese that stays learned.',
       columns: [
-        { title: 'Product', links: [{ label: 'Pricing', href: 'pricing.html', i18n: 'nav.pricing' }] },
+        {
+          title: 'Product',
+          links: [
+            { label: 'Pricing', href: 'pricing.html', i18n: 'nav.pricing' },
+            { label: 'Dictionary', href: 'https://jisho.fudami.net' },
+          ],
+        },
         {
           title: 'Company',
           links: [
             { label: 'About', href: 'about.html', i18n: 'nav.about' },
             { label: 'GitHub', href: 'https://github.com/snonow/fudami-landing', external: true },
           ],
-        },
-        {
-          title: 'Legal',
-          // Terms used to be href="#", a link that goes nowhere. Until the page exists it
-          // is a label, not a destination.
-          links: [{ label: 'Privacy', href: 'privacy.html' }, { label: 'Terms' }],
         },
       ],
       copyright: '\u00a9 2026 fudami. All rights reserved.',
@@ -99,7 +100,7 @@ function injectWikiModal() {
     attrs: { id: 'wiki-modal-icon-wrapper' },
   });
   iconWrap.appendChild(
-    el('span', { className: "text-2xl font-bold font-['M_PLUS_Rounded_1c']", attrs: { id: 'wiki-modal-symbol' } }),
+    el('span', { className: "text-2xl font-bold font-jp", attrs: { id: 'wiki-modal-symbol' } }),
   );
   head.appendChild(iconWrap);
   head.appendChild(

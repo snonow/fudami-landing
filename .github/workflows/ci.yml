@@ -66,7 +66,8 @@ jobs:
               case "$link" in
                 http://*|https://*|mailto:*|tel:*|javascript:*) continue ;;
               esac
-              if [ ! -e "$link" ]; then
+              # Pages serves /x from x.html, so extensionless links are fine.
+              if [ ! -e "$link" ] && [ ! -e "$link.html" ]; then
                 echo "::error file=$file::Broken link: $link"
                 EXIT_CODE=1
               fi

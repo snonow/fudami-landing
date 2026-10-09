@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="theme-color" content="#f9f7f1"/>
 <title>fudami | Make Japanese impossible to forget</title>
 
 <!-- SEO -->
@@ -13,20 +14,17 @@
 <meta property="og:description" content="The proven memory science of Anki meets the engaging flow of Duolingo, with none of the baggage. fudami perfectly times every kana, kanji, and word right before you forget them, ensuring your knowledge stays locked in."/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="fudami"/>
-<meta property="og:url" content="https://fudami.arno-wilhelm.dev/"/>
-<meta property="og:image" content="https://fudami.arno-wilhelm.dev/assets/favicon.png"/>
-<meta name="twitter:card" content="summary_large_image"/>
+<meta property="og:url" content="https://fudami.net/"/>
+<meta property="og:image" content="https://fudami.net/assets/favicon.png"/>
+<meta name="twitter:card" content="summary"/>
 <meta name="robots" content="index, follow"/>
-<link rel="canonical" href="https://fudami.arno-wilhelm.dev/"/>
+<link rel="canonical" href="https://fudami.net/"/>
 <link rel="icon" type="image/png" href="assets/favicon.png"/>
+<link rel="apple-touch-icon" href="assets/favicon.png"/>
 
-<!-- Preconnect & Fonts -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=M+PLUS+Rounded+1c:wght@500;700&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 
 <!-- Design System CSS (single source of truth) -->
+<link rel="stylesheet" href="vendor/fonts/fonts.css"/>
 <link rel="stylesheet" href="design-system.css"/>
 
 <!-- Anti-flash: apply theme before paint -->
@@ -43,7 +41,6 @@
 
 
 <!-- App scripts (deferred) -->
-<script src="i18n.js" defer></script>
 <script src="vendor/fudami-design.browser.js" defer></script>
 <script src="components.js" defer></script>
 <script src="shared.js" defer></script>
@@ -67,15 +64,9 @@
      ═══════════════════════════════════════════════════════════════════════ -->
 <main class="flex-grow">
 
-  <!-- ── Under Construction Banner ──────────────────────────────────────── -->
-  <div class="pt-20 px-6 md:px-8 max-w-[1200px] mx-auto">
-    <div class="liquid-glass rounded-full py-2 px-4 flex items-center justify-center relative overflow-hidden group mx-auto w-fit">
-      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-hanko-red/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-      <p class="text-sumi-ink/70 text-xs font-medium flex items-center gap-2 relative z-10" data-i18n-html="banner.dev">
-        <span class="w-2 h-2 rounded-full bg-hanko-red animate-pulse"></span>
-        fudami is currently under active development. <span class="text-hanko-red ml-1">Available soon!</span>
-      </p>
-    </div>
+  <!-- ── Status banner: the app is coming, the dictionary is live ─────── -->
+  <div class="pt-20 px-6 md:px-8 flex justify-center">
+    <a href="https://jisho.fudami.net" class="liquid-glass rounded-full py-2 px-4 text-xs font-medium text-sumi-ink/80 text-center hover:text-sumi-ink" data-i18n-html="banner"><span class="inline-block w-2 h-2 rounded-full bg-hanko-red animate-pulse align-middle mr-1.5"></span><span class="font-['Plus_Jakarta_Sans'] font-bold">fudami</span> is in active development. The dictionary is already live: <span class="text-hanko-red font-bold whitespace-nowrap">try Jisho →</span></a>
   </div>
 
 
@@ -88,18 +79,13 @@
     <div class="max-w-[1200px] mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16 relative z-10">
       <!-- Left: Copy -->
       <div class="flex-1 flex flex-col gap-6 text-center lg:text-left">
-        <h1 class="text-hero-display text-washi-light" data-i18n-html="hero.title">
-          Make Japanese<br/>
-          <span class="text-hanko-red">impossible to forget.</span>
-        </h1>
-        <p class="text-lg md:text-xl text-washi-light/70 max-w-[540px] mx-auto lg:mx-0 leading-relaxed" data-i18n-html="hero.subtitle">
-          The proven <strong>memory science</strong> of <strong style="color: #0095ff;">Anki</strong> meets the <strong>engaging flow</strong> of <strong style="color: #58cc02;">Duolingo</strong>, with none of the baggage. fudami <strong>perfectly times</strong> every <button data-wiki-trigger="kana" class="inline border-b border-dashed border-washi-light/50 hover:border-washi-light hover:text-washi-light transition-colors focus:outline-none bg-transparent p-0 m-0 cursor-pointer">kana</button>, <button data-wiki-trigger="kanji" class="inline border-b border-dashed border-washi-light/50 hover:border-washi-light hover:text-washi-light transition-colors focus:outline-none bg-transparent p-0 m-0 cursor-pointer">kanji</button>, and word right before you forget them, ensuring your knowledge <strong>stays locked in</strong>.
-        </p>
+        <h1 class="text-hero-display text-washi-light" data-i18n-html="hero.title">Make Japanese<br><span class="text-hanko-red">impossible to forget.</span></h1>
+        <p class="text-lg md:text-xl text-washi-light/70 max-w-[540px] mx-auto lg:mx-0 leading-relaxed" data-i18n-html="hero.subtitle">The proven <strong>memory science</strong> of <strong style="color: #0095ff;">Anki</strong> meets the <strong>engaging flow</strong> of <strong style="color: #58cc02;">Duolingo</strong>, with none of the baggage. <span class="font-['Plus_Jakarta_Sans'] font-bold">fudami</span> <strong>perfectly times</strong> every <button data-wiki-trigger="kana" class="inline border-b border-dashed border-washi-light/50 hover:border-washi-light hover:text-washi-light transition-colors focus:outline-none bg-transparent p-0 m-0 cursor-pointer">kana</button>, <button data-wiki-trigger="kanji" class="inline border-b border-dashed border-washi-light/50 hover:border-washi-light hover:text-washi-light transition-colors focus:outline-none bg-transparent p-0 m-0 cursor-pointer">kanji</button>, and word right before you forget them, ensuring your knowledge <strong>stays locked in</strong>.</p>
         <div class="flex flex-col sm:flex-row gap-4 mt-2 justify-center lg:justify-start">
-          <button id="clerk-hero-signup-btn" onclick="window.location.href='https://app.fudami.net'" class="btn-hanko px-8 py-4 rounded-2xl text-base uppercase tracking-widest inline-flex items-center justify-center gap-2">
+          <a href="waitlist" id="clerk-hero-signup-btn" class="btn-hanko px-8 py-4 rounded-2xl text-base uppercase tracking-widest inline-flex items-center justify-center gap-2">
             <span class="material-symbols-outlined text-xl" style="font-variation-settings:'FILL' 1">notifications_active</span>
             Join the waitlist
-          </button>
+          </a>
         </div>
         <!-- Social proof / stat strip -->
         <div class="flex items-center gap-6 mt-4 justify-center lg:justify-start text-sm text-washi-light/50">
@@ -165,7 +151,7 @@
     <div class="max-w-[1200px] mx-auto relative z-10">
       <div class="text-center mb-14 section-fade-in">
         <span class="text-label-caps font-label-caps text-hanko-red uppercase tracking-widest mb-3 block">Methodology</span>
-        <h2 class="text-3xl md:text-4xl font-bold text-washi-light" data-i18n-html="fudamiway.title">The fudami Way</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-washi-light" data-i18n-html="fudamiway.title">The <span class="font-['Plus_Jakarta_Sans'] font-bold">fudami</span> Way</h2>
         <p class="text-washi-light/50 mt-3 max-w-lg mx-auto text-base" data-i18n="fudamiway.subtitle">
           Three pillars make Japanese stick: memory science, honest game design, and one connected graph. No gimmicks.
         </p>
@@ -249,26 +235,26 @@
             Track your progress across JLPT levels, vocabulary themes, and grammar structures with our dynamic knowledge graph. See exactly where you excel and where to focus next.
           </p>
           <div class="pt-2">
-            <button id="clerk-cta-btn" onclick="window.location.href='https://app.fudami.net'" class="btn-hanko px-8 py-4 rounded-2xl text-sm uppercase tracking-widest inline-flex items-center gap-2">
+            <a href="waitlist" id="clerk-cta-btn" class="btn-hanko px-8 py-4 rounded-2xl text-sm uppercase tracking-widest inline-flex items-center gap-2">
               <span class="material-symbols-outlined text-lg">rocket_launch</span>
               Join the waitlist
-            </button>
+            </a>
           </div>
         </div>
         <!-- Radar chart -->
-        <div class="flex-1 w-full min-h-[300px] rounded-2xl border border-white/5 relative overflow-hidden flex items-center justify-center" style="background:rgba(var(--surface-rgb),0.3)">
+        <div class="flex-1 w-full min-h-[300px] rounded-2xl border border-white/5 relative overflow-hidden flex items-center justify-center" style="background:rgb(var(--surface-rgb) / 0.3)">
           <div class="relative w-56 h-56 md:w-64 md:h-64">
             <svg class="w-full h-full" viewBox="-15 -10 130 120" style="overflow: visible;">
               <!-- Grid -->
-              <polygon fill="none" points="50,10 90,40 75,90 25,90 10,40" stroke="rgba(var(--text-muted-rgb),0.15)" stroke-width="0.5"/>
-              <polygon fill="none" points="50,30 75,50 65,80 35,80 25,50" stroke="rgba(var(--text-muted-rgb),0.1)" stroke-width="0.5"/>
-              <line stroke="rgba(var(--text-muted-rgb),0.1)" stroke-width="0.5" x1="50" x2="50" y1="50" y2="10"/>
-              <line stroke="rgba(var(--text-muted-rgb),0.1)" stroke-width="0.5" x1="50" x2="90" y1="50" y2="40"/>
-              <line stroke="rgba(var(--text-muted-rgb),0.1)" stroke-width="0.5" x1="50" x2="75" y1="50" y2="90"/>
-              <line stroke="rgba(var(--text-muted-rgb),0.1)" stroke-width="0.5" x1="50" x2="25" y1="50" y2="90"/>
-              <line stroke="rgba(var(--text-muted-rgb),0.1)" stroke-width="0.5" x1="50" x2="10" y1="50" y2="40"/>
+              <polygon fill="none" points="50,10 90,40 75,90 25,90 10,40" stroke="rgb(var(--text-muted-rgb) / 0.15)" stroke-width="0.5"/>
+              <polygon fill="none" points="50,30 75,50 65,80 35,80 25,50" stroke="rgb(var(--text-muted-rgb) / 0.1)" stroke-width="0.5"/>
+              <line stroke="rgb(var(--text-muted-rgb) / 0.1)" stroke-width="0.5" x1="50" x2="50" y1="50" y2="10"/>
+              <line stroke="rgb(var(--text-muted-rgb) / 0.1)" stroke-width="0.5" x1="50" x2="90" y1="50" y2="40"/>
+              <line stroke="rgb(var(--text-muted-rgb) / 0.1)" stroke-width="0.5" x1="50" x2="75" y1="50" y2="90"/>
+              <line stroke="rgb(var(--text-muted-rgb) / 0.1)" stroke-width="0.5" x1="50" x2="25" y1="50" y2="90"/>
+              <line stroke="rgb(var(--text-muted-rgb) / 0.1)" stroke-width="0.5" x1="50" x2="10" y1="50" y2="40"/>
               <!-- Data -->
-              <polygon fill="rgba(var(--primary-rgb),0.2)" points="50,20 85,45 60,85 30,75 15,45" stroke="rgb(var(--primary-rgb))" stroke-width="1.5"/>
+              <polygon fill="rgb(var(--primary-rgb) / 0.2)" points="50,20 85,45 60,85 30,75 15,45" stroke="rgb(var(--primary-rgb))" stroke-width="1.5"/>
               <!-- Nodes -->
               <circle cx="50" cy="20" fill="rgb(var(--primary-rgb))" r="3"/>
               <circle cx="85" cy="45" fill="rgb(var(--primary-rgb))" r="3"/>
@@ -343,10 +329,10 @@
     <div class="max-w-[800px] mx-auto text-center section-fade-in">
       <h2 class="text-3xl md:text-4xl font-bold text-washi-light mb-4">Ready to remember<br/>everything you learn?</h2>
       <p class="text-washi-light/50 mb-8 max-w-lg mx-auto">Reserve your spot for early access. No spam, just a heads-up when we launch.</p>
-      <button onclick="window.location.href='https://app.fudami.net'" class="btn-hanko px-10 py-4 rounded-2xl text-base uppercase tracking-widest inline-flex items-center gap-2 clerk-signup-trigger">
+      <a href="waitlist" class="btn-hanko px-10 py-4 rounded-2xl text-base uppercase tracking-widest inline-flex items-center gap-2 clerk-signup-trigger">
         <span class="material-symbols-outlined text-xl" style="font-variation-settings:'FILL' 1">notifications_active</span>
         Join the waitlist
-      </button>
+      </a>
     </div>
   </section>
 
