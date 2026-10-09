@@ -54,12 +54,6 @@ function injectFooter() {
             { label: 'GitHub', href: 'https://github.com/snonow/fudami-landing', external: true },
           ],
         },
-        {
-          title: 'Legal',
-          // Terms used to be href="#", a link that goes nowhere. Until the page exists it
-          // is a label, not a destination.
-          links: [{ label: 'Privacy', href: 'privacy.html' }, { label: 'Terms' }],
-        },
       ],
       copyright: '\u00a9 2026 fudami. All rights reserved.',
     }),
@@ -105,7 +99,7 @@ function injectWikiModal() {
     attrs: { id: 'wiki-modal-icon-wrapper' },
   });
   iconWrap.appendChild(
-    el('span', { className: "text-2xl font-bold font-['M_PLUS_Rounded_1c']", attrs: { id: 'wiki-modal-symbol' } }),
+    el('span', { className: "text-2xl font-bold font-jp", attrs: { id: 'wiki-modal-symbol' } }),
   );
   head.appendChild(iconWrap);
   head.appendChild(

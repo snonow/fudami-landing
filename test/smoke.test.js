@@ -17,7 +17,7 @@ const path = require('path');
 const { JSDOM } = require('jsdom');
 
 const ROOT = path.join(__dirname, '..');
-const PAGES = ['index.html', 'about.html', 'pricing.html', 'privacy.html', 'credits.html'];
+const PAGES = ['index.html', 'about.html', 'pricing.html', 'privacy.html', 'terms.html', 'legal.html', 'credits.html'];
 const APP_URL = 'app.fudami.net';
 
 /** Load one page with its scripts executed, as a browser would. */
@@ -34,7 +34,7 @@ function boot(page) {
 
   // Same order the pages load them: the package defines FudamiDesign, which the two
   // site files call at module scope.
-  for (const script of ['vendor/fudami-design.browser.js', 'i18n.js', 'components.js', 'shared.js']) {
+  for (const script of ['vendor/fudami-design.browser.js', 'components.js', 'shared.js']) {
     window.eval(fs.readFileSync(path.join(ROOT, script), 'utf8'));
   }
   // Each page calls these from its own inline script; mirror that here.

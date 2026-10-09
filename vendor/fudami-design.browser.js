@@ -80,13 +80,107 @@
     const { el, safeHref } = require("./dom.js");
     
     const THEME_KEY = "fudami-theme";
+    const LANG_KEY = "fudami-lang";
+    
+    /** Where every fudami site sends its legal links. One copy, linked from all three sites. */
+    const LEGAL = [
+      { label: "Privacy", href: "https://fudami.net/privacy.html" },
+      { label: "Terms", href: "https://fudami.net/terms.html" },
+      { label: "Legal notice", href: "https://fudami.net/legal.html" },
+      { label: "Credits", href: "https://fudami.net/credits.html" },
+    ];
+    
+    // ── Language ───────────────────────────────────────────────────────────────
+    // English is the source language: it is what the HTML and the JS are written in, so a
+    // language is nothing but a dictionary { "English text": "translation" }, and a missing
+    // entry shows the English rather than a key. No build step, no key naming.
+    
+    let dict = {};
+    
+    /** Translate an English source string; "{name}" placeholders are filled from vars. */
+    function t(text, vars) {
+      return (dict[text] ?? text).replace(/\{(\w+)\}/g, (m, k) => (vars && k in vars ? String(vars[k]) : m));
+    }
+    
+    /**
+     * Translates in place everything marked data-i18n (text), data-i18n-html (the site's own
+     * markup, never visitor data) and data-i18n-placeholder / -title / -aria-label (attributes).
+     * The key is the attribute's value, or the element's own English when the value is empty.
+     */
+    function translate(root = document) {
+      for (const node of root.querySelectorAll("[data-i18n]")) {
+        const key = node.getAttribute("data-i18n") || node.textContent.trim();
+        if (key in dict) node.textContent = dict[key];
+      }
+      for (const node of root.querySelectorAll("[data-i18n-html]")) {
+        const key = node.getAttribute("data-i18n-html") || node.innerHTML.trim();
+        if (key in dict) node.innerHTML = dict[key];
+      }
+      for (const attr of ["placeholder", "title", "aria-label"]) {
+        for (const node of root.querySelectorAll(`[data-i18n-${attr}]`)) {
+          const key = node.getAttribute(`data-i18n-${attr}`) || node.getAttribute(attr);
+          if (key in dict) node.setAttribute(attr, dict[key]);
+        }
+      }
+    }
+    
+    /**
+     * Picks the page language once - the visitor's saved choice, else the browser's, else
+     * English - sets <html lang> and translates the static page. Call it before building chrome.
+     * @param {object} dicts  { fr: { "English": "Français" }, ... }; English needs no entry
+     * @returns {string} the language in use
+     */
+    function initI18n(dicts = {}) {
+      let saved = null;
+      try {
+        saved = localStorage.getItem(LANG_KEY);
+      } catch {
+        /* storage disabled: follow the browser */
+      }
+      const browser = (navigator.language || "en").slice(0, 2);
+      const lang = [saved, browser].find((l) => l === "en" || (l && dicts[l])) || "en";
+      dict = dicts[lang] || {};
+      document.documentElement.lang = lang;
+      translate(document);
+      return lang;
+    }
+    
+    /**
+     * The language switch. `langs` maps a code to its own name ({ en: "English", fr: "Français" });
+     * `soon` lists names shown disabled. Choosing saves and reloads: every string on the page,
+     * and on jisho the definitions, follow without any re-render code.
+     */
+    function langSelect(langs, soon = []) {
+      const select = el("select", {
+        className:
+          "text-xs font-semibold bg-white/5 hover:bg-white/10 border border-white/5 " +
+          "text-washi-light/80 rounded-full px-2.5 py-1.5 outline-none cursor-pointer max-w-[6.5rem]",
+        attrs: { id: "lang-select", "aria-label": t("Language") },
+      });
+      for (const [code, name] of Object.entries(langs)) select.appendChild(el("option", { text: name, attrs: { value: code } }));
+      for (const name of soon) {
+        const option = el("option", { text: `${name} (${t("soon")})` });
+        option.disabled = true;
+        select.appendChild(option);
+      }
+      select.value = document.documentElement.lang;
+      select.addEventListener("change", () => {
+        try {
+          localStorage.setItem(LANG_KEY, select.value);
+        } catch {
+          /* the reload below still shows the browser's language */
+        }
+        location.reload();
+      });
+      return select;
+    }
     
     /** Anything the caller passes as a nav entry: { id, href, label, i18n? }. */
     function navLink(item, activeId, { classes, activeClasses }) {
       const isActive = item.id === activeId;
       const node = el("a", {
         className: `${isActive ? activeClasses : classes}`,
-        text: item.label,
+        text: t(item.label),
         attrs: { href: safeHref(item.href), ...(item.i18n ? { "data-i18n": item.i18n } : {}) },
       });
       return node;
@@ -98,7 +192,7 @@
           "text-washi-light/70 hover:text-washi-light hover:scale-105 transition-all duration-200 " +
           "w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 " +
           `border border-white/5 ${extraClass}`.trim(),
-        attrs: { id, type: "button", "aria-label": label },
+        attrs: { id, type: "button", "aria-label": t(label) },
       });
       btn.appendChild(el("span", { className: "material-symbols-outlined text-[18px]", text: symbol }));
       return btn;
@@ -120,7 +214,7 @@
         attrs,
       });
       if (cta.icon) node.appendChild(el("span", { className: "material-symbols-outlined text-[15px]", text: cta.icon }));
-      node.appendChild(el("span", { text: cta.label }));
+      node.appendChild(el("span", { text: t(cta.label) }));
       return node;
     }
     
@@ -263,19 +357,20 @@
         brandCol.appendChild(
           el("p", {
             className: "text-sm text-washi-light/50 max-w-[280px]",
-            text: tagline,
+            text: t(tagline),
             attrs: { "data-i18n": "footer.tagline" },
           }),
         );
       }
     
       const cols = el("div", { className: "grid grid-cols-2 sm:grid-cols-3 gap-x-12 gap-y-10 md:flex md:gap-16" });
-      for (const column of columns) {
+      // Every site ends with the same legal column: one set of pages, on fudami.net.
+      for (const column of [...columns, { title: "Legal", links: LEGAL }]) {
         const c = el("div", { className: "flex flex-col gap-2" });
         c.appendChild(
           el("span", {
             className: "text-xs font-bold uppercase tracking-widest text-washi-light/40 mb-1",
-            text: column.title,
+            text: t(column.title),
           }),
         );
         for (const link of column.links || []) {
@@ -283,7 +378,7 @@
           // an <a href="#"> is what the hand-written footers did, and it is a dead link to a
           // screen reader and a mouse alike.
           if (!link.href) {
-            c.appendChild(el("span", { className: "text-sm text-washi-light/40", text: link.label }));
+            c.appendChild(el("span", { className: "text-sm text-washi-light/40", text: t(link.label) }));
             continue;
           }
           const attrs = { href: safeHref(link.href), ...(link.i18n ? { "data-i18n": link.i18n } : {}) };
@@ -294,7 +389,7 @@
           c.appendChild(
             el("a", {
               className: "text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline",
-              text: link.label,
+              text: t(link.label),
               attrs,
             }),
           );
@@ -308,15 +403,15 @@
         className: "mt-10 pt-6 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-3",
       });
       bottom.appendChild(
-        el("span", { className: "text-xs text-washi-light/40", text: copyright, attrs: { "data-i18n": "footer.copy" } }),
+        el("span", { className: "text-xs text-washi-light/40", text: t(copyright), attrs: { "data-i18n": "footer.copy" } }),
       );
       if (note) {
         bottom.appendChild(el("div", { className: "text-xs text-washi-light/30 font-mono", text: note }));
       } else {
         const crafted = el("div", { className: "flex items-center gap-1 text-xs text-washi-light/30" });
-        crafted.appendChild(el("span", { text: "Crafted with" }));
+        crafted.appendChild(el("span", { text: t("Crafted with") }));
         crafted.appendChild(el("span", { className: "text-hanko-red", text: "♥" }));
-        crafted.appendChild(el("span", { text: "for Japanese learners" }));
+        crafted.appendChild(el("span", { text: t("for Japanese learners") }));
         bottom.appendChild(crafted);
       }
     
@@ -332,7 +427,7 @@
       const isDark = document.documentElement.classList.contains("dark");
       const icon = btn.querySelector(".material-symbols-outlined");
       if (icon) icon.textContent = isDark ? "light_mode" : "dark_mode";
-      btn.title = isDark ? "Switch to light mode" : "Switch to dark mode";
+      btn.title = t(isDark ? "Switch to light mode" : "Switch to dark mode");
     }
     
     function applyTheme(dark) {
@@ -434,6 +529,11 @@
     }
     
     module.exports = {
+      LEGAL,
+      t,
+      translate,
+      initI18n,
+      langSelect,
       createHeader,
       createFooter,
       initTheme,

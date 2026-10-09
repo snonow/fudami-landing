@@ -26,7 +26,8 @@ const showToast = FudamiDesign.showToast;
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initWikiModal();
-  if (typeof initLang === 'function') initLang();
+  // English only for now: the shared engine sets <html lang>; French is a dictionary away.
+  FudamiDesign.initI18n({});
 
   // Prevent FOUT on app mockup. Guarded: document.fonts is absent in older browsers, and an
   // exception here would take the rest of this handler with it.
@@ -99,7 +100,7 @@ function showWikiModal(term) {
     const symbolEl = document.getElementById('wiki-modal-symbol');
     if (symbolEl) {
       symbolEl.textContent = data.symbol;
-      symbolEl.className = `text-2xl font-bold font-['M_PLUS_Rounded_1c'] ${data.colorClass}`;
+      symbolEl.className = `text-2xl font-bold font-jp ${data.colorClass}`;
     }
 
     modal.classList.remove('opacity-0', 'pointer-events-none');

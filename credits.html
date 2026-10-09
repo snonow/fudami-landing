@@ -15,14 +15,11 @@
 <meta property="og:url" content="https://fudami.net/credits.html"/>
 <meta property="og:image" content="https://fudami.net/assets/favicon.png"/>
 <link rel="icon" type="image/png" href="assets/favicon.png"/>
+<link rel="apple-touch-icon" href="assets/favicon.png"/>
 
-<!-- Preconnect & Fonts -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=M+PLUS+Rounded+1c:wght@500;700&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 
 <!-- Design System CSS (single source of truth) -->
+<link rel="stylesheet" href="vendor/fonts/fonts.css"/>
 <link rel="stylesheet" href="design-system.css"/>
 
 <!-- Anti-flash: apply theme before paint -->
@@ -39,7 +36,6 @@
 
 
 <!-- App scripts (deferred) -->
-<script src="i18n.js" defer></script>
 <script src="vendor/fudami-design.browser.js" defer></script>
 <script src="components.js" defer></script>
 <script src="shared.js" defer></script>
@@ -91,7 +87,34 @@
           JMdict &amp; KANJIDIC
         </h3>
         <p class="text-washi-light/70 leading-relaxed">
-          Dictionary definitions and kanji metadata utilize the JMdict and KANJIDIC dictionary files. These files are the property of the Electronic Dictionary Research and Development Group.
+          This publication has included material from the JMdict and KANJIDIC2 dictionary files in accordance with the licence provisions of the Electronic Dictionaries Research Group. See <a class="text-matcha-green hover:opacity-85 no-underline" href="https://www.edrdg.org/" target="_blank" rel="noopener noreferrer">www.edrdg.org</a> (CC BY-SA).
+        </p>
+      </li>
+      <li class="flex flex-col gap-2 last:border-0 last:pb-0">
+        <h3 class="text-xl font-bold text-washi-light flex items-center gap-2">
+          <span class="material-symbols-outlined text-hanko-red" style="font-variation-settings: 'FILL' 1">format_quote</span>
+          Tatoeba
+        </h3>
+        <p class="text-washi-light/70 leading-relaxed">
+          Example sentences come from the <a class="text-matcha-green hover:opacity-85 no-underline" target="_blank" rel="noopener noreferrer" href="https://tatoeba.org">Tatoeba</a> project (CC BY 2.0 FR).
+        </p>
+      </li>
+      <li class="flex flex-col gap-2 last:border-0 last:pb-0">
+        <h3 class="text-xl font-bold text-washi-light flex items-center gap-2">
+          <span class="material-symbols-outlined text-hanko-red" style="font-variation-settings: 'FILL' 1">school</span>
+          JLPT levels
+        </h3>
+        <p class="text-washi-light/70 leading-relaxed">
+          Word and kanji levels come from Jonathan Waller's <a class="text-matcha-green hover:opacity-85 no-underline" target="_blank" rel="noopener noreferrer" href="https://www.tanos.co.uk/jlpt/">JLPT resources</a> (CC BY), mapped to JMdict by <a class="text-matcha-green hover:opacity-85 no-underline" target="_blank" rel="noopener noreferrer" href="https://github.com/stephenmk/yomitan-jlpt-vocab">yomitan-jlpt-vocab</a> and <a class="text-matcha-green hover:opacity-85 no-underline" target="_blank" rel="noopener noreferrer" href="https://github.com/davidluzgouveia/kanji-data">kanji-data</a>. There is no official list: treat them as estimates.
+        </p>
+      </li>
+      <li class="flex flex-col gap-2 last:border-0 last:pb-0">
+        <h3 class="text-xl font-bold text-washi-light flex items-center gap-2">
+          <span class="material-symbols-outlined text-hanko-red" style="font-variation-settings: 'FILL' 1">record_voice_over</span>
+          Pitch accent &amp; furigana
+        </h3>
+        <p class="text-washi-light/70 leading-relaxed">
+          Pitch accent from <a class="text-matcha-green hover:opacity-85 no-underline" target="_blank" rel="noopener noreferrer" href="https://github.com/mifunetoshiro/kanjium">Kanjium</a> and furigana from <a class="text-matcha-green hover:opacity-85 no-underline" target="_blank" rel="noopener noreferrer" href="https://github.com/Doublevil/JmdictFurigana">JmdictFurigana</a> (CC BY-SA).
         </p>
       </li>
       <li class="flex flex-col gap-2 last:border-0 last:pb-0">
@@ -100,7 +123,7 @@
           Typography
         </h3>
         <p class="text-washi-light/70 leading-relaxed">
-          Typography utilizes Google Fonts: <strong>Plus Jakarta Sans</strong> for a highly legible UI and <strong>M PLUS Rounded 1c</strong> for a friendly, modern Japanese aesthetic. Kanji display utilizes the KanjiStrokeOrders font.
+          <strong>Plus Jakarta Sans</strong> (SIL Open Font License) and <strong>Material Symbols</strong> (Apache 2.0), served from our own sites; Japanese text uses your device's own fonts. Kanji stroke order in the app uses the KanjiStrokeOrders font.
         </p>
       </li>
     </ul>
