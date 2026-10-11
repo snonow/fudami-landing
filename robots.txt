@@ -1,3 +1,38 @@
+# fudami.net: every search engine and every AI crawler or assistant is welcome.
+# The pages are public, static and meant to be read, quoted and cited.
 User-agent: *
 Allow: /
+Disallow: /api/
+
+# Named explicitly so the intent is unambiguous for each AI crawler's own policy.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
 Sitemap: https://fudami.net/sitemap.xml
