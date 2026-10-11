@@ -50,8 +50,9 @@ fudami is the middle path: real SRS depth inside a serene, game-like shell. This
 | 🌐 **Internationalization** | i18n string map for EN, FR, JA, ES, DE with language picker |
 | 🎨 **Design System** | Custom CSS design tokens (Japanese-inspired palette: washi paper, sumi ink, hanko red, matcha green) |
 | 📱 **Responsive** | Mobile-first layout with fluid typography and adaptive navigation |
-| 🔍 **SEO-Optimized** | Open Graph, Twitter Cards, canonical URLs, structured headings, sitemap, robots.txt |
-| 🔐 **Clerk Authentication** | Sign-in modal overlay via ClerkJS CDN — users authenticate without leaving the page |
+| 🔍 **SEO / GEO** | 1200×630 share image, Open Graph + Twitter Cards, canonical URLs, JSON-LD (Organization, WebSite, BreadcrumbList, FAQPage, DefinedTermSet), sitemap, `robots.txt` that welcomes search and AI crawlers, `llms.txt` |
+| 📬 **Waitlist** | One email field, stored in D1 by a Pages Function — no account, no third-party script |
+| 📖 **Glossary** | Plain-language definitions (kana, kanji, JLPT, FSRS…) with `DefinedTermSet` structured data, linked from the term pop-ups |
 | ⚡ **Zero Build Step** | Pure static HTML/CSS/JS — no bundler, no framework, instant deploys |
 
 ---
@@ -65,7 +66,7 @@ fudami is the middle path: real SRS depth inside a serene, game-like shell. This
 | **Scripts** | Vanilla JavaScript (ES modules, deferred loading) |
 | **Fonts** | Plus Jakarta Sans · M PLUS Rounded 1c (Google Fonts) |
 | **Icons** | Material Symbols Outlined |
-| **Auth** | Clerk (CDN, vanilla JS integration) |
+| **Forms** | Cloudflare Pages Functions + D1 (`functions/api/waitlist.js`) |
 | **Hosting** | Cloudflare Pages |
 | **Security Headers** | X-Frame-Options, CSP, Referrer-Policy, Permissions-Policy |
 | **CI** | GitHub Actions (HTML validation, link checking) |
@@ -82,7 +83,8 @@ fudami is the middle path: real SRS depth inside a serene, game-like shell. This
 │
 ├── design-system.css     # CSS custom properties, dark/light tokens, layout
 ├── tailwind-config.js    # Tailwind theme extensions
-├── shared.js             # Theme toggle, nav state, Clerk auth init
+├── glossary.html         # Term definitions (issue #6)
+├── shared.js             # Theme toggle, term modal
 ├── components.js         # Shared header, footer, modal components
 ├── i18n.js               # Multi-language string map
 │

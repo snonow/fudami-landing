@@ -12,9 +12,9 @@
  */
 
 const NAV = [
-  { id: 'index', href: 'index.html', label: 'Home', i18n: 'nav.home' },
-  { id: 'about', href: 'about.html', label: 'About', i18n: 'nav.about' },
-  { id: 'pricing', href: 'pricing.html', label: 'Pricing', i18n: 'nav.pricing' },
+  { id: 'index', href: '/', label: 'Home', i18n: 'nav.home' },
+  { id: 'about', href: '/about', label: 'About', i18n: 'nav.about' },
+  { id: 'pricing', href: '/pricing', label: 'Pricing', i18n: 'nav.pricing' },
   { id: 'jisho', href: 'https://jisho.fudami.net', label: 'Dictionary' },
 ];
 
@@ -26,8 +26,8 @@ function injectHeader(activePage) {
     FudamiDesign.createHeader({
       active: activePage,
       nav: NAV,
-      brandHref: 'index.html',
-      cta: { label: 'Join Waitlist', href: 'waitlist' },
+      brandHref: '/',
+      cta: { label: 'Join Waitlist', href: '/waitlist' },
     }),
   );
 }
@@ -38,20 +38,23 @@ function injectFooter() {
 
   document.body.appendChild(
     FudamiDesign.createFooter({
-      brandHref: 'index.html',
+      brandHref: '/',
       tagline: 'Memory science with the pull of a game. Japanese that stays learned.',
       columns: [
         {
           title: 'Product',
           links: [
-            { label: 'Pricing', href: 'pricing.html', i18n: 'nav.pricing' },
+            { label: 'Pricing', href: '/pricing', i18n: 'nav.pricing' },
             { label: 'Dictionary', href: 'https://jisho.fudami.net' },
+            { label: 'Glossary', href: '/glossary' },
+            { label: 'What is FSRS?', href: '/fsrs' },
           ],
         },
         {
           title: 'Company',
           links: [
-            { label: 'About', href: 'about.html', i18n: 'nav.about' },
+            { label: 'About', href: '/about', i18n: 'nav.about' },
+            { label: 'Credits', href: '/credits' },
             { label: 'GitHub', href: 'https://github.com/snonow/fudami-landing', external: true },
           ],
         },
@@ -112,6 +115,14 @@ function injectWikiModal() {
   body.appendChild(head);
   body.appendChild(
     el('p', { className: 'text-sm text-washi-light/90 leading-relaxed', attrs: { id: 'wiki-modal-desc' } }),
+  );
+
+  body.appendChild(
+    el('a', {
+      className: 'text-sm font-bold text-hanko-red underline mt-2',
+      text: 'Read more in the glossary',
+      attrs: { id: 'wiki-modal-link', href: 'glossary' },
+    }),
   );
 
   panel.append(close, body);

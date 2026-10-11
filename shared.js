@@ -42,15 +42,33 @@ document.addEventListener('DOMContentLoaded', () => {
 const WIKI_DATA = {
   kana: {
     title: 'Kana',
-    desc: 'Japanese phonetic characters used for spelling and grammar. Mastering them is the first step.',
+    desc: 'The two Japanese syllable alphabets, hiragana and katakana. Each character is one sound, so learning them lets you read any word aloud. It is the first step.',
     symbol: 'あ',
+    colorClass: 'text-hanko-red'
+  },
+  hiragana: {
+    title: 'Hiragana',
+    desc: 'The rounded kana, used for native words, verb endings and grammar particles. The first script most learners study.',
+    symbol: 'ひ',
+    colorClass: 'text-hanko-red'
+  },
+  katakana: {
+    title: 'Katakana',
+    desc: 'The angular kana, used for foreign loanwords and names, such as コーヒー (coffee), and for emphasis.',
+    symbol: 'カ',
     colorClass: 'text-hanko-red'
   },
   kanji: {
     title: 'Kanji',
-    desc: 'Complex characters representing entire concepts or roots of words. They make reading Japanese fast and clear.',
+    desc: 'Characters borrowed from Chinese, each carrying a meaning and usually several readings. About 2,100 cover everyday reading.',
     symbol: '水',
     colorClass: 'text-matcha-green'
+  },
+  jlpt: {
+    title: 'JLPT',
+    desc: 'The Japanese-Language Proficiency Test, with five levels from N5 (beginner) to N1 (advanced). A common way to set a learning goal.',
+    symbol: 'N5',
+    colorClass: 'text-aizome-indigo'
   }
 };
 
@@ -60,6 +78,11 @@ function initWikiModal() {
 
   modal.addEventListener('click', (e) => {
     if (e.target === modal) hideWikiModal();
+  });
+
+  // Escape closes the dialog, as a keyboard user expects of any modal.
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') hideWikiModal();
   });
 
   // Attach to trigger words and close button via delegation
@@ -96,6 +119,10 @@ function showWikiModal(term) {
     
     const descEl = document.getElementById('wiki-modal-desc');
     if (descEl) descEl.textContent = data.desc;  // plain sentences; markup here would be a sink
+
+    // The same words, in full, on the glossary page: the modal is a taste, the page is the answer.
+    const linkEl = document.getElementById('wiki-modal-link');
+    if (linkEl) linkEl.setAttribute('href', `glossary#${term}`);
 
     const symbolEl = document.getElementById('wiki-modal-symbol');
     if (symbolEl) {
