@@ -320,6 +320,60 @@
     }
     
     /**
+     * The app-style chrome: a floating sidebar on wide screens, a bottom tab bar on phones. It replaces
+     * createHeader on surfaces people work in (the dictionary, later the app's web build); the marketing
+     * site keeps the header. Same rules as the header: every value reaches the page as text or attribute.
+     *
+     * @param {object} cfg
+     * @param {string}  cfg.active      id of the current page
+     * @param {Array}   cfg.nav         [{ id, href, label, icon, i18n? }] - icon is a Material Symbols name
+     * @param {string} [cfg.brandHref]
+     * @param {string} [cfg.badge]      coloured word after the wordmark ("jisho")
+     * @param {object} [cfg.cta]        { label, href, icon?, external? } at the foot of the sidebar
+     * @param {Node[]} [cfg.actions]    nodes placed above the theme toggle (a language <select>)
+     * @returns {HTMLElement} wrapper holding the sidebar (id site-sidebar), a slot (id side-extra) for
+     *          the caller's own list (recent searches...) and the phone tab bar (id site-tabbar)
+     */
+    function createSidebar(cfg) {
+      const { active, nav = [], brandHref = "/", badge, cta, actions = [] } = cfg || {};
+      document.body.classList.add("fd-has-side");
+    
+      const wrap = el("div", { attrs: { id: "site-chrome" } });
+      const side = el("aside", { className: "fd-side", attrs: { id: "site-sidebar" } });
+      const brand = el("a", { className: "fd-side-brand", attrs: { href: safeHref(brandHref) }, text: "fudami" });
+      if (badge) brand.appendChild(el("b", { text: ` ${badge}` }));
+      side.appendChild(brand);
+    
+      const list = el("nav", { className: "fd-side-nav", attrs: { "aria-label": "Main" } });
+      const tabs = el("nav", { className: "fd-tabbar", attrs: { id: "site-tabbar", "aria-label": "Main" } });
+      for (const item of nav) {
+        const on = item.id === active;
+        for (const [host, cls] of [[list, "fd-side-item"], [tabs, "fd-tab"]]) {
+          const a = el("a", {
+            className: cls + (on ? " is-active" : ""),
+            attrs: { href: safeHref(item.href), ...(on ? { "aria-current": "page" } : {}), ...(item.i18n ? { "data-i18n": item.i18n } : {}) },
+          });
+          a.appendChild(el("span", { className: "material-symbols-outlined", text: item.icon || "circle" }));
+          a.appendChild(el("span", { text: t(item.label) }));
+          host.appendChild(a);
+        }
+      }
+      side.appendChild(list);
+      side.appendChild(el("div", { className: "fd-side-extra", attrs: { id: "side-extra" } }));
+    
+      const foot = el("div", { className: "fd-side-foot" });
+      const row = el("div", { className: "fd-side-row" });
+      for (const node of actions) row.appendChild(node);
+      row.appendChild(iconButton("theme-toggle", "dark_mode", "Toggle theme"));
+      foot.appendChild(row);
+      if (cta) foot.appendChild(ctaLink(cta, "fd-side-cta px-4 py-3 justify-center inline-flex items-center gap-2"));
+      side.appendChild(foot);
+    
+      wrap.append(side, tabs);
+      return wrap;
+    }
+    
+    /**
      * @param {object} cfg
      * @param {string} [cfg.brandHref]
      * @param {string} [cfg.tagline]
@@ -552,6 +606,7 @@
       initI18n,
       langSelect,
       createHeader,
+      createSidebar,
       createFooter,
       initTheme,
       toggleTheme,
