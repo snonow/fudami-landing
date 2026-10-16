@@ -325,6 +325,7 @@
      * @param {string} [cfg.tagline]
      * @param {Array}  [cfg.columns]   [{ title, links: [{ label, href, i18n? }] }]
      * @param {string} [cfg.copyright]
+     * @param {boolean} [cfg.consent]  add the "Cookie settings" button (sites that measure audience)
      */
     function createFooter(cfg) {
       const {
@@ -334,6 +335,7 @@
         columns = [],
         copyright = "© 2026 fudami. All rights reserved.",
         note,
+        consent = false,
       } = cfg || {};
     
       const footer = el("footer", {
@@ -366,7 +368,8 @@
     
       const cols = el("div", { className: "grid grid-cols-2 sm:grid-cols-3 gap-x-12 gap-y-10 md:flex md:gap-16" });
       // Every site ends with the same legal column: one set of pages, on fudami.net.
-      for (const column of [...columns, { title: "Legal", links: LEGAL }]) {
+      const legal = { title: "Legal", links: LEGAL };
+      for (const column of [...columns, legal]) {
         const c = el("div", { className: "flex flex-col gap-2" });
         c.appendChild(
           el("span", {
@@ -394,6 +397,19 @@
               attrs,
             }),
           );
+        }
+        if (column === legal && consent) {
+          // A cookie choice must be as easy to change as to make: always one click from the footer.
+          const settings = el("button", {
+            className: "text-sm text-washi-light/60 hover:text-washi-light transition-colors text-left",
+            text: t("Cookie settings"),
+            attrs: { type: "button" },
+          });
+          settings.addEventListener("click", () => {
+            const d = typeof window !== "undefined" && window.FudamiDesign;
+            if (d && d.openConsent) d.openConsent();
+          });
+          c.appendChild(settings);
         }
         cols.appendChild(c);
       }
@@ -546,5 +562,113 @@
     return module.exports;
   })();
 
-  global.FudamiDesign = Object.assign({}, __m["./dom.js"], __m["./chrome.js"]);
+  __m["./consent.js"] = (function () {
+    const module = { exports: {} };
+    const exports = module.exports;
+    /**
+     * Cookie / audience-measurement consent, shared by every fudami site (GDPR, ePrivacy, CNIL).
+     *
+     * Two levels, on purpose:
+     *   - always, no consent needed: anonymous page counters (no identifier, no search text);
+     *   - with consent: a random visitor id kept in this browser, to see how long people stay and
+     *     what they search for (what is missing from the dictionary).
+     * Nothing is set before the choice. "Refuse" is exactly as easy and as visible as "Accept".
+     * A browser that sends Global Privacy Control or Do Not Track is treated as having refused: no
+     * banner, no identifier. The choice is remembered for 6 months, then asked again.
+     *
+     * Storage is localStorage only (first party, never sent anywhere by this file); a site reads the
+     * choice with getConsent() and listens to the "fudami-consent" event on window.
+     */
+    
+    const { el, safeHref } = require("./dom.js");
+    
+    const KEY = "fudami-consent";
+    const MONTHS_6 = 182 * 24 * 3600 * 1000;
+    const t = (text) => {
+      const d = typeof window !== "undefined" && window.FudamiDesign;
+      return d && d.t ? d.t(text) : text;
+    };
+    
+    function browserRefuses() {
+      return navigator.globalPrivacyControl === true || navigator.doNotTrack === "1";
+    }
+    
+    /** { analytics: true|false, decided: boolean }. `decided: false` means the banner is due. */
+    function getConsent() {
+      if (browserRefuses()) return { analytics: false, decided: true, source: "browser" };
+      try {
+        const saved = JSON.parse(localStorage.getItem(KEY));
+        if (saved && saved.v === 1 && Date.now() - saved.ts < MONTHS_6) {
+          return { analytics: saved.analytics === true, decided: true, source: "user" };
+        }
+      } catch {
+        /* storage disabled or corrupt: treat as undecided, nothing is stored without a choice */
+      }
+      return { analytics: false, decided: false, source: "none" };
+    }
+    
+    function setConsent(analytics) {
+      try {
+        localStorage.setItem(KEY, JSON.stringify({ v: 1, analytics: analytics === true, ts: Date.now() }));
+      } catch {
+        /* storage disabled: the choice holds for this page view only */
+      }
+      const state = { analytics: analytics === true, decided: true, source: "user" };
+      window.dispatchEvent(new CustomEvent("fudami-consent", { detail: state }));
+      return state;
+    }
+    
+    function closeConsent() {
+      const box = document.getElementById("fudami-consent");
+      if (box) box.remove();
+    }
+    
+    /** Show the banner (also used by the footer's "Cookie settings" link to change an earlier choice). */
+    function openConsent({ privacyHref = "https://fudami.net/privacy" } = {}) {
+      closeConsent();
+      const btn = "btn-outline px-5 py-2 rounded-xl text-sm font-bold"; // same class on both: equal weight
+      const accept = el("button", { className: btn, text: t("Accept"), attrs: { type: "button" } });
+      const refuse = el("button", { className: btn, text: t("Refuse"), attrs: { type: "button" } });
+      const more = el("a", {
+        className: "text-sm underline text-washi-light/70",
+        text: t("Learn more"),
+        attrs: { href: safeHref(privacyHref) },
+      });
+      const box = el("div", {
+        className:
+          "fixed bottom-4 left-4 right-4 sm:left-auto sm:max-w-md z-50 liquid-glass border border-white/10 " +
+          "rounded-2xl p-5 shadow-2xl",
+        attrs: { id: "fudami-consent", role: "dialog", "aria-labelledby": "fudami-consent-title", "aria-modal": "false" },
+      });
+      box.append(
+        el("h2", { className: "font-bold text-washi-light mb-1", text: t("Audience measurement"), attrs: { id: "fudami-consent-title" } }),
+        el("p", {
+          className: "text-sm text-washi-light/70 leading-relaxed mb-4",
+          text: t(
+            "We count visits anonymously to improve the dictionary. If you accept, we also keep a random identifier in this browser to see how long people stay and what they search for. No advertising, nothing shared.",
+          ),
+        }),
+        el("div", { className: "flex items-center gap-3 flex-wrap" }),
+      );
+      box.lastChild.append(refuse, accept, more);
+      accept.addEventListener("click", () => { setConsent(true); closeConsent(); });
+      refuse.addEventListener("click", () => { setConsent(false); closeConsent(); });
+      document.body.appendChild(box);
+      refuse.focus({ preventScroll: true });
+      return box;
+    }
+    
+    /** Call once per page: shows the banner only when the visitor still has to choose. */
+    function initConsent(opts) {
+      const state = getConsent();
+      if (!state.decided) openConsent(opts);
+      return state;
+    }
+    
+    module.exports = { getConsent, setConsent, openConsent, closeConsent, initConsent };
+    
+    return module.exports;
+  })();
+
+  global.FudamiDesign = Object.assign({}, __m["./dom.js"], __m["./chrome.js"], __m["./consent.js"]);
 })(typeof window !== "undefined" ? window : this);
