@@ -22,6 +22,15 @@ const initTheme = FudamiDesign.initTheme;
 const toggleTheme = FudamiDesign.toggleTheme;
 const showToast = FudamiDesign.showToast;
 
+// ── Audience measurement ─────────────────────────────────────────────────────
+// Self-hosted Umami through our own origin (functions/st). Production host only, and not for a browser that sends
+// Do Not Track or Global Privacy Control; with no UMAMI_HOST / UMAMI_WEBSITE_ID the function answers an empty script.
+if (location.hostname === 'fudami.net' && navigator.doNotTrack !== '1' && !navigator.globalPrivacyControl) {
+  const s = document.createElement('script');
+  Object.assign(s, { defer: true, src: '/st/s.js' });
+  document.head.appendChild(s);
+}
+
 // ── DOM Initialization ───────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
@@ -144,3 +153,16 @@ function hideWikiModal() {
   const inner = modal.querySelector('.bg-charcoal-dark');
   if (inner) inner.classList.add('translate-y-4');
 }
+
+// Statistics switch (privacy page): Umami's own opt-out key, read by its tracker before it sends anything.
+document.addEventListener('DOMContentLoaded', () => {
+  const b = document.getElementById('stats-switch');
+  if (!b) return;
+  const off = () => { try { return localStorage.getItem('umami.disabled') === '1'; } catch { return false; } };
+  const paint = () => { b.textContent = off() ? 'Statistics are off in this browser: switch them back on' : 'Switch the statistics off in this browser'; };
+  b.addEventListener('click', () => {
+    try { off() ? localStorage.removeItem('umami.disabled') : localStorage.setItem('umami.disabled', '1'); } catch { /* storage blocked: nothing to switch */ }
+    paint();
+  });
+  paint();
+});
