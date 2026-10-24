@@ -199,6 +199,13 @@
       return btn;
     }
     
+    /** The theme button, already showing the icon for the current theme: the chrome is often built after initTheme ran. */
+    function themeButton() {
+      const btn = iconButton("theme-toggle", "dark_mode", "Toggle theme");
+      updateThemeIcon(btn);
+      return btn;
+    }
+    
     /**
      * The call-to-action link. An <a>, never a <button> with an inline onclick handler - both
      * sites shipped `onclick="window.location.href='...'"`, which a CSP that forbids inline
@@ -270,7 +277,7 @@
     
       const right = el("div", { className: "flex items-center gap-3" });
       for (const node of actions) right.appendChild(node);
-      right.appendChild(iconButton("theme-toggle", "dark_mode", "Toggle theme"));
+      right.appendChild(themeButton());
       if (cta) right.appendChild(ctaLink(cta, "px-5 py-2 hidden md:inline-flex items-center gap-1.5"));
       right.appendChild(iconButton("mobile-menu-toggle", "menu", "Menu", "md:hidden"));
     
@@ -364,7 +371,7 @@
       const foot = el("div", { className: "fd-side-foot" });
       const row = el("div", { className: "fd-side-row" });
       for (const node of actions) row.appendChild(node);
-      row.appendChild(iconButton("theme-toggle", "dark_mode", "Toggle theme"));
+      row.appendChild(themeButton());
       foot.appendChild(row);
       if (cta) foot.appendChild(ctaLink(cta, "fd-side-cta px-4 py-3 justify-center inline-flex items-center gap-2"));
       side.appendChild(foot);
@@ -476,15 +483,7 @@
       bottom.appendChild(
         el("span", { className: "text-xs text-washi-light/40", text: t(copyright), attrs: { "data-i18n": "footer.copy" } }),
       );
-      if (note) {
-        bottom.appendChild(el("div", { className: "text-xs text-washi-light/30 font-mono", text: note }));
-      } else {
-        const crafted = el("div", { className: "flex items-center gap-1 text-xs text-washi-light/30" });
-        crafted.appendChild(el("span", { text: t("Crafted with") }));
-        crafted.appendChild(el("span", { className: "text-hanko-red", text: "♥" }));
-        crafted.appendChild(el("span", { text: t("for Japanese learners") }));
-        bottom.appendChild(crafted);
-      }
+      if (note) bottom.appendChild(el("div", { className: "text-xs text-washi-light/30 font-mono", text: note }));
     
       wrap.append(top, bottom);
       footer.appendChild(wrap);
@@ -492,8 +491,7 @@
     }
     
     /** Reflects the current theme onto the #theme-toggle icon, if the button is present. */
-    function updateThemeIcon() {
-      const btn = document.getElementById("theme-toggle");
+    function updateThemeIcon(btn = document.getElementById("theme-toggle")) {
       if (!btn) return;
       const isDark = document.documentElement.classList.contains("dark");
       const icon = btn.querySelector(".material-symbols-outlined");
@@ -522,6 +520,7 @@
      * Applies the stored theme (or the OS preference when there is none), wires #theme-toggle,
      * and follows the OS afterwards only while the visitor has never chosen explicitly.
      */
+    let themeWired = false;
     function initTheme() {
       let saved = null;
       try {
@@ -532,8 +531,13 @@
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
       applyTheme(saved ? saved === "dark" : prefersDark);
     
-      const btn = document.getElementById("theme-toggle");
-      if (btn) btn.addEventListener("click", toggleTheme);
+      // Delegated: the chrome is usually built after this runs, so the button does not exist yet.
+      if (!themeWired) {
+        themeWired = true;
+        document.addEventListener("click", (e) => {
+          if (e.target.closest && e.target.closest("#theme-toggle")) toggleTheme();
+        });
+      }
     
       window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
         let chosen = null;
