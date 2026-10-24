@@ -60,3 +60,27 @@ test('the loader runs on the production host only, off for Do Not Track and GPC,
   assert.strictEqual(run('fudami.net', { globalPrivacyControl: true }).length, 0);
   assert.ok(!/https?:\/\//.test(block), 'the CSP stays untouched: no external host in the loader');
 });
+
+test('the privacy page has a button that switches the statistics off with Umami\'s own opt-out key, and back on', () => {
+  const block = fs.readFileSync(`${__dirname}/../shared.js`, 'utf8').split('// Statistics switch')[1].replace(/^.*\n/, '');
+  const store = {};
+  const button = { textContent: '', click: null, addEventListener(_, f) { this.click = f; } };
+  let ready;
+  new Function('document', 'localStorage', block)(
+    { addEventListener: (_, f) => { ready = f; }, getElementById: (id) => (id === 'stats-switch' ? button : null) },
+    { getItem: (k) => store[k] ?? null, setItem: (k, v) => { store[k] = v; }, removeItem: (k) => { delete store[k]; } },
+  );
+  ready();
+  assert.match(button.textContent, /^Switch the statistics off/);
+  button.click();
+  assert.strictEqual(store['umami.disabled'], '1');
+  assert.match(button.textContent, /off in this browser/);
+  button.click();
+  assert.strictEqual(store['umami.disabled'], undefined);
+  assert.ok(fs.readFileSync(`${__dirname}/../privacy.html`, 'utf8').includes('id="stats-switch"'));
+});
+
+test('the CSP names no third-party script, style or font host: the privacy page says the browser never contacts one', () => {
+  const csp = fs.readFileSync(`${__dirname}/../_headers`, 'utf8').match(/Content-Security-Policy: (.*)/)[1];
+  for (const directive of ['script-src', 'style-src', 'font-src']) assert.ok(!new RegExp(`${directive}[^;]*https://`).test(csp), directive);
+});

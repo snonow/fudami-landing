@@ -153,3 +153,16 @@ function hideWikiModal() {
   const inner = modal.querySelector('.bg-charcoal-dark');
   if (inner) inner.classList.add('translate-y-4');
 }
+
+// Statistics switch (privacy page): Umami's own opt-out key, read by its tracker before it sends anything.
+document.addEventListener('DOMContentLoaded', () => {
+  const b = document.getElementById('stats-switch');
+  if (!b) return;
+  const off = () => { try { return localStorage.getItem('umami.disabled') === '1'; } catch { return false; } };
+  const paint = () => { b.textContent = off() ? 'Statistics are off in this browser: switch them back on' : 'Switch the statistics off in this browser'; };
+  b.addEventListener('click', () => {
+    try { off() ? localStorage.removeItem('umami.disabled') : localStorage.setItem('umami.disabled', '1'); } catch { /* storage blocked: nothing to switch */ }
+    paint();
+  });
+  paint();
+});
