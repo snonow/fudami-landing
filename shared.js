@@ -22,6 +22,16 @@ const initTheme = FudamiDesign.initTheme;
 const toggleTheme = FudamiDesign.toggleTheme;
 const showToast = FudamiDesign.showToast;
 
+// ── Audience measurement ─────────────────────────────────────────────────────
+// Self-hosted Plausible through our own origin (functions/st). Production host only, and not for a browser that sends
+// Do Not Track or Global Privacy Control; with no PLAUSIBLE_HOST the function answers an empty script.
+if (location.hostname === 'fudami.net' && navigator.doNotTrack !== '1' && !navigator.globalPrivacyControl) {
+  const s = document.createElement('script');
+  Object.assign(s, { defer: true, src: '/st/s.js' });
+  Object.assign(s.dataset, { domain: 'fudami.net', api: '/st/e' });
+  document.head.appendChild(s);
+}
+
 // ── DOM Initialization ───────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
