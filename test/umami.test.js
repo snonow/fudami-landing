@@ -9,31 +9,34 @@ const call = async (fn, method, name, env) => fn({ request: new Request(`https:/
 test('without UMAMI_HOST or a valid UMAMI_WEBSITE_ID the door sends nothing anywhere', async () => {
   const { onRequest } = await load();
   global.fetch = () => { throw new Error('must not fetch'); };
-  for (const env of [{}, { UMAMI_HOST: 'stats.example.test' }, { UMAMI_WEBSITE_ID: ID }, { UMAMI_HOST: 'stats.example.test', UMAMI_WEBSITE_ID: "x'});alert(1)//" }]) {
+  for (const env of [{}, { UMAMI_HOST: 'stats.example.test' }, { UMAMI_WEBSITE_ID: ID }, { UMAMI_HOST: 'stats.example.test', UMAMI_WEBSITE_ID: "x'});alert(1)//", UMAMI_RELAY_KEY: 'k' }, { UMAMI_HOST: 'stats.example.test', UMAMI_WEBSITE_ID: ID }]) {
     for (const name of ['s.js', 'u.js']) assert.strictEqual(await (await call(onRequest, 'GET', name, env)).text(), '');
     assert.strictEqual((await call(onRequest, 'POST', 'api/send', env)).status, 204);
   }
 });
 
-test('configured: only the tracker and the beacon are forwarded, with the visitor address', async () => {
+test('configured: only the tracker and the beacon are forwarded, with the visitor address and the relay key', async () => {
   const { onRequest } = await load();
   const seen = [];
-  global.fetch = async (url, init) => { seen.push([url, init.method, init.headers['x-forwarded-for'], Object.keys(init.headers).sort().join()]); return new Response('ok', { status: 202 }); };
-  const env = { UMAMI_HOST: 'stats.example.test', UMAMI_WEBSITE_ID: ID };
-  assert.strictEqual((await call(onRequest, 'GET', 'u.js', env)).status, 202);
-  assert.strictEqual((await call(onRequest, 'POST', 'api/send', env)).status, 202);
+  global.fetch = async (url, init) => { seen.push([url, init.method, init.headers['x-visitor-ip'], Object.keys(init.headers).sort().join()]); return new Response('ok', { status: 202, headers: { 'set-cookie': 'a=b', 'x-relay-key': 'echo' } }); };
+  const env = { UMAMI_HOST: 'stats.example.test', UMAMI_WEBSITE_ID: ID, UMAMI_RELAY_KEY: 'relay-secret-9' };
+  const req = (method, name) => new Request(`https://fudami.net/st/${name}`, { method, body: method === 'POST' ? '{}' : undefined, headers: { 'cf-connecting-ip': '203.0.113.9', cookie: 'sid=1', authorization: 'Bearer x', 'x-forwarded-for': '6.6.6.6', 'x-visitor-ip': '6.6.6.6' } });
+  const answers = [await onRequest({ request: req('GET', 'u.js'), env, params: { path: ['u.js'] } }), await onRequest({ request: req('POST', 'api/send'), env, params: { path: ['api', 'send'] } })];
+  assert.deepStrictEqual(answers.map((r) => r.status), [202, 202]);
   assert.deepStrictEqual(seen, [
-    ['https://stats.example.test/script.js', 'GET', '203.0.113.9', 'content-type,user-agent,x-forwarded-for'],
-    ['https://stats.example.test/api/send', 'POST', '203.0.113.9', 'content-type,user-agent,x-forwarded-for'], // no cookie, no auth, nothing else
+    ['https://stats.example.test/script.js', 'GET', '203.0.113.9', 'content-type,user-agent,x-relay-key,x-visitor-ip'],
+    ['https://stats.example.test/api/send', 'POST', '203.0.113.9', 'content-type,user-agent,x-relay-key,x-visitor-ip'], // no cookie, no auth, a forged x-visitor-ip is overwritten
   ]);
+  for (const r of answers) assert.ok(![...r.headers.keys()].some((k) => /cookie|relay/i.test(k)) && !JSON.stringify([...r.headers]).includes('relay-secret'), 'nothing from upstream or the secret comes back');
   assert.strictEqual((await call(onRequest, 'GET', 'api/send', env)).status, 404); // wrong method
+  assert.ok(!/console\./.test(fs.readFileSync(`${__dirname}/../functions/st/[[path]].js`, 'utf8')), 'the door logs nothing');
   assert.strictEqual((await call(onRequest, 'GET', 'api/websites', env)).status, 404); // nothing else is reachable
   assert.strictEqual(seen.length, 2);
 });
 
 test('the bootstrap adds Umami\'s tag with this site\'s id, through our own origin, cookieless settings on', async () => {
   const { onRequest } = await load();
-  const js = await (await call(onRequest, 'GET', 's.js', { UMAMI_HOST: 'stats.example.test', UMAMI_WEBSITE_ID: ID })).text();
+  const js = await (await call(onRequest, 'GET', 's.js', { UMAMI_HOST: 'stats.example.test', UMAMI_WEBSITE_ID: ID, UMAMI_RELAY_KEY: 'k' })).text();
   const added = [];
   new Function('document', 'location', js)({ createElement: () => ({ dataset: {} }), head: { appendChild: (s) => added.push(s) } }, { hostname: 'fudami.net', origin: 'https://fudami.net' });
   const [s] = added;
