@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/favicon.png" alt="fudami — Daruma mascot" width="96" height="96" />
+  <img src="assets/favicon.png" alt="fudami" width="96" height="96" />
 </p>
 
 <h1 align="center">fudami — Landing Page</h1>
@@ -88,7 +88,7 @@ fudami is the middle path: real SRS depth inside a serene, game-like shell. This
 ├── components.js         # Shared header, footer, modal components
 ├── i18n.js               # Multi-language string map
 │
-├── assets/               # Daruma mascot favicons (dark + light variants)
+├── assets/               # favicons (dark + light variants) and the share image
 ├── _headers              # Cloudflare Pages security & cache headers
 ├── _redirects            # Cloudflare Pages URL rewrites
 ├── robots.txt            # Search engine directives
