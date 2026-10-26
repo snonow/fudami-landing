@@ -83,4 +83,6 @@ test('the privacy page has a button that switches the statistics off with Umami\
 test('the CSP names no third-party script, style or font host: the privacy page says the browser never contacts one', () => {
   const csp = fs.readFileSync(`${__dirname}/../_headers`, 'utf8').match(/Content-Security-Policy: (.*)/)[1];
   for (const directive of ['script-src', 'style-src', 'font-src']) assert.ok(!new RegExp(`${directive}[^;]*https://`).test(csp), directive);
+  assert.match(csp, /connect-src 'self';/);
+  assert.match(csp, /img-src 'self' data:;/);
 });
