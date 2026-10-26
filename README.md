@@ -53,7 +53,7 @@ fudami is the middle path: real SRS depth inside a serene, game-like shell. This
 | 🔍 **SEO / GEO** | 1200×630 share image, Open Graph + Twitter Cards, canonical URLs, JSON-LD (Organization, WebSite, BreadcrumbList, FAQPage, DefinedTermSet), sitemap, `robots.txt` that welcomes search and AI crawlers, `llms.txt` |
 | 📬 **Waitlist** | One email field, stored in D1 by a Pages Function — no account, no third-party script |
 | 📖 **Glossary** | Plain-language definitions (kana, kanji, JLPT, FSRS…) with `DefinedTermSet` structured data, linked from the term pop-ups |
-| ⚡ **Zero Build Step** | Pure static HTML/CSS/JS — no bundler, no framework, instant deploys |
+| ⚡ **Static delivery** | Built HTML/CSS/JS — shared chrome is rendered before deploy, no runtime framework |
 
 ---
 
@@ -88,6 +88,7 @@ fudami is the middle path: real SRS depth inside a serene, game-like shell. This
 │   ├── _redirects        # URL rewrites
 │   └── robots.txt, sitemap.xml, llms.txt
 ├── functions/            # Pages Functions; stays at the repository root
+├── scripts/              # Build-time shared header/footer rendering
 ├── test/                 # Tests; never published
 ├── .github/workflows/    # Validation, links and security checks
 ├── package.json
@@ -99,7 +100,7 @@ fudami is the middle path: real SRS depth inside a serene, game-like shell. This
 
 ## Getting Started
 
-The committed CSS can be served directly. Rebuild it after changing classes, with the sibling `fudami-design` checkout available:
+The committed HTML includes navigation and legal links without JavaScript. `npm run build` renders that chrome from the shared package through the existing site adapter, then rebuilds CSS. Client initialization replaces each header/footer once to restore interactions. Rebuild after changing chrome or classes, with the sibling `fudami-design` checkout available:
 
 ```bash
 npm ci
@@ -127,6 +128,7 @@ repository root or rely on `.assetsignore` to filter a Pages upload.
 To refresh the shared design artifacts after building the sibling package:
 
 ```bash
+(cd ../fudami-design && npm run build)
 npm run vendor:design
 npm run build
 npm test

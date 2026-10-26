@@ -72,7 +72,9 @@ jobs:
                 http://*|https://*|mailto:*|tel:*|javascript:*) continue ;;
               esac
               # Pages serves /x from x.html, so extensionless links are fine.
-              if [ ! -e "$link" ] && [ ! -e "$link.html" ]; then
+              target=${link#/}
+              if [ -z "$target" ]; then target=index.html; fi
+              if [ ! -e "$target" ] && [ ! -e "$target.html" ]; then
                 echo "::error file=$file::Broken link: $link"
                 EXIT_CODE=1
               fi

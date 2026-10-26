@@ -52,3 +52,13 @@ test('the vendored copy matches a fresh package build', { skip: !fs.existsSync(p
     'public/vendor/fudami-design.browser.js is stale: (cd ../fudami-design && npm run build) then copy dist/chrome.browser.js here',
   );
 });
+
+test('vendored fonts include Japanese subsets and every stylesheet font file', () => {
+  const fonts = path.join(ROOT, 'vendor', 'fonts');
+  const css = fs.readFileSync(path.join(fonts, 'fonts.css'), 'utf8');
+  assert.match(css, /font-family: 'Zen Maru Gothic'/);
+  assert.match(css, /font-family: 'Material Symbols Outlined';[^}]*font-display: swap;/);
+  for (const [, file] of css.matchAll(/url\(([^)]+)\)/g)) {
+    assert.ok(fs.statSync(path.join(fonts, file)).isFile(), file);
+  }
+});
