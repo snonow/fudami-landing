@@ -1,0 +1,31 @@
+# Cloudflare Pages / Workers static assets ignore file
+# Prevents repository and internal files from being uploaded as public static assets.
+
+# Version control & CI
+.git
+.github
+
+# Build & caches
+.wrangler
+node_modules
+evaluate
+
+# Repository files & documentation
+package.json
+package-lock.json
+wrangler.toml
+README.md
+LICENSE
+SEO.md
+
+# Config & tooling files
+.gitignore
+.cfignore
+.wranglerignore
+.htmlhintrc
+.lighthouserc.json
+.trivyignore.yaml
+.DS_Store
+
+# Tests
+test/

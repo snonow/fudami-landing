@@ -3,7 +3,7 @@ SEO.md
 
 # Dependencies. 1395 files of node_modules were tracked here until 2026-09-06;
 # .cfignore and .wranglerignore already excluded them from every deploy.
-node_modules/
+node_modules
 .wrangler/
 
 # Symlinked shared agent context (root-level .md files)
