@@ -62,7 +62,8 @@ for (const page of PAGES) {
     // The header's CTA is now an <a href> built by fudami-design rather than a button
     // carrying an inline onclick, so both forms count - an href is the stronger one: it
     // survives JS being disabled and any CSP that forbids inline handlers.
-    const ctas = [...doc.querySelectorAll('[id^="clerk-"], .clerk-signup-trigger, a.btn-hanko')];
+    const ctas = [...doc.querySelectorAll('a.btn-hanko')];
+    assert.strictEqual(doc.querySelectorAll('[id^="clerk-"], .clerk-signup-trigger').length, 0, 'dead clerk id or class found');
     assert.ok(ctas.length > 0, 'page has no call to action at all');
     for (const cta of ctas) {
       const target = `${cta.getAttribute('href') ?? ''} ${cta.getAttribute('onclick') ?? ''}`;
