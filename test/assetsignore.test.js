@@ -43,4 +43,11 @@ test('.assetsignore exists and excludes repository files while serving public as
       `.assetsignore must not exclude public asset ${item}`,
     );
   }
+
+  // Security.txt exists and meets RFC 9116
+  const secPath = path.join(__dirname, '..', '.well-known', 'security.txt');
+  assert.ok(fs.existsSync(secPath), '.well-known/security.txt must exist');
+  const secContent = fs.readFileSync(secPath, 'utf8');
+  assert.match(secContent, /^Contact: mailto:/m, 'security.txt must have Contact field');
+  assert.match(secContent, /^Expires: /m, 'security.txt must have Expires field');
 });
