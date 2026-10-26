@@ -79,7 +79,6 @@
         <li><strong>Learning progress (app, once study launches)</strong>: your reviews, tied to your account ID, to show and schedule your progress. Basis: contract.</li>
         <li><strong>Offline content keys (app)</strong>: when a signed-in user requests an offline content key, fudami records the account identifier, a fingerprint of the device public key, the content pack and version, and the request time, to enforce the limit of 3 devices and a daily cap. Kept while the account exists. Basis: contract.</li>
         <li><strong>Dictionary searches (jisho)</strong>: the words you search are sent to our server to find the answer. They appear in its technical logs <em>without your IP address</em>, and those logs are overwritten as they rotate (30 MB at most). Basis: our legitimate interest in running and securing the dictionary (Art. 6(1)(f)).</li>
-        <li><strong>Audience measurement (jisho)</strong>: visits to the dictionary are counted with Umami, like the rest of fudami (next item): software we host ourselves, reached through the dictionary's own address, no data goes to a third party. In addition, on our own server and with no identifier, we keep: the page, your language, the website you came from (its name only), the day, and the fact that a search was made with its number of results (never the words searched, unless you accept in the banner). This anonymous counting needs no consent under the CNIL's audience-measurement exemption; it never includes your IP address. The day's totals (searches, kanji pages viewed) are shown publicly on the dictionary's home page. <em>Only if you accept</em> in the banner: the words you search, with the number of results (so we can see what is missing). Basis: your consent (Art. 6(1)(a)); refuse or withdraw at any time, nothing changes in how the dictionary works.</li>
         <li><strong>Audience measurement with Umami (fudami.net, the app and the dictionary)</strong>: to see which pages are read, we count visits with Umami, software we host ourselves; no data goes to a third party. It sets no cookie and stores nothing in your browser. It counts the page and its title (without anything after a <code>?</code> in the address), the address of the page you came from, your language and screen size, your browser, system and device type, and your approximate location (country, region and city, worked out from your IP address and then discarded). It builds a visitor marker from your IP address, your browser and a secret key; the marker cannot be reversed, is renewed regularly, and the IP address itself is never stored. No profile is built, nothing is shared across sites or with anyone, and the figures are used only to improve fudami. A browser sending Global Privacy Control or Do Not Track is not counted at all, and you can switch it off yourself, here: <button type="button" id="stats-switch" class="underline">Switch the statistics off in this browser</button> (it is remembered in this browser for this site only, and the app has the same switch in its settings). Basis: our legitimate interest in knowing how the sites are used (Art. 6(1)(f)).</li>
         <li><strong>Technical and security data</strong>: Cloudflare processes your IP address and request metadata to deliver and protect all three sites; the app's server keeps a per-IP request counter for one hour, and the dictionary's server one in memory only, to stop abuse. Basis: legitimate interest.</li>
       </ul>
@@ -87,13 +86,13 @@
     </section>
     <section>
       <h2>Cookies &amp; local storage</h2>
-      <p>No advertising and no cross-site cookies. Apart from the saving of search words on the dictionary (below), what we use is strictly necessary or something you asked for, so it needs no consent:</p>
+      <p>No advertising and no cross-site cookies. The following storage is strictly necessary or something you asked for:</p>
       <ul>
         <li><strong>Security cookies</strong> set by Cloudflare on all three sites (<code>cf_clearance</code>, <code>__cf_bm</code>, <code>_cfuvid</code>).</li>
         <li><strong>Sign-in cookies</strong> set by Clerk when you open the app (<code>__client</code>, <code>__client_uat</code>, <code>__session</code>), which manage your session.</li>
         <li><strong>Local storage</strong>, which stays in your browser and is not sent to us: your theme and language, your jisho search history (clear it from the search box), and Clerk's settings cache in the app.</li>
       </ul>
-      <p><strong>Search words on the dictionary.</strong> On jisho.fudami.net a banner asks you to accept or refuse the saving of the words you search (so we can see which words are missing); both buttons are equally easy, and nothing is stored before you choose. A browser sending Global Privacy Control or Do Not Track counts as a refusal and sees no banner. Your choice is remembered for six months, then asked again, and you can change it at any time with <em>Cookie settings</em> in the footer. We use local storage in your browser, not cookies: <code>fudami-consent</code> (your choice). Earlier versions of the dictionary also stored two random identifiers, <code>fj_vid</code> and <code>fj_sid</code>; they are no longer created and are deleted from your browser when you visit.</p>
+      <p>The dictionary uses only the self-hosted Umami audience measurement described above. It does not save search words for analytics or use a consent banner. Old local identifiers (<code>fj_vid</code>, <code>fj_sid</code>) are no longer created and are deleted when you visit.</p>
       <p>Fonts are served from our own sites: your browser never contacts Google or any font provider.</p>
     </section>
     <section>
@@ -111,8 +110,7 @@
         <li>Waitlist: until fudami opens and you have been told, or until you ask us to delete it.</li>
         <li>Account: as long as it exists at Clerk. Review history in the app: kept with your account ID until you ask us to delete it (there is no self-service deletion yet: write to privacy@fudami.net and it is deleted within one month).</li>
         <li>Dictionary logs: overwritten as they rotate. Request counters: one hour (the dictionary's: memory only).</li>
-        <li>Dictionary audience statistics (anonymous counts and, with consent, the words searched): at most 25 months, then deleted.</li>
-        <li>Visit counts of fudami.net and the app (Umami): deleted after 25 months, by an automatic monthly deletion.</li>
+        <li>Visit counts of fudami.net, the app and the dictionary (Umami): deleted after 25 months, by an automatic monthly deletion.</li>
         <li>Cloudflare security logs: as set by Cloudflare for the protection of the network.</li>
       </ul>
     </section>

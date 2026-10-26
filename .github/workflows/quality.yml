@@ -18,10 +18,7 @@ on:
   push:
     branches: [main]
     paths: # only when something that can move a score changes
-      - "**.html"
-      - "**.css"
-      - "**.js"
-      - "vendor/**"
+      - "public/**"
 
 permissions:
   contents: read
