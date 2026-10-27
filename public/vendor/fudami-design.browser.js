@@ -316,9 +316,12 @@
     
       // Wiring lives with the markup: a caller that forgets it ships a dead button.
       const toggle = header.querySelector("#mobile-menu-toggle");
+      toggle.setAttribute("aria-controls", "mobile-nav");
+      toggle.setAttribute("aria-expanded", "false");
       toggle.addEventListener("click", () => {
         const isOpen = !drawer.classList.contains("hidden");
         drawer.classList.toggle("hidden", isOpen);
+        toggle.setAttribute("aria-expanded", String(!isOpen));
         const icon = toggle.querySelector(".material-symbols-outlined");
         if (icon) icon.textContent = isOpen ? "menu" : "close";
       });
