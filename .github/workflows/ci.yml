@@ -30,7 +30,7 @@ jobs:
         run: npm install -g htmlhint
 
       - name: Lint HTML files
-        run: htmlhint "*.html" --format unix
+        run: htmlhint "public/*.html" --format unix
 
   test:
     name: Page smoke tests
@@ -63,6 +63,7 @@ jobs:
           # subshell, so EXIT_CODE=1 is set on a copy and discarded. This job
           # printed its errors and exited 0 for its whole life. Verified
           # 2026-09-06 against a deliberately broken link.
+          cd public
           EXIT_CODE=0
           for file in *.html; do
             while read -r link; do
@@ -71,7 +72,9 @@ jobs:
                 http://*|https://*|mailto:*|tel:*|javascript:*) continue ;;
               esac
               # Pages serves /x from x.html, so extensionless links are fine.
-              if [ ! -e "$link" ] && [ ! -e "$link.html" ]; then
+              target=${link#/}
+              if [ -z "$target" ]; then target=index.html; fi
+              if [ ! -e "$target" ] && [ ! -e "$target.html" ]; then
                 echo "::error file=$file::Broken link: $link"
                 EXIT_CODE=1
               fi

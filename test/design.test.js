@@ -13,11 +13,10 @@ const test = require('node:test');
 const assert = require('node:assert');
 const fs = require('fs');
 const path = require('path');
-const { execFileSync } = require('child_process');
 
-const ROOT = path.join(__dirname, '..');
+const ROOT = path.join(__dirname, '..', 'public');
 const VENDORED = path.join(ROOT, 'vendor', 'fudami-design.browser.js');
-const PACKAGE = path.join(ROOT, '..', 'fudami-design');
+const PACKAGE = path.join(ROOT, '..', '..', 'fudami-design');
 
 test('the bundle is present and marked generated', () => {
   const text = fs.readFileSync(VENDORED, 'utf8');
@@ -46,10 +45,20 @@ test('the site files build no markup from data', () => {
 });
 
 test('the vendored copy matches a fresh package build', { skip: !fs.existsSync(path.join(PACKAGE, 'build.js')) }, () => {
-  execFileSync('node', ['build.js'], { cwd: PACKAGE });
+  require(path.join(PACKAGE, 'build.js'));
   assert.strictEqual(
     fs.readFileSync(VENDORED, 'utf8'),
     fs.readFileSync(path.join(PACKAGE, 'dist', 'chrome.browser.js'), 'utf8'),
-    'vendor/fudami-design.browser.js is stale: (cd ../fudami-design && npm run build) then copy dist/chrome.browser.js here',
+    'public/vendor/fudami-design.browser.js is stale: (cd ../fudami-design && npm run build) then copy dist/chrome.browser.js here',
   );
+});
+
+test('vendored fonts include Japanese subsets and every stylesheet font file', () => {
+  const fonts = path.join(ROOT, 'vendor', 'fonts');
+  const css = fs.readFileSync(path.join(fonts, 'fonts.css'), 'utf8');
+  assert.match(css, /font-family: 'Zen Maru Gothic'/);
+  assert.match(css, /font-family: 'Material Symbols Outlined';[^}]*font-display: swap;/);
+  for (const [, file] of css.matchAll(/url\(([^)]+)\)/g)) {
+    assert.ok(fs.statSync(path.join(fonts, file)).isFile(), file);
+  }
 });
