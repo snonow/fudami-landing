@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/favicon.png" alt="fudami" width="96" height="96" />
+  <img src="public/assets/favicon.png" alt="fudami" width="96" height="96" />
 </p>
 
 <h1 align="center">fudami — Landing Page</h1>
@@ -53,7 +53,7 @@ fudami is the middle path: real SRS depth inside a serene, game-like shell. This
 | 🔍 **SEO / GEO** | 1200×630 share image, Open Graph + Twitter Cards, canonical URLs, JSON-LD (Organization, WebSite, BreadcrumbList, FAQPage, DefinedTermSet), sitemap, `robots.txt` that welcomes search and AI crawlers, `llms.txt` |
 | 📬 **Waitlist** | One email field, stored in D1 by a Pages Function — no account, no third-party script |
 | 📖 **Glossary** | Plain-language definitions (kana, kanji, JLPT, FSRS…) with `DefinedTermSet` structured data, linked from the term pop-ups |
-| ⚡ **Zero Build Step** | Pure static HTML/CSS/JS — no bundler, no framework, instant deploys |
+| ⚡ **Static delivery** | Built HTML/CSS/JS — shared chrome is rendered before deploy, no runtime framework |
 
 ---
 
@@ -62,9 +62,9 @@ fudami is the middle path: real SRS depth inside a serene, game-like shell. This
 | Layer | Technology |
 |---|---|
 | **Markup** | HTML5 (semantic) |
-| **Styling** | Vanilla CSS design system + Tailwind CSS (CDN) |
+| **Styling** | Generated CSS from the shared fudami-design package |
 | **Scripts** | Vanilla JavaScript (ES modules, deferred loading) |
-| **Fonts** | Plus Jakarta Sans · M PLUS Rounded 1c (Google Fonts) |
+| **Fonts** | Self-hosted fonts vendored from fudami-design |
 | **Icons** | Material Symbols Outlined |
 | **Forms** | Cloudflare Pages Functions + D1 (`functions/api/waitlist.js`) |
 | **Hosting** | Cloudflare Pages |
@@ -76,37 +76,36 @@ fudami is the middle path: real SRS depth inside a serene, game-like shell. This
 ## Project Structure
 
 ```
-├── index.html            # Hero, philosophy, FSRS deep-dive, roadmap, CTA
-├── pricing.html          # Pricing tiers
-├── about.html            # Mission and team
-├── credits.html          # Open-source attributions
-│
-├── design-system.css     # CSS custom properties, dark/light tokens, layout
-├── tailwind-config.js    # Tailwind theme extensions
-├── glossary.html         # Term definitions (issue #6)
-├── shared.js             # Theme toggle, term modal
-├── components.js         # Shared header, footer, modal components
-├── i18n.js               # Multi-language string map
-│
-├── assets/               # favicons (dark + light variants) and the share image
-├── _headers              # Cloudflare Pages security & cache headers
-├── _redirects            # Cloudflare Pages URL rewrites
-├── robots.txt            # Search engine directives
-├── sitemap.xml           # XML sitemap
-│
-├── .github/workflows/
-│   └── ci.yml            # HTML validation & link checks
-└── LICENSE               # MIT
+├── public/               # Only directory uploaded by Cloudflare Pages
+│   ├── *.html            # Marketing, waitlist and legal pages
+│   ├── components.js     # Shared header, footer and modal adapters
+│   ├── shared.js         # Theme, terms and same-origin Umami loader
+│   ├── design-system.css # Generated from fudami-design
+│   ├── assets/           # Favicons and share image
+│   ├── vendor/           # Generated design bundle and self-hosted fonts
+│   ├── .well-known/      # security.txt
+│   ├── _headers          # Security and cache headers
+│   ├── _redirects        # URL rewrites
+│   └── robots.txt, sitemap.xml, llms.txt
+├── functions/            # Pages Functions; stays at the repository root
+├── scripts/              # Build-time shared header/footer rendering
+├── test/                 # Tests; never published
+├── .github/workflows/    # Validation, links and security checks
+├── package.json
+├── wrangler.toml         # pages_build_output_dir = "public"
+└── LICENSE
 ```
 
 ---
 
 ## Getting Started
 
-No build step required. Open any `.html` file directly in a browser, or serve locally for accurate font and script loading:
+The committed HTML includes navigation and legal links without JavaScript. `npm run build` renders that chrome from the shared package through the existing site adapter, then rebuilds CSS. Client initialization replaces each header/footer once to restore interactions. Rebuild after changing chrome or classes, with the sibling `fudami-design` checkout available:
 
 ```bash
-npx serve .
+npm ci
+npm run build
+python3 -m http.server 3000 --directory public
 # → http://localhost:3000
 ```
 
@@ -119,8 +118,21 @@ Deployed automatically on every push to `main` via **Cloudflare Pages** (connect
 | Requirement | Details |
 |---|---|
 | **Platform** | Cloudflare Pages (direct GitHub integration) |
-| **Build command** | _None_ (static site) |
-| **Output directory** | `/` (root) |
+| **Build command** | _None_ (CSS is built and committed before release) |
+| **Output directory** | `public` (also set in `wrangler.toml`) |
+
+The Pages project must use `public` as its output directory. Repository metadata,
+tests, dependencies and Functions source stay outside it. Do not deploy the
+repository root or rely on `.assetsignore` to filter a Pages upload.
+
+To refresh the shared design artifacts after building the sibling package:
+
+```bash
+(cd ../fudami-design && npm run build)
+npm run vendor:design
+npm run build
+npm test
+```
 
 ---
 

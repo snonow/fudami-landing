@@ -46,7 +46,7 @@ test('the bootstrap adds Umami\'s tag with this site\'s id, through our own orig
 });
 
 test('the loader runs on the production host only, off for Do Not Track and GPC, no external host', () => {
-  const src = fs.readFileSync(`${__dirname}/../shared.js`, 'utf8');
+  const src = fs.readFileSync(`${__dirname}/../public/shared.js`, 'utf8');
   const block = src.match(/if \(location\.hostname === 'fudami\.net'[\s\S]*?\n\}\n/)[0];
   const run = (hostname, nav) => {
     const added = [];
@@ -62,7 +62,7 @@ test('the loader runs on the production host only, off for Do Not Track and GPC,
 });
 
 test('the privacy page has a button that switches the statistics off with Umami\'s own opt-out key, and back on', () => {
-  const block = fs.readFileSync(`${__dirname}/../shared.js`, 'utf8').split('// Statistics switch')[1].replace(/^.*\n/, '');
+  const block = fs.readFileSync(`${__dirname}/../public/shared.js`, 'utf8').split('// Statistics switch')[1].replace(/^.*\n/, '');
   const store = {};
   const button = { textContent: '', click: null, addEventListener(_, f) { this.click = f; } };
   let ready;
@@ -77,10 +77,19 @@ test('the privacy page has a button that switches the statistics off with Umami\
   assert.match(button.textContent, /off in this browser/);
   button.click();
   assert.strictEqual(store['umami.disabled'], undefined);
-  assert.ok(fs.readFileSync(`${__dirname}/../privacy.html`, 'utf8').includes('id="stats-switch"'));
+  assert.ok(fs.readFileSync(`${__dirname}/../public/privacy.html`, 'utf8').includes('id="stats-switch"'));
 });
 
 test('the CSP names no third-party script, style or font host: the privacy page says the browser never contacts one', () => {
-  const csp = fs.readFileSync(`${__dirname}/../_headers`, 'utf8').match(/Content-Security-Policy: (.*)/)[1];
+  const csp = fs.readFileSync(`${__dirname}/../public/_headers`, 'utf8').match(/Content-Security-Policy: (.*)/)[1];
   for (const directive of ['script-src', 'style-src', 'font-src']) assert.ok(!new RegExp(`${directive}[^;]*https://`).test(csp), directive);
+  assert.match(csp, /connect-src 'self';/);
+  assert.match(csp, /img-src 'self' data:;/);
+});
+
+test('privacy describes Umami alone for dictionary analytics and keeps the offline key notice', () => {
+  const html = fs.readFileSync(`${__dirname}/../public/privacy.html`, 'utf8');
+  assert.match(html, /dictionary uses only the self-hosted Umami/);
+  assert.match(html, /Offline content keys \(app\)/);
+  assert.doesNotMatch(html, /unless you accept in the banner|Only if you accept|Dictionary audience statistics \(anonymous counts|Cookie settings|fudami-consent/);
 });

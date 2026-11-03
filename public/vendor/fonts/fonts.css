@@ -1,10 +1,11 @@
 /* fudami-design fonts, self-hosted: no visitor request ever reaches Google (a German court
  * fined exactly that in 2022: LG München I, 3 O 17493/20). Plus Jakarta Sans (SIL OFL 1.1,
  * see OFL.txt) and Material Symbols Outlined (Apache 2.0), subsetted to the icons the sites use.
- * Japanese text uses the system's Japanese fonts. Copy this folder to a site's vendor/fonts/.
+ * Japanese: Zen Maru Gothic 500/700 (SIL OFL 1.1, see OFL.txt), subsetted by scripts/subset-jp.py
+ * to kana, punctuation and the N5 kanji; anything else falls back to the system's Japanese fonts. Copy this folder to a site's vendor/fonts/.
  * Icons in the subset - a site's test checks every icon it uses is listed here:
  * icon_names=arrow_back,arrow_forward,cancel,check,check_circle,close,code,content_copy,dark_mode,devices,download,draw,edit,emoji_events,error,favorite,format_quote,history,home,hourglass_empty,hub,info,interests,light_mode,local_fire_department,lock,login,menu,menu_book,notifications_active,person,play_arrow,progress_activity,psychology,record_voice_over,rocket_launch,school,science,search,search_off,settings,shuffle,spa,star,swap_horiz,text_fields,translate,trending_up,upload,verified,volume_down,volume_up,workspace_premium
- * Adding one: fetch https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=<that list, sorted>&display=block
+ * Adding one: fetch https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=<that list, sorted>&display=swap
  * with a browser User-Agent and save the woff2 it points to over material-symbols-outlined.woff2. */
 /* latin-ext */
 @font-face {
@@ -25,10 +26,26 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
+  font-family: 'Zen Maru Gothic';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(zen-maru-gothic-medium.woff2) format('woff2');
+  unicode-range: U+3000-303F, U+3041-3096, U+30A0-30FF, U+4E00-9FFF, U+FF01-FF5E;
+}
+@font-face {
+  font-family: 'Zen Maru Gothic';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(zen-maru-gothic-bold.woff2) format('woff2');
+  unicode-range: U+3000-303F, U+3041-3096, U+30A0-30FF, U+4E00-9FFF, U+FF01-FF5E;
+}
+@font-face {
   font-family: 'Material Symbols Outlined';
   font-style: normal;
   font-weight: 100 700;
-  font-display: block;
+  font-display: swap;
   src: url(material-symbols-outlined.woff2) format('woff2');
 }
 
@@ -49,7 +66,17 @@
   -webkit-font-smoothing: antialiased;
 }
 
-/* Japanese: the system's own fonts (rounded Hiragino on Apple, Noto Sans JP on Android). */
+/* Japanese: Zen Maru Gothic, then the system's fonts (rounded Hiragino on Apple, Noto Sans JP on Android). */
 .font-jp, .kanji-glyph {
-  font-family: "Hiragino Maru Gothic ProN", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+  font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+}
+/* Klee One Regular (SIL OFL 1.1, Fontworks): textbook-style Japanese, the kanji have the shapes taught at school,
+ * like the KanjiVG stroke diagrams. Subset by scripts/subset-klee.py to kana, punctuation and the ~2,800 kanji of the
+ * 20,000 most used words plus the JLPT lists; any other kanji falls back to the system's Japanese font. */
+@font-face {
+  font-family: 'Klee One';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(klee-one-regular.woff2) format('woff2');
 }

@@ -16,7 +16,7 @@ const fs = require('fs');
 const path = require('path');
 const { JSDOM } = require('jsdom');
 
-const ROOT = path.join(__dirname, '..');
+const ROOT = path.join(__dirname, '..', 'public');
 const PAGES = ['index.html', 'about.html', 'fsrs.html', 'glossary.html', 'pricing.html', 'privacy.html', 'terms.html', 'legal.html', 'credits.html', 'waitlist.html'];
 // The app is private for now: every call to action leads to the waitlist.
 const APP_URL = 'waitlist';
@@ -51,6 +51,9 @@ for (const page of PAGES) {
   test(`${page} boots with its chrome and a working CTA`, () => {
     const doc = boot(page);
 
+    assert.strictEqual(doc.querySelectorAll('#site-header').length, 1, 'client initialization duplicated the header');
+    assert.strictEqual(doc.querySelectorAll('#site-footer').length, 1, 'client initialization duplicated the footer');
+
     assert.ok(doc.getElementById('site-header'), 'header was not injected');
     assert.ok(doc.getElementById('theme-toggle'), 'theme toggle missing from header');
     assert.ok(
@@ -62,7 +65,8 @@ for (const page of PAGES) {
     // The header's CTA is now an <a href> built by fudami-design rather than a button
     // carrying an inline onclick, so both forms count - an href is the stronger one: it
     // survives JS being disabled and any CSP that forbids inline handlers.
-    const ctas = [...doc.querySelectorAll('[id^="clerk-"], .clerk-signup-trigger, a.btn-hanko')];
+    const ctas = [...doc.querySelectorAll('a.btn-hanko')];
+    assert.strictEqual(doc.querySelectorAll('[id^="clerk-"], .clerk-signup-trigger').length, 0, 'dead clerk id or class found');
     assert.ok(ctas.length > 0, 'page has no call to action at all');
     for (const cta of ctas) {
       const target = `${cta.getAttribute('href') ?? ''} ${cta.getAttribute('onclick') ?? ''}`;
@@ -75,6 +79,33 @@ for (const page of PAGES) {
     }
   });
 }
+
+test('every page ships navigation and the shared legal links with JavaScript disabled', () => {
+  for (const page of fs.readdirSync(ROOT).filter(name => name.endsWith('.html'))) {
+    const dom = new JSDOM(fs.readFileSync(path.join(ROOT, page), 'utf8'));
+    const doc = dom.window.document;
+    assert.strictEqual(doc.querySelectorAll('#site-header').length, 1, page);
+    assert.strictEqual(doc.querySelectorAll('#site-footer').length, 1, page);
+    for (const href of ['/about', '/pricing', 'https://jisho.fudami.net']) {
+      assert.ok(doc.querySelector(`#site-header a[href="${href}"]`), `${page}: ${href}`);
+    }
+    for (const href of ['privacy', 'terms', 'legal', 'credits']) {
+      assert.ok(doc.querySelector(`#site-footer a[href="https://fudami.net/${href}"]`), `${page}: ${href}`);
+    }
+    dom.window.close();
+  }
+});
+
+test('client initialization preserves the theme toggle and mobile navigation', () => {
+  const doc = boot('index.html');
+  const wasDark = doc.documentElement.classList.contains('dark');
+  doc.getElementById('theme-toggle').click();
+  assert.strictEqual(doc.documentElement.classList.contains('dark'), !wasDark);
+  const mobile = doc.getElementById('mobile-nav');
+  assert.ok(mobile.classList.contains('hidden'));
+  doc.getElementById('mobile-menu-toggle').click();
+  assert.ok(!mobile.classList.contains('hidden'));
+});
 
 test('no third-party auth SDK is pulled into any page', () => {
   // Regression: the landing page used to load @clerk/clerk-js@latest from a CDN

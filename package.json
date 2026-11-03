@@ -1,12 +1,14 @@
 {
   "name": "fudami-landing",
   "version": "1.0.0",
-  "description": "<p align=\"center\">   <img src=\"assets/favicon.png\" alt=\"fudami\" width=\"96\" height=\"96\" /> </p>",
-  "main": "components.js",
+  "description": "<p align=\"center\">   <img src=\"public/assets/favicon.png\" alt=\"fudami\" width=\"96\" height=\"96\" /> </p>",
+  "main": "public/components.js",
   "scripts": {
-    "dev": "../fudami-design/node_modules/.bin/tailwindcss -c ../fudami-design/tailwind.config.js -i ../fudami-design/css/fudami.css --content \"./*.html,./*.js,./vendor/*.js\" -o ./design-system.css --watch",
-    "build": "../fudami-design/node_modules/.bin/tailwindcss -c ../fudami-design/tailwind.config.js -i ../fudami-design/css/fudami.css --content \"./*.html,./*.js,./vendor/*.js\" -o ./design-system.css -m",
-    "test": "node --test test/*.test.js"
+    "dev": "../fudami-design/node_modules/.bin/tailwindcss -c ../fudami-design/tailwind.config.js -i ../fudami-design/css/fudami.css --content \"./public/*.html,./public/*.js,./public/vendor/*.js\" -o ./public/design-system.css --watch",
+    "build": "node scripts/render-chrome.cjs && ../fudami-design/node_modules/.bin/tailwindcss -c ../fudami-design/tailwind.config.js -i ../fudami-design/css/fudami.css --content \"./public/*.html,./public/*.js,./public/vendor/*.js\" -o ./public/design-system.css -m",
+    "test": "node --test test/*.test.js",
+    "vendor:design": "cp ../fudami-design/dist/chrome.browser.js public/vendor/fudami-design.browser.js && cp ../fudami-design/dist/theme-boot.js public/vendor/theme-boot.js && cp -r ../fudami-design/dist/fonts public/vendor/",
+    "render:chrome": "node scripts/render-chrome.cjs"
   },
   "repository": {
     "type": "git",

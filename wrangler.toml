@@ -1,6 +1,6 @@
 # Cloudflare Pages: binds the shared fudami-db (also the app's) for functions/api/waitlist.js.
 name = "fudami-landing"
-pages_build_output_dir = "."
+pages_build_output_dir = "public"
 compatibility_date = "2026-10-01"
 
 [[d1_databases]]
