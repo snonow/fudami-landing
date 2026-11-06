@@ -123,7 +123,7 @@ function showWikiModal(term) {
     const titleEl = document.getElementById('wiki-modal-title');
     if (titleEl) {
       titleEl.textContent = data.title;
-      titleEl.className = `text-2xl font-extrabold capitalize font-['Plus_Jakarta_Sans'] ${data.colorClass}`;
+      titleEl.className = `text-2xl font-extrabold capitalize ${data.colorClass}`;
     }
     
     const descEl = document.getElementById('wiki-modal-desc');

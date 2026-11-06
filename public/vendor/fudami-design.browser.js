@@ -147,33 +147,33 @@
     }
     
     /**
-     * The language switch. `langs` maps a code to its own name ({ en: "English", fr: "Français" });
-     * `soon` lists names shown disabled. Choosing saves and reloads: every string on the page,
-     * and on jisho the definitions, follow without any re-render code.
+     * The language switch: one button per language, in its own code (EN, FR), the current one pressed.
+     * `langs` maps a code to its own name ({ en: "English", fr: "Français" }), shown as the button's title;
+     * `soon` lists the names not translated yet, on one disabled button. Choosing saves and reloads: every
+     * string on the page, and on jisho the definitions, follow without any re-render code.
      */
     function langSelect(langs, soon = []) {
-      const select = el("select", {
-        className:
-          "text-xs font-semibold bg-white/5 hover:bg-white/10 border border-white/5 " +
-          "text-washi-light/80 rounded-full px-2.5 py-1.5 outline-none cursor-pointer max-w-[6.5rem]",
-        attrs: { id: "lang-select", "aria-label": t("Language") },
-      });
-      for (const [code, name] of Object.entries(langs)) select.appendChild(el("option", { text: name, attrs: { value: code } }));
-      for (const name of soon) {
-        const option = el("option", { text: `${name} (${t("soon")})` });
-        option.disabled = true;
-        select.appendChild(option);
+      const current = document.documentElement.lang;
+      const group = el("div", { className: "fd-seg", attrs: { id: "lang-select", role: "group", "aria-label": t("Language") } });
+      for (const [code, name] of Object.entries(langs)) {
+        const button = el("button", { text: code.toUpperCase(), attrs: { type: "button", lang: code, title: name, "aria-label": name, "aria-pressed": String(code === current) } });
+        button.dataset.lang = code;
+        button.addEventListener("click", () => {
+          if (code === document.documentElement.lang) return;
+          try {
+            localStorage.setItem(LANG_KEY, code);
+          } catch {
+            /* the reload below still shows the browser's language */
+          }
+          location.reload();
+        });
+        group.appendChild(button);
       }
-      select.value = document.documentElement.lang;
-      select.addEventListener("change", () => {
-        try {
-          localStorage.setItem(LANG_KEY, select.value);
-        } catch {
-          /* the reload below still shows the browser's language */
-        }
-        location.reload();
-      });
-      return select;
+      if (soon.length) {
+        const later = `${soon.join(", ")} (${t("soon")})`;
+        group.appendChild(el("button", { text: `+${soon.length}`, attrs: { type: "button", disabled: "", title: later, "aria-label": later } }));
+      }
+      return group;
     }
     
     /** Anything the caller passes as a nav entry: { id, href, label, i18n? }. */
@@ -252,7 +252,7 @@
           "flex items-center gap-2 text-washi-light",
         attrs: { href: safeHref(brandHref) },
       });
-      brand.appendChild(el("span", { className: "font-['Plus_Jakarta_Sans']", text: "fudami" }));
+      brand.appendChild(el("span", { text: "fudami" }));
       if (badge) {
         brand.appendChild(
           el("span", {
@@ -414,7 +414,7 @@
       const brandCol = el("div", { className: "flex flex-col gap-3" });
       const brandLink = el("a", { className: "inline-block no-underline", attrs: { href: safeHref(brandHref) } });
       const brandText = el("span", {
-        className: "text-lg font-bold text-washi-light font-['Plus_Jakarta_Sans']",
+        className: "text-lg font-bold text-washi-light",
         text: "fudami",
       });
       if (badge) brandText.appendChild(el("span", { className: "text-hanko", text: ` ${badge}` }));
@@ -423,7 +423,7 @@
       if (tagline) {
         brandCol.appendChild(
           el("p", {
-            className: "text-sm text-washi-light/50 max-w-[280px]",
+            className: "text-sm text-washi-light/60 max-w-[280px]",
             text: t(tagline),
             attrs: { "data-i18n": "footer.tagline" },
           }),
@@ -437,7 +437,7 @@
         const c = el("div", { className: "flex flex-col gap-2" });
         c.appendChild(
           el("span", {
-            className: "text-xs font-bold uppercase tracking-widest text-washi-light/40 mb-1",
+            className: "text-xs font-bold uppercase tracking-widest text-washi-light/60 mb-1",
             text: t(column.title),
           }),
         );
@@ -446,7 +446,7 @@
           // an <a href="#"> is what the hand-written footers did, and it is a dead link to a
           // screen reader and a mouse alike.
           if (!link.href) {
-            c.appendChild(el("span", { className: "text-sm text-washi-light/40", text: t(link.label) }));
+            c.appendChild(el("span", { className: "text-sm text-washi-light/60", text: t(link.label) }));
             continue;
           }
           const attrs = { href: safeHref(link.href), ...(link.i18n ? { "data-i18n": link.i18n } : {}) };
@@ -484,9 +484,9 @@
         className: "mt-10 pt-6 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-3",
       });
       bottom.appendChild(
-        el("span", { className: "text-xs text-washi-light/40", text: t(copyright), attrs: { "data-i18n": "footer.copy" } }),
+        el("span", { className: "text-xs text-washi-light/60", text: t(copyright), attrs: { "data-i18n": "footer.copy" } }),
       );
-      if (note) bottom.appendChild(el("div", { className: "text-xs text-washi-light/30 font-mono", text: note }));
+      if (note) bottom.appendChild(el("div", { className: "text-xs text-washi-light/60 font-mono", text: note }));
     
       wrap.append(top, bottom);
       footer.appendChild(wrap);
