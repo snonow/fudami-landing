@@ -62,3 +62,14 @@ test('vendored fonts include Japanese subsets and every stylesheet font file', (
     assert.ok(fs.statSync(path.join(fonts, file)).isFile(), file);
   }
 });
+
+test('every Material Symbol a page uses is in the vendored subset', () => {
+  const css = fs.readFileSync(path.join(ROOT, 'vendor', 'fonts', 'fonts.css'), 'utf8');
+  const subset = new Set(/icon_names=([\w,]+)/.exec(css)[1].split(','));
+  for (const page of fs.readdirSync(ROOT).filter(name => name.endsWith('.html'))) {
+    const html = fs.readFileSync(path.join(ROOT, page), 'utf8');
+    for (const [, icon] of html.matchAll(/material-symbols-outlined[^"]*"[^>]*>([a-z_]+)</g)) {
+      assert.ok(subset.has(icon), `${page} uses "${icon}", which the icon font does not contain`);
+    }
+  }
+});
