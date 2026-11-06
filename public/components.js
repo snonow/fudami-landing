@@ -108,7 +108,7 @@ function injectWikiModal() {
   head.appendChild(iconWrap);
   head.appendChild(
     el('h3', {
-      className: "text-2xl font-extrabold capitalize font-['Plus_Jakarta_Sans']",
+      className: "text-2xl font-extrabold capitalize",
       attrs: { id: 'wiki-modal-title' },
     }),
   );
