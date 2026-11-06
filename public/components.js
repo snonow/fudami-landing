@@ -54,7 +54,6 @@ function injectFooter() {
           title: 'Company',
           links: [
             { label: 'About', href: '/about', i18n: 'nav.about' },
-            { label: 'Credits', href: '/credits' },
             { label: 'GitHub', href: 'https://github.com/snonow/fudami-landing', external: true },
           ],
         },
