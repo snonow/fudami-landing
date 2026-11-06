@@ -1000,3 +1000,14 @@
   font-display: swap;
   src: url(klee-one-regular.woff2) format('woff2');
 }
+/* The fudami wordmark: Plus Jakarta Sans ExtraBold (SIL OFL 1.1), the logo face before M PLUS 2, kept for the logo only.
+ * Lowercase a-z, 2 KB. Rebuild: fonttools varLib.instancer PlusJakartaSans[wght].ttf wght=800 -o pjs800.ttf, then
+ * fonttools subset pjs800.ttf --text=abcdefghijklmnopqrstuvwxyz --layout-features=kern,liga --flavor=woff2
+ * --output-file=fudami-wordmark.woff2 (and without --flavor to ../native/fudami-wordmark.ttf for the app). */
+@font-face {
+  font-family: 'fudami wordmark';
+  font-style: normal;
+  font-weight: 800;
+  font-display: block;
+  src: url(fudami-wordmark.woff2) format('woff2');
+}

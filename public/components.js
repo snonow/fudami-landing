@@ -27,7 +27,7 @@ function injectHeader(activePage) {
       active: activePage,
       nav: NAV,
       brandHref: '/',
-      cta: { label: 'Join Waitlist', href: '/waitlist' },
+      cta: { label: 'Start learning free', href: 'https://app.fudami.net/' },
     }),
   );
 }
@@ -54,7 +54,6 @@ function injectFooter() {
           title: 'Company',
           links: [
             { label: 'About', href: '/about', i18n: 'nav.about' },
-            { label: 'Credits', href: '/credits' },
             { label: 'GitHub', href: 'https://github.com/snonow/fudami-landing', external: true },
           ],
         },
@@ -110,6 +109,7 @@ function injectWikiModal() {
     el('h3', {
       className: "text-2xl font-extrabold capitalize",
       attrs: { id: 'wiki-modal-title' },
+      text: 'Definition', // named before a term fills it: aria-dialog-name
     }),
   );
   body.appendChild(head);

@@ -18,8 +18,8 @@ const { JSDOM } = require('jsdom');
 
 const ROOT = path.join(__dirname, '..', 'public');
 const PAGES = ['index.html', 'about.html', 'fsrs.html', 'glossary.html', 'pricing.html', 'privacy.html', 'terms.html', 'legal.html', 'credits.html', 'waitlist.html'];
-// The app is private for now: every call to action leads to the waitlist.
-const APP_URL = 'waitlist';
+// Every call to action leads to the app (live, guest learning) or the waitlist (N4, native apps).
+const APP_URL = '^(https://app\\.fudami\\.net/|waitlist) ';
 
 /** Load one page with its scripts executed, as a browser would. */
 function boot(page) {

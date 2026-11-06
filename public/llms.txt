@@ -1,13 +1,13 @@
 # fudami
 
-> fudami is a Japanese-learning project: a spaced-repetition app (FSRS) in development, and a free Japanese–English/French dictionary, jisho.
+> fudami is a Japanese-learning project: a spaced-repetition app (FSRS) whose JLPT N5 path is open and free at https://app.fudami.net/ (no account needed), and a free Japanese–English/French dictionary, jisho.
 
 - [Home](https://fudami.net/): what fudami is and why (memory science plus the pull of a game).
 - [About](https://fudami.net/about): who builds it and what it believes.
 - [What is FSRS?](https://fudami.net/fsrs): the spaced repetition algorithm fudami uses, vs SM-2, with FAQ.
 - [Glossary](https://fudami.net/glossary): plain-language definitions of kana, hiragana, katakana, kanji, furigana, romaji, radicals, JLPT, pitch accent, SRS and FSRS.
 - [Pricing](https://fudami.net/pricing): planned plans; nothing is sold yet.
-- [Waitlist](https://fudami.net/waitlist): leave an email to hear when the app opens.
+- [Waitlist](https://fudami.net/waitlist): leave an email to hear when N4 and the native apps arrive.
 - [Jisho dictionary](https://jisho.fudami.net/): search words in romaji, kana or kanji, browse kanji by radical; see its own llms.txt.
 - [Credits](https://fudami.net/credits): open data used (JMdict, KANJIDIC2, KanjiVG, Tatoeba, JLPT lists) and licences.
 - [Privacy](https://fudami.net/privacy), [Terms](https://fudami.net/terms), [Legal notice](https://fudami.net/legal).

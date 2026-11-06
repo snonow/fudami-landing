@@ -4,34 +4,32 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta name="theme-color" content="#f9f7f1"/>
-<title>fudami | Make Japanese impossible to forget</title>
+<title>fudami | Learn Japanese that stays learned. Start free.</title>
 
 <!-- SEO -->
-<meta name="description" content="fudami fuses serious memory science (FSRS spaced repetition) with the habit-building pull of a great game. One connected knowledge graph from kana to kanji so your Japanese stays learned."/>
-<meta name="keywords" content="Japanese learning, Kanji, FSRS, Spaced Repetition, SRS, Anki alternative, learn Japanese, JLPT"/>
+<meta name="description" content="Anki's memory science with Duolingo's daily habit, in a calm Japanese skin. Start JLPT N5 free in your browser, no account needed: your first recall takes under a minute."/>
 <meta name="author" content="fudami"/>
-<meta property="og:title" content="fudami | Make Japanese impossible to forget"/>
+<meta property="og:title" content="fudami | Learn Japanese that stays learned"/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://fudami.net/"/>
 <meta property="og:site_name" content="fudami"/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:description" content="The proven memory science of Anki meets the engaging flow of Duolingo, with none of the baggage. fudami perfectly times every kana, kanji, and word right before you forget them, ensuring your knowledge stays locked in."/>
+<meta property="og:description" content="Anki's memory science with Duolingo's daily habit, in a calm Japanese skin. Start JLPT N5 free, no account needed."/>
 <meta property="og:image" content="https://fudami.net/assets/og-image.png"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
 <meta property="og:image:alt" content="fudami: make Japanese impossible to forget"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="fudami | Make Japanese impossible to forget"/>
-<meta name="twitter:description" content="The proven memory science of Anki meets the engaging flow of Duolingo, with none of the baggage. fudami perfectly times every kana, kanji, and word right before you forget them, ensuring your knowledge stays locked in."/>
+<meta name="twitter:title" content="fudami | Learn Japanese that stays learned"/>
+<meta name="twitter:description" content="Anki's memory science with Duolingo's daily habit, in a calm Japanese skin. Start JLPT N5 free, no account needed."/>
 <meta name="twitter:image" content="https://fudami.net/assets/og-image.png"/>
 <meta name="robots" content="index, follow"/>
 <link rel="canonical" href="https://fudami.net/"/>
 <link rel="icon" type="image/png" href="assets/favicon.png"/>
 <link rel="apple-touch-icon" href="assets/favicon.png"/>
 
-
-<!-- Design System CSS (single source of truth) -->
 <link rel="preload" href="vendor/fonts/m-plus-2/latin.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="preload" href="vendor/fonts/fudami-wordmark.woff2" as="font" type="font/woff2" crossorigin/>
 <link rel="stylesheet" href="vendor/fonts/fonts.css"/>
 <link rel="stylesheet" href="design-system.css"/>
 
@@ -45,316 +43,222 @@
   })();
 </script>
 
-
-<!-- App scripts (deferred) -->
 <script src="vendor/fudami-design.browser.js" defer></script>
 <script src="components.js" defer></script>
 <script src="shared.js" defer></script>
-
-<!-- Page-specific init -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Inject shared components
     injectHeader('index');
     injectFooter();
     injectWikiModal();
-    initScrollReveal();
   });
 </script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://fudami.net/#org", "name": "fudami", "url": "https://fudami.net/", "logo": "https://fudami.net/assets/favicon.png", "sameAs": ["https://github.com/snonow/fudami-landing"]}, {"@type": "WebSite", "@id": "https://fudami.net/#site", "name": "fudami", "url": "https://fudami.net/", "publisher": {"@id": "https://fudami.net/#org"}, "inLanguage": "en"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://fudami.net/#org", "name": "fudami", "url": "https://fudami.net/", "logo": "https://fudami.net/assets/favicon.png", "sameAs": ["https://github.com/snonow/fudami-landing"]}, {"@type": "WebSite", "@id": "https://fudami.net/#site", "name": "fudami", "url": "https://fudami.net/", "publisher": {"@id": "https://fudami.net/#org"}, "inLanguage": "en"}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is fudami free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The JLPT N5 path is free in your browser while fudami is in early access. If paid features come later, the pricing page will say so before you pay anything."}}, {"@type": "Question", "name": "Do I need an account?", "acceptedAnswer": {"@type": "Answer", "text": "No. You can start as a guest: your progress is kept in this browser. Create an account when you want it to follow you to another device."}}, {"@type": "Question", "name": "What can I learn today?", "acceptedAnswer": {"@type": "Answer", "text": "JLPT N5, starting from hiragana and katakana. N4 is being built next."}}, {"@type": "Question", "name": "Is there a phone app?", "acceptedAnswer": {"@type": "Answer", "text": "fudami runs in the browser on phones and computers today. Native iOS and Android apps are planned; join the list to hear when they ship."}}, {"@type": "Question", "name": "What is FSRS?", "acceptedAnswer": {"@type": "Answer", "text": "The Free Spaced Repetition Scheduler, an open algorithm that predicts when you are about to forget each item and schedules the review just before."}}]}]}</script>
 </head>
 
 <body class="antialiased min-h-screen flex flex-col font-sans text-body-md">
-<!-- fd-header:start --><header class="fixed top-0 w-full z-50 chrome-glass" id="site-header"><div class="flex justify-between items-center w-full px-6 md:px-8 max-w-[1200px] mx-auto h-16"><a class="text-xl font-extrabold tracking-tight hover:opacity-80 transition-opacity no-underline flex items-center gap-2 text-washi-light" href="/"><span>fudami</span></a><nav class="hidden md:flex items-center gap-8"><a class="text-washi-light border-b-2 border-hanko-red pb-0.5 font-bold transition-colors duration-200 text-sm font-medium no-underline" href="/" data-i18n="nav.home">Home</a><a class="text-washi-light/60 hover:text-washi-light transition-colors duration-200 text-sm font-medium no-underline" href="/about" data-i18n="nav.about">About</a><a class="text-washi-light/60 hover:text-washi-light transition-colors duration-200 text-sm font-medium no-underline" href="/pricing" data-i18n="nav.pricing">Pricing</a><a class="text-washi-light/60 hover:text-washi-light transition-colors duration-200 text-sm font-medium no-underline" href="https://jisho.fudami.net">Dictionary</a></nav><div class="flex items-center gap-3"><button class="text-washi-light/70 hover:text-washi-light hover:scale-105 transition-all duration-200 w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/5" id="theme-toggle" type="button" aria-label="Toggle theme" title="Switch to dark mode"><span class="material-symbols-outlined text-[18px]">dark_mode</span></button><a class="btn-hanko rounded-xl text-xs uppercase tracking-widest no-underline px-5 py-2 hidden md:inline-flex items-center gap-1.5" href="/waitlist"><span>Join Waitlist</span></a><button class="text-washi-light/70 hover:text-washi-light hover:scale-105 transition-all duration-200 w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/5 md:hidden" id="mobile-menu-toggle" type="button" aria-label="Menu" aria-controls="mobile-nav" aria-expanded="false"><span class="material-symbols-outlined text-[18px]">menu</span></button></div></div><div class="md:hidden hidden border-t border-white/5" id="mobile-nav" style="background: rgb(var(--surface-rgb) / 0.95); backdrop-filter: blur(24px);"><nav class="flex flex-col px-6 py-4 gap-1"><a class="py-3 px-4 rounded-xl text-sm font-medium no-underline transition-colors text-hanko-red bg-hanko-red/10 font-bold" href="/" data-i18n="nav.home">Home</a><a class="py-3 px-4 rounded-xl text-sm font-medium no-underline transition-colors text-washi-light/80 hover:text-washi-light hover:bg-white/5" href="/about" data-i18n="nav.about">About</a><a class="py-3 px-4 rounded-xl text-sm font-medium no-underline transition-colors text-washi-light/80 hover:text-washi-light hover:bg-white/5" href="/pricing" data-i18n="nav.pricing">Pricing</a><a class="py-3 px-4 rounded-xl text-sm font-medium no-underline transition-colors text-washi-light/80 hover:text-washi-light hover:bg-white/5" href="https://jisho.fudami.net">Dictionary</a><a class="btn-hanko rounded-xl text-xs uppercase tracking-widest no-underline mt-3 py-3 w-full justify-center inline-flex items-center gap-2" href="/waitlist"><span>Join Waitlist</span></a></nav></div></header><!-- fd-header:end -->
+<!-- fd-header:start --><header class="fixed top-0 w-full z-50 chrome-glass" id="site-header"><div class="flex justify-between items-center w-full px-6 md:px-8 max-w-[1200px] mx-auto h-16"><a class="text-xl font-extrabold tracking-tight hover:opacity-80 transition-opacity no-underline flex items-center gap-2 text-washi-light" href="/"><span class="fd-wordmark">fudami</span></a><nav class="hidden md:flex items-center gap-8"><a class="text-washi-light border-b-2 border-hanko-red pb-0.5 font-bold transition-colors duration-200 text-sm font-medium no-underline" href="/" data-i18n="nav.home">Home</a><a class="text-washi-light/60 hover:text-washi-light transition-colors duration-200 text-sm font-medium no-underline" href="/about" data-i18n="nav.about">About</a><a class="text-washi-light/60 hover:text-washi-light transition-colors duration-200 text-sm font-medium no-underline" href="/pricing" data-i18n="nav.pricing">Pricing</a><a class="text-washi-light/60 hover:text-washi-light transition-colors duration-200 text-sm font-medium no-underline" href="https://jisho.fudami.net">Dictionary</a></nav><div class="flex items-center gap-3"><button class="text-washi-light/70 hover:text-washi-light hover:scale-105 transition-all duration-200 w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/5" id="theme-toggle" type="button" aria-label="Toggle theme" title="Switch to dark mode"><span class="material-symbols-outlined text-[18px]">dark_mode</span></button><a class="btn-hanko rounded-xl text-xs uppercase tracking-widest no-underline px-5 py-2 hidden md:inline-flex items-center gap-1.5" href="https://app.fudami.net/"><span>Start learning free</span></a><button class="text-washi-light/70 hover:text-washi-light hover:scale-105 transition-all duration-200 w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/5 md:hidden" id="mobile-menu-toggle" type="button" aria-label="Menu" aria-controls="mobile-nav" aria-expanded="false"><span class="material-symbols-outlined text-[18px]">menu</span></button></div></div><div class="md:hidden hidden border-t border-white/5" id="mobile-nav" style="background: rgb(var(--surface-rgb) / 0.95); backdrop-filter: blur(24px);"><nav class="flex flex-col px-6 py-4 gap-1"><a class="py-3 px-4 rounded-xl text-sm font-medium no-underline transition-colors text-hanko-red bg-hanko-red/10 font-bold" href="/" data-i18n="nav.home">Home</a><a class="py-3 px-4 rounded-xl text-sm font-medium no-underline transition-colors text-washi-light/80 hover:text-washi-light hover:bg-white/5" href="/about" data-i18n="nav.about">About</a><a class="py-3 px-4 rounded-xl text-sm font-medium no-underline transition-colors text-washi-light/80 hover:text-washi-light hover:bg-white/5" href="/pricing" data-i18n="nav.pricing">Pricing</a><a class="py-3 px-4 rounded-xl text-sm font-medium no-underline transition-colors text-washi-light/80 hover:text-washi-light hover:bg-white/5" href="https://jisho.fudami.net">Dictionary</a><a class="btn-hanko rounded-xl text-xs uppercase tracking-widest no-underline mt-3 py-3 w-full justify-center inline-flex items-center gap-2" href="https://app.fudami.net/"><span>Start learning free</span></a></nav></div></header><!-- fd-header:end -->
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     MAIN CONTENT
-     ═══════════════════════════════════════════════════════════════════════ -->
-<main class="flex-grow">
+<main class="flex-grow" id="main">
 
-  <!-- ── Status banner: the app is coming, the dictionary is live ─────── -->
-  <div class="pt-20 px-6 md:px-8 flex justify-center">
-    <a href="https://jisho.fudami.net" class="liquid-glass rounded-full py-2 px-4 text-xs font-medium text-sumi-ink/80 text-center hover:text-sumi-ink" data-i18n-html="banner"><span class="inline-block w-2 h-2 rounded-full bg-hanko-red animate-pulse align-middle mr-1.5"></span><span class="font-bold">fudami</span> is in active development. The dictionary is already live: <span class="text-hanko-red font-bold whitespace-nowrap">try Jisho →</span></a>
-  </div>
+  <!-- Hero -->
+  <section class="relative overflow-hidden pt-28 md:pt-36 pb-20 md:pb-28 px-6 md:px-8">
+    <div class="glow-red w-[560px] h-[560px] -top-40 -right-24"></div>
+    <div class="glow-blue w-[420px] h-[420px] top-1/2 -left-48"></div>
+    <p aria-hidden="true" class="hidden xl:block absolute right-8 2xl:right-[8%] top-28 font-light text-[112px] leading-none text-sumi/5 select-none [writing-mode:vertical-rl]">忘れない</p>
 
-
-  <!-- ── Hero Section ───────────────────────────────────────────────────── -->
-  <section class="relative overflow-hidden pt-12 md:pt-20 pb-16 md:pb-28 px-6 md:px-8">
-    <!-- Ambient background glows -->
-    <div class="glow-red w-[500px] h-[500px] -top-40 -right-20 opacity-60 animate-pulse-glow"></div>
-    <div class="glow-blue w-[400px] h-[400px] top-1/2 -left-40 opacity-40"></div>
-
-    <div class="max-w-[1200px] mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16 relative z-10">
-      <!-- Left: Copy -->
-      <div class="flex-1 flex flex-col gap-6 text-center lg:text-left">
-        <h1 class="text-hero-display text-washi-light" data-i18n-html="hero.title">Make Japanese<br><span class="text-hanko-red">impossible to forget.</span></h1>
-        <p class="text-lg md:text-xl text-washi-light/70 max-w-[540px] mx-auto lg:mx-0 leading-relaxed" data-i18n-html="hero.subtitle">The proven <strong>memory science</strong> of <strong style="color: #0095ff;">Anki</strong> meets the <strong>engaging flow</strong> of <strong style="color: #58cc02;">Duolingo</strong>, with none of the baggage. <span class="font-bold">fudami</span> <strong>perfectly times</strong> every <a href="glossary#kana" data-wiki-trigger="kana" class="inline border-b border-dashed border-washi-light/50 hover:border-washi-light hover:text-washi-light transition-colors focus:outline-none bg-transparent p-0 m-0 cursor-pointer">kana</a>, <a href="glossary#kanji" data-wiki-trigger="kanji" class="inline border-b border-dashed border-washi-light/50 hover:border-washi-light hover:text-washi-light transition-colors focus:outline-none bg-transparent p-0 m-0 cursor-pointer">kanji</a>, and word right before you forget them, ensuring your knowledge <strong>stays locked in</strong>.</p>
-        <div class="flex flex-col sm:flex-row gap-4 mt-2 justify-center lg:justify-start">
-          <a href="waitlist" class="btn-hanko px-8 py-4 rounded-2xl text-base uppercase tracking-widest inline-flex items-center justify-center gap-2">
-            <span class="material-symbols-outlined text-xl" style="font-variation-settings:'FILL' 1">notifications_active</span>
-            Join the waitlist
+    <div class="max-w-[1200px] mx-auto grid lg:grid-cols-[1.1fr_1fr] items-center gap-14 lg:gap-10 relative z-10">
+      <div class="flex flex-col gap-7 text-center lg:text-left items-center lg:items-start">
+        <p class="inline-flex items-center gap-2 rounded-full border border-sumi/10 bg-surface/70 px-4 py-1.5 text-sm text-sumi/80">
+          <span class="w-2 h-2 rounded-full bg-matcha" aria-hidden="true"></span>
+          JLPT N5 is open. Free, no account needed.
+        </p>
+        <h1 class="text-hero-display text-washi-light max-w-[12ch]">Make Japanese <span class="text-hanko-red">impossible to forget.</span></h1>
+        <p class="text-lg md:text-xl text-sumi/80 max-w-[34rem] leading-relaxed">
+          The memory science of <strong class="text-washi-light">Anki</strong>, the daily habit of <strong class="text-washi-light">Duolingo</strong>, in a calm Japanese skin. Your first recall takes under a minute.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+          <a href="https://app.fudami.net/" class="btn-hanko px-8 py-4 rounded-2xl text-base inline-flex items-center justify-center gap-2 no-underline">
+            Start learning free
+            <span class="material-symbols-outlined text-xl" aria-hidden="true">arrow_forward</span>
+          </a>
+          <a href="https://jisho.fudami.net/" class="btn-outline px-7 py-4 rounded-2xl text-base inline-flex items-center justify-center gap-2 no-underline">
+            <span class="material-symbols-outlined text-xl" aria-hidden="true">search</span>
+            Look up a word
           </a>
         </div>
-        <!-- Social proof / stat strip -->
-        <div class="flex items-center gap-6 mt-4 justify-center lg:justify-start text-sm text-washi-light/50">
-          <div class="flex items-center gap-1.5">
-            <span class="material-symbols-outlined text-matcha-green text-base" style="font-variation-settings:'FILL' 1">verified</span>
-            <span>FSRS algorithm</span>
-          </div>
-          <div class="flex items-center gap-1.5">
-            <span class="material-symbols-outlined text-matcha-green text-base" style="font-variation-settings:'FILL' 1">lock</span>
-            <span>Privacy-first</span>
-          </div>
-          <div class="flex items-center gap-1.5">
-            <span class="material-symbols-outlined text-matcha-green text-base" style="font-variation-settings:'FILL' 1">devices</span>
-            <span>Cross-platform</span>
-          </div>
-        </div>
+        <p class="text-sm text-sumi/70">Runs in your browser. Starts with <a href="glossary#hiragana" data-wiki-trigger="hiragana" class="underline decoration-dashed underline-offset-4">hiragana</a>, the first <a href="glossary#kana" data-wiki-trigger="kana" class="underline decoration-dashed underline-offset-4">kana</a>.</p>
       </div>
 
-      <!-- Right: App Preview Mockup -->
-      <div class="flex-1 relative w-full max-w-[400px] lg:max-w-none flex items-center justify-center">
-        <div class="animate-float">
-          <!-- Phone frame -->
-          <div id="app-mockup" class="w-[260px] h-[540px] md:w-[280px] md:h-[580px] bg-surface rounded-[40px] border-[6px] border-surface-container-highest shadow-2xl overflow-hidden relative flex flex-col opacity-0 transition-opacity duration-1000">
-            <!-- Status bar mockup -->
-            <div class="bg-hanko-red h-16 w-full flex items-center justify-between px-5 shrink-0 shadow-md z-10">
-              <span class="text-white/60 text-xs font-bold tracking-widest lowercase">fudami</span>
-              <span class="text-white font-bold text-lg">Level 5</span>
-              <span class="material-symbols-outlined text-white/60 text-lg" style="font-variation-settings:'FILL' 1">local_fire_department</span>
+      <div class="relative mx-auto w-full max-w-[460px] h-[520px] sm:h-[600px]" aria-label="Screens from the fudami app" role="img">
+        <div class="absolute left-0 top-6 w-[52%] -rotate-6 rounded-[2rem] bg-surface p-1.5 shadow-2xl ring-1 ring-sumi/10">
+          <img src="assets/app/meet-light.webp" alt="" width="600" height="1298" class="dark:hidden w-full h-auto rounded-[1.6rem]"/>
+          <img src="assets/app/meet-dark.webp" alt="" width="600" height="1298" class="hidden dark:block w-full h-auto rounded-[1.6rem]" loading="lazy"/>
+        </div>
+        <div class="absolute right-0 top-0 w-[58%] rotate-3 rounded-[2.2rem] bg-surface p-1.5 shadow-2xl ring-1 ring-sumi/10">
+          <img src="assets/app/recall-light.webp" alt="" width="600" height="1298" class="dark:hidden w-full h-auto rounded-[1.8rem]"/>
+          <img src="assets/app/recall-dark.webp" alt="" width="600" height="1298" class="hidden dark:block w-full h-auto rounded-[1.8rem]" loading="lazy"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Promise -->
+  <section class="px-6 md:px-8 pb-20 md:pb-28" aria-labelledby="promise-title">
+    <div class="max-w-[1200px] mx-auto">
+      <h2 id="promise-title" class="sr-only">What fudami takes from each</h2>
+      <ul class="grid md:grid-cols-3 gap-px rounded-[2rem] overflow-hidden bg-sumi/10 ring-1 ring-sumi/10">
+        <li class="bg-surface p-8 md:p-10 flex flex-col gap-3">
+          <span class="font-light text-4xl text-hanko-red" aria-hidden="true">記</span>
+          <h3 class="text-xl font-bold text-washi-light">Memory science, like Anki</h3>
+          <p class="text-sumi/80 leading-relaxed"><a href="fsrs" class="underline underline-offset-4">FSRS</a> schedules every kana, kanji and word for the moment just before you would forget it.</p>
+        </li>
+        <li class="bg-surface p-8 md:p-10 flex flex-col gap-3">
+          <span class="font-light text-4xl text-hanko-red" aria-hidden="true">習</span>
+          <h3 class="text-xl font-bold text-washi-light">A daily habit, like Duolingo</h3>
+          <p class="text-sumi/80 leading-relaxed">Short sessions with a clear finish line and a streak to keep. No decks to build, no settings to tune.</p>
+        </li>
+        <li class="bg-surface p-8 md:p-10 flex flex-col gap-3">
+          <span class="font-light text-4xl text-hanko-red" aria-hidden="true">静</span>
+          <h3 class="text-xl font-bold text-washi-light">Calm, like paper and ink</h3>
+          <p class="text-sumi/80 leading-relaxed">No ads, no leaderboards, no guilt trips. A quiet page you can open on a train at 6am.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="py-20 md:py-28 px-6 md:px-8 bg-surface/60 border-y border-sumi/10" id="how" aria-labelledby="how-title">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="max-w-2xl mb-14">
+        <p class="text-label-caps uppercase text-hanko-red mb-3">How it works</p>
+        <h2 id="how-title" class="text-3xl md:text-5xl font-extrabold tracking-tight text-washi-light">From zero to your first recall in under a minute.</h2>
+      </div>
+      <ol class="grid md:grid-cols-3 gap-10 md:gap-8">
+        <li class="flex flex-col gap-5">
+          <img src="assets/app/meet-light.webp" alt="The app teaching the hiragana あ with its stroke order and a mnemonic" width="600" height="1298" loading="lazy" class="dark:hidden w-full max-w-[300px] mx-auto md:mx-0 h-auto rounded-[1.8rem] shadow-xl ring-1 ring-sumi/10"/>
+          <img src="assets/app/meet-dark.webp" alt="The app teaching the hiragana あ with its stroke order and a mnemonic" width="600" height="1298" loading="lazy" class="hidden dark:block w-full max-w-[300px] mx-auto md:mx-0 h-auto rounded-[1.8rem] shadow-xl ring-1 ring-sumi/10"/>
+          <div class="flex gap-4">
+            <span class="font-light text-4xl leading-none text-hanko-red" aria-hidden="true">一</span>
+            <div>
+              <h3 class="text-xl font-bold text-washi-light mb-1">Meet three sounds</h3>
+              <p class="text-sumi/80 leading-relaxed">Each new kana comes with its strokes, its sound and a picture to hang it on. Already read kana? Test out instead.</p>
             </div>
-            <!-- Card area -->
-            <div class="flex-1 p-5 flex flex-col gap-5 bg-charcoal-dark justify-center items-center">
-              <div class="w-full aspect-square bg-surface rounded-2xl flex items-center justify-center text-6xl md:text-7xl text-washi-light shadow-inner border border-white/5" style="font-family:'M PLUS Rounded 1c',sans-serif">
-                日
-              </div>
-              <!-- Grade buttons -->
-              <div class="flex justify-between gap-3 w-full">
-                <div class="h-12 flex-1 bg-surface-container-highest rounded-xl shadow-[0_3px_0_0_rgba(0,0,0,0.3)] border border-white/5 flex items-center justify-center gap-2">
-                  <span class="material-symbols-outlined text-hanko-red text-lg">close</span>
-                  <span class="text-xs font-bold text-washi-light/60 uppercase tracking-wider">Forgot</span>
-                </div>
-                <div class="h-12 flex-1 bg-matcha-green rounded-xl shadow-[0_3px_0_0_rgba(0,0,0,0.3)] border border-white/5 flex items-center justify-center gap-2">
-                  <span class="material-symbols-outlined text-white text-lg">check</span>
-                  <span class="text-xs font-bold text-white/80 uppercase tracking-wider">Got it</span>
-                </div>
-              </div>
-            </div>
-            <!-- Bottom nav mockup -->
-            <div class="h-14 bg-surface border-t border-white/5 flex items-center justify-around px-4 shrink-0">
-              <span class="material-symbols-outlined text-washi-light/30 text-xl">home</span>
-              <span class="material-symbols-outlined text-hanko-red text-xl" style="font-variation-settings:'FILL' 1">school</span>
-              <span class="material-symbols-outlined text-washi-light/30 text-xl">person</span>
+          </div>
+        </li>
+        <li class="flex flex-col gap-5">
+          <img src="assets/app/recall-light.webp" alt="A recall question: four kana to choose from, the right one marked Correct" width="600" height="1298" loading="lazy" class="dark:hidden w-full max-w-[300px] mx-auto md:mx-0 h-auto rounded-[1.8rem] shadow-xl ring-1 ring-sumi/10"/>
+          <img src="assets/app/recall-dark.webp" alt="A recall question: how is い read, with four answers" width="600" height="1298" loading="lazy" class="hidden dark:block w-full max-w-[300px] mx-auto md:mx-0 h-auto rounded-[1.8rem] shadow-xl ring-1 ring-sumi/10"/>
+          <div class="flex gap-4">
+            <span class="font-light text-4xl leading-none text-hanko-red" aria-hidden="true">二</span>
+            <div>
+              <h3 class="text-xl font-bold text-washi-light mb-1">Recall, don't reread</h3>
+              <p class="text-sumi/80 leading-relaxed">You pull each one back from memory, by sound and by sight. Retrieval is what makes it stick.</p>
             </div>
           </div>
-        </div>
+        </li>
+        <li class="flex flex-col gap-5">
+          <img src="assets/app/later-light.webp" alt="End of the first lesson: three sounds to build on, we'll bring them back when it helps you remember" width="600" height="1298" loading="lazy" class="dark:hidden w-full max-w-[300px] mx-auto md:mx-0 h-auto rounded-[1.8rem] shadow-xl ring-1 ring-sumi/10"/>
+          <img src="assets/app/later-dark.webp" alt="End of the first lesson: three sounds to build on, we'll bring them back when it helps you remember" width="600" height="1298" loading="lazy" class="hidden dark:block w-full max-w-[300px] mx-auto md:mx-0 h-auto rounded-[1.8rem] shadow-xl ring-1 ring-sumi/10"/>
+          <div class="flex gap-4">
+            <span class="font-light text-4xl leading-none text-hanko-red" aria-hidden="true">三</span>
+            <div>
+              <h3 class="text-xl font-bold text-washi-light mb-1">Come back when it helps</h3>
+              <p class="text-sumi/80 leading-relaxed">Smart reviews return just before you'd forget. Each session has a set size: finish it and you're done for the day. No backlog guilt.</p>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Honest comparison -->
+  <section class="py-20 md:py-28 px-6 md:px-8" id="compare" aria-labelledby="compare-title">
+    <div class="max-w-[1000px] mx-auto">
+      <div class="max-w-2xl mb-10">
+        <p class="text-label-caps uppercase text-hanko-red mb-3">An honest comparison</p>
+        <h2 id="compare-title" class="text-3xl md:text-5xl font-extrabold tracking-tight text-washi-light">Where fudami fits.</h2>
+        <p class="text-sumi/80 mt-4 leading-relaxed">Anki and Duolingo are both excellent at what they set out to do. Here is what is different, including where fudami is behind.</p>
+      </div>
+      <div class="overflow-x-auto rounded-[1.5rem] ring-1 ring-sumi/10 bg-surface focus-visible:ring-2 focus-visible:ring-hanko outline-none" tabindex="0" role="region" aria-labelledby="compare-title">
+        <table class="w-full min-w-[600px] text-left text-[15px]">
+          <caption class="sr-only">fudami compared with Anki and Duolingo</caption>
+          <thead>
+            <tr class="border-b border-sumi/10">
+              <td class="p-5 w-[22%]"></td>
+              <th scope="col" class="p-5 font-bold text-washi-light">Anki</th>
+              <th scope="col" class="p-5 font-bold text-washi-light">Duolingo</th>
+              <th scope="col" class="p-5 font-extrabold text-hanko-red bg-hanko/5">fudami</th>
+            </tr>
+          </thead>
+          <tbody class="text-sumi/80 [&_th]:p-5 [&_td]:p-5 [&_th]:font-bold [&_th]:text-washi-light [&_tr]:border-b [&_tr]:border-sumi/10 [&_tr:last-child]:border-0">
+            <tr><th scope="row">Scheduling</th><td>FSRS or SM-2, yours to configure</td><td>Its own practice system</td><td class="bg-hanko/5">FSRS, built in, nothing to configure</td></tr>
+            <tr><th scope="row">What you study</th><td>Decks you make or download</td><td>Duolingo's own course</td><td class="bg-hanko/5">A guided JLPT N5 path, from kana up</td></tr>
+            <tr><th scope="row">Daily habit</th><td>Up to you</td><td>Streaks, goals, leagues</td><td class="bg-hanko/5">A streak and a session goal, no leagues</td></tr>
+            <tr><th scope="row">Start</th><td>Install, then pick a deck</td><td>App or browser, account to save</td><td class="bg-hanko/5">Browser, no account</td></tr>
+            <tr><th scope="row">Where it's behind</th><td>Steep learning curve</td><td>Lighter on long-term memory</td><td class="bg-hanko/5">Young: N5 only, web only for now</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-sm text-sumi/70 mt-4">Based on each product's public features in November 2026. See <a href="pricing" class="underline underline-offset-4">pricing</a> and <a href="about" class="underline underline-offset-4">who builds fudami</a>.</p>
+    </div>
+  </section>
+
+  <!-- Jisho -->
+  <section class="px-6 md:px-8 pb-20 md:pb-28" aria-labelledby="jisho-title">
+    <div class="max-w-[1200px] mx-auto liquid-glass rounded-[2rem] p-8 md:p-14 grid grid-cols-1 md:grid-cols-[1fr_1.1fr] gap-8 items-center relative overflow-hidden">
+      <span class="absolute -right-6 -bottom-16 font-light text-[220px] leading-none text-sumi/5 select-none" aria-hidden="true">辞</span>
+      <div class="relative min-w-0">
+        <p class="text-label-caps uppercase text-hanko-red mb-3">Free dictionary</p>
+        <h2 id="jisho-title" class="text-3xl md:text-4xl font-extrabold tracking-tight text-washi-light mb-3">Look anything up in Jisho.</h2>
+        <p class="text-sumi/80 leading-relaxed">Words, readings, kanji and handwriting search, on <a href="https://jisho.fudami.net/" class="underline underline-offset-4">jisho.fudami.net</a>. No account, no ads.</p>
+      </div>
+      <form action="https://jisho.fudami.net/" method="get" role="search" class="relative min-w-0 w-full flex gap-2 rounded-2xl bg-surface ring-1 ring-sumi/15 p-2 focus-within:ring-2 focus-within:ring-hanko">
+        <label for="jisho-q" class="sr-only">Search the dictionary</label>
+        <input id="jisho-q" name="q" type="search" placeholder="水, みず or water" autocomplete="off" class="flex-1 min-w-0 bg-transparent px-3 py-3 text-lg text-washi-light placeholder:text-sumi/60 outline-none"/>
+        <button type="submit" class="btn-hanko rounded-xl px-5 inline-flex items-center gap-1.5">
+          <span class="material-symbols-outlined" aria-hidden="true">search</span><span class="hidden sm:inline">Search</span><span class="sr-only sm:hidden">Search</span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20 md:py-28 px-6 md:px-8 bg-surface/60 border-y border-sumi/10" id="faq" aria-labelledby="faq-title">
+    <div class="max-w-[800px] mx-auto">
+      <p class="text-label-caps uppercase text-hanko-red mb-3">Questions</p>
+      <h2 id="faq-title" class="text-3xl md:text-5xl font-extrabold tracking-tight text-washi-light mb-10">Before you start.</h2>
+      <div class="divide-y divide-sumi/10 border-y border-sumi/10 [&_summary]:flex [&_summary]:justify-between [&_summary]:gap-4 [&_summary]:py-5 [&_summary]:cursor-pointer [&_summary]:text-lg [&_summary]:font-bold [&_summary]:text-washi-light [&_summary]:list-none [&_summary::-webkit-details-marker]:hidden [&_details[open]_summary>span]:rotate-45 [&_p]:pb-6 [&_p]:text-sumi/80 [&_p]:leading-relaxed">
+        <details open><summary>Is fudami free?<span class="text-2xl leading-none text-hanko-red transition-transform" aria-hidden="true">+</span></summary><p>Yes. The JLPT N5 path is free in your browser while fudami is in early access. If paid features come later, the <a href="pricing" class="underline">pricing page</a> will say so before you pay anything.</p></details>
+        <details><summary>Do I need an account?<span class="text-2xl leading-none text-hanko-red transition-transform" aria-hidden="true">+</span></summary><p>No. You can start as a guest: your progress is kept in this browser. Create an account when you want it to follow you to another device.</p></details>
+        <details><summary>What can I learn today?<span class="text-2xl leading-none text-hanko-red transition-transform" aria-hidden="true">+</span></summary><p>JLPT N5, starting from hiragana and katakana. N4 is being built next. New to the words? The <a href="glossary" class="underline">glossary</a> explains kana, kanji and the <a href="glossary#jlpt" data-wiki-trigger="jlpt" class="underline">JLPT</a> in plain words.</p></details>
+        <details><summary>Is there a phone app?<span class="text-2xl leading-none text-hanko-red transition-transform" aria-hidden="true">+</span></summary><p>fudami runs in the browser on phones and computers today. Native iOS and Android apps are planned: <a href="waitlist" class="underline">join the list</a> to hear when they ship, or when N4 opens.</p></details>
+        <details><summary>What is FSRS?<span class="text-2xl leading-none text-hanko-red transition-transform" aria-hidden="true">+</span></summary><p>The Free Spaced Repetition Scheduler, an open algorithm that predicts when you are about to forget each item and schedules the review just before. <a href="fsrs" class="underline">More on FSRS</a>.</p></details>
       </div>
     </div>
   </section>
 
-
-  <!-- ── The fudami Way (Approach) ──────────────────────────────────────── -->
-  <section class="py-20 md:py-28 px-6 md:px-8 relative" id="approach">
-    <div class="glow-green w-[400px] h-[400px] top-0 right-0 opacity-30"></div>
-    <div class="max-w-[1200px] mx-auto relative z-10">
-      <div class="text-center mb-14 section-fade-in">
-        <span class="text-label-caps font-label-caps text-hanko-red uppercase tracking-widest mb-3 block">Methodology</span>
-        <h2 class="text-3xl md:text-4xl font-bold text-washi-light" data-i18n-html="fudamiway.title">The <span class="font-bold">fudami</span> Way</h2>
-        <p class="text-washi-light/50 mt-3 max-w-lg mx-auto text-base" data-i18n="fudamiway.subtitle">
-          Three pillars make Japanese stick: memory science, honest game design, and one connected graph. No gimmicks.
-        </p>
+  <!-- Final CTA -->
+  <section class="py-24 md:py-32 px-6 md:px-8 relative overflow-hidden">
+    <div class="glow-red w-[520px] h-[520px] left-1/2 -translate-x-1/2 -top-20"></div>
+    <div class="max-w-[760px] mx-auto text-center relative">
+      <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight text-washi-light mb-5">Your first three sounds are waiting.</h2>
+      <p class="text-lg text-sumi/80 mb-9">One minute, no account. あ, い, う.</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="https://app.fudami.net/" class="btn-hanko px-10 py-4 rounded-2xl text-base inline-flex items-center justify-center gap-2 no-underline">
+          Start learning free
+          <span class="material-symbols-outlined text-xl" aria-hidden="true">arrow_forward</span>
+        </a>
+        <a href="waitlist" class="btn-ghost px-7 py-4 rounded-2xl text-base inline-flex items-center justify-center gap-2 no-underline">
+          <span class="material-symbols-outlined text-xl" aria-hidden="true">notifications_active</span>
+          Notify me about N4 and the apps
+        </a>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Card 1: Spaced Repetition -->
-        <div class="card-glass rounded-[2rem] p-8 flex flex-col gap-4 section-fade-in hover:translate-y-[-2px] transition-transform duration-500 group">
-          <div class="w-14 h-14 rounded-2xl bg-hanko-red/10 border border-hanko-red/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <span class="material-symbols-outlined text-hanko-red text-2xl" style="font-variation-settings:'FILL' 1">psychology</span>
-          </div>
-          <h3 class="text-xl font-bold text-washi-light" data-i18n="fudamiway.card1.title">Spaced Repetition</h3>
-          <p class="text-sm text-washi-light/60 leading-relaxed" data-i18n="fudamiway.card1.desc">
-            <a href="fsrs" class="underline">FSRS</a>, the state-of-the-art scheduling algorithm, plans each review for the moment just before you'd forget. Maximum retention, minimum reviews.
-          </p>
-        </div>
-        <!-- Card 2: Serene Gamification -->
-        <div class="card-glass rounded-[2rem] p-8 flex flex-col gap-4 section-fade-in hover:translate-y-[-2px] transition-transform duration-500 group" style="transition-delay:0.1s">
-          <div class="w-14 h-14 rounded-2xl bg-matcha-green/10 border border-matcha-green/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <span class="material-symbols-outlined text-matcha-green text-2xl" style="font-variation-settings:'FILL' 1">emoji_events</span>
-          </div>
-          <h3 class="text-xl font-bold text-washi-light" data-i18n="fudamiway.card2.title">A Game That Respects You</h3>
-          <p class="text-sm text-washi-light/60 leading-relaxed" data-i18n="fudamiway.card2.desc">
-            Streaks, daily goals and quiet celebrations pull you back every day. XP is always tied to a real goal like JLPT N5, never a meaningless leaderboard.
-          </p>
-        </div>
-        <!-- Card 3: Deep Context -->
-        <div class="card-glass rounded-[2rem] p-8 flex flex-col gap-4 section-fade-in hover:translate-y-[-2px] transition-transform duration-500 group" style="transition-delay:0.2s">
-          <div class="w-14 h-14 rounded-2xl bg-aizome-indigo/20 border border-aizome-indigo/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <span class="material-symbols-outlined text-aizome-indigo text-2xl" style="font-variation-settings:'FILL' 1">menu_book</span>
-          </div>
-          <h3 class="text-xl font-bold text-washi-light" data-i18n="fudamiway.card3.title">One Living Graph</h3>
-          <p class="text-sm text-washi-light/60 leading-relaxed" data-i18n="fudamiway.card3.desc">
-            Kana, radicals, kanji, vocabulary and grammar form one connected graph instead of isolated decks. Mastering each node strengthens its neighbours.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ── How It Works ───────────────────────────────────────────────────── -->
-  <section class="py-20 md:py-28 px-6 md:px-8 relative">
-    <div class="max-w-[1200px] mx-auto relative z-10">
-      <div class="text-center mb-14 section-fade-in">
-        <span class="text-label-caps font-label-caps text-hanko-red uppercase tracking-widest mb-3 block">Getting Started</span>
-        <h2 class="text-3xl md:text-4xl font-bold text-washi-light">Three steps to fluency</h2>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 section-fade-in">
-        <!-- Step 1 -->
-        <div class="flex flex-col items-center text-center gap-4">
-          <div class="w-16 h-16 rounded-full bg-hanko-red flex items-center justify-center text-white text-2xl font-bold shadow-lg">1</div>
-          <h3 class="text-lg font-bold text-washi-light">Clear the kana gate</h3>
-          <p class="text-sm text-washi-light/60 leading-relaxed max-w-[280px]">Everything starts with <a href="glossary#hiragana" data-wiki-trigger="hiragana" class="inline border-b border-dashed border-washi-light/50 hover:border-washi-light hover:text-washi-light transition-colors focus:outline-none bg-transparent p-0 m-0 cursor-pointer">Hiragana</a> and <a href="glossary#katakana" data-wiki-trigger="katakana" class="inline border-b border-dashed border-washi-light/50 hover:border-washi-light hover:text-washi-light transition-colors focus:outline-none bg-transparent p-0 m-0 cursor-pointer">Katakana</a>, the sound system of Japanese. Already know them? Test out in minutes during onboarding.</p>
-        </div>
-        <!-- Step 2 -->
-        <div class="flex flex-col items-center text-center gap-4">
-          <div class="w-16 h-16 rounded-full bg-hanko-red flex items-center justify-center text-white text-2xl font-bold shadow-lg">2</div>
-          <h3 class="text-lg font-bold text-washi-light">Review daily</h3>
-          <p class="text-sm text-washi-light/60 leading-relaxed max-w-[280px]">Short 10–20 card sessions, scheduled by the algorithm. Commute-friendly, one-handed, always progressing.</p>
-        </div>
-        <!-- Step 3 -->
-        <div class="flex flex-col items-center text-center gap-4">
-          <div class="w-16 h-16 rounded-full bg-hanko-red flex items-center justify-center text-white text-2xl font-bold shadow-lg">3</div>
-          <h3 class="text-lg font-bold text-washi-light">Watch mastery grow</h3>
-          <p class="text-sm text-washi-light/60 leading-relaxed max-w-[280px]">Visualize your progress with our skill radar. See exactly where you excel across <a href="glossary#jlpt" data-wiki-trigger="jlpt" class="inline border-b border-dashed border-washi-light/50 hover:border-washi-light hover:text-washi-light transition-colors focus:outline-none bg-transparent p-0 m-0 cursor-pointer">JLPT</a> levels and where to focus next.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ── Visualize Your Mastery (Efficacy) ──────────────────────────────── -->
-  <section class="py-20 md:py-28 px-6 md:px-8 relative">
-    <div class="glow-red w-[500px] h-[500px] bottom-0 left-0 opacity-20"></div>
-    <div class="max-w-[1200px] mx-auto relative z-10">
-      <div class="liquid-glass rounded-[2rem] p-8 md:p-12 flex flex-col md:flex-row gap-10 items-center border border-white/5 section-fade-in">
-        <div class="flex-1 flex flex-col gap-5">
-          <span class="text-label-caps font-label-caps text-hanko-red uppercase tracking-widest">Progress</span>
-          <h2 class="text-3xl md:text-4xl font-bold text-washi-light" data-i18n="efficacy.title">Visualize Your Mastery</h2>
-          <p class="text-base text-washi-light/60 leading-relaxed" data-i18n="efficacy.desc">
-            Track your progress across JLPT levels, vocabulary themes, and grammar structures with our dynamic knowledge graph. See exactly where you excel and where to focus next.
-          </p>
-          <div class="pt-2">
-            <a href="waitlist" class="btn-hanko px-8 py-4 rounded-2xl text-sm uppercase tracking-widest inline-flex items-center gap-2">
-              <span class="material-symbols-outlined text-lg">rocket_launch</span>
-              Join the waitlist
-            </a>
-          </div>
-        </div>
-        <!-- Radar chart -->
-        <div class="flex-1 w-full min-h-[300px] rounded-2xl border border-white/5 relative overflow-hidden flex items-center justify-center" style="background:rgb(var(--surface-rgb) / 0.3)">
-          <div class="relative w-56 h-56 md:w-64 md:h-64">
-            <svg class="w-full h-full" viewBox="-15 -10 130 120" style="overflow: visible;">
-              <!-- Grid -->
-              <polygon fill="none" points="50,10 90,40 75,90 25,90 10,40" stroke="rgb(var(--text-muted-rgb) / 0.15)" stroke-width="0.5"/>
-              <polygon fill="none" points="50,30 75,50 65,80 35,80 25,50" stroke="rgb(var(--text-muted-rgb) / 0.1)" stroke-width="0.5"/>
-              <line stroke="rgb(var(--text-muted-rgb) / 0.1)" stroke-width="0.5" x1="50" x2="50" y1="50" y2="10"/>
-              <line stroke="rgb(var(--text-muted-rgb) / 0.1)" stroke-width="0.5" x1="50" x2="90" y1="50" y2="40"/>
-              <line stroke="rgb(var(--text-muted-rgb) / 0.1)" stroke-width="0.5" x1="50" x2="75" y1="50" y2="90"/>
-              <line stroke="rgb(var(--text-muted-rgb) / 0.1)" stroke-width="0.5" x1="50" x2="25" y1="50" y2="90"/>
-              <line stroke="rgb(var(--text-muted-rgb) / 0.1)" stroke-width="0.5" x1="50" x2="10" y1="50" y2="40"/>
-              <!-- Data -->
-              <polygon fill="rgb(var(--primary-rgb) / 0.2)" points="50,20 85,45 60,85 30,75 15,45" stroke="rgb(var(--primary-rgb))" stroke-width="1.5"/>
-              <!-- Nodes -->
-              <circle cx="50" cy="20" fill="rgb(var(--primary-rgb))" r="3"/>
-              <circle cx="85" cy="45" fill="rgb(var(--primary-rgb))" r="3"/>
-              <circle cx="60" cy="85" fill="rgb(var(--primary-rgb))" r="3"/>
-              <circle cx="30" cy="75" fill="rgb(var(--primary-rgb))" r="3"/>
-              <circle cx="15" cy="45" fill="rgb(var(--primary-rgb))" r="3"/>
-              <!-- Labels -->
-              <text x="50" y="6" fill="rgb(var(--text-muted-rgb))" font-size="5" text-anchor="middle" font-weight="600">Kanji</text>
-              <text x="95" y="42" fill="rgb(var(--text-muted-rgb))" font-size="5" text-anchor="start" font-weight="600">Grammar</text>
-              <text x="78" y="95" fill="rgb(var(--text-muted-rgb))" font-size="5" text-anchor="middle" font-weight="600">Vocab</text>
-              <text x="22" y="95" fill="rgb(var(--text-muted-rgb))" font-size="5" text-anchor="middle" font-weight="600">Reading</text>
-              <text x="5" y="42" fill="rgb(var(--text-muted-rgb))" font-size="5" text-anchor="end" font-weight="600">Listening</text>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ── What Makes Us Different ────────────────────────────────────────── -->
-  <section class="py-20 md:py-28 px-6 md:px-8 relative">
-    <div class="max-w-[1200px] mx-auto relative z-10">
-      <div class="text-center mb-14 section-fade-in">
-        <span class="text-label-caps font-label-caps text-hanko-red tracking-widest mb-3 block uppercase">Why <span class="font-bold lowercase">fudami</span></span>
-        <h2 class="text-3xl md:text-4xl font-bold text-washi-light">Not another flashcard app</h2>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 section-fade-in">
-        <div class="card-glass rounded-[2rem] p-8 flex gap-5 items-start">
-          <div class="w-10 h-10 rounded-xl bg-hanko-red/10 flex items-center justify-center shrink-0 mt-0.5">
-            <span class="material-symbols-outlined text-hanko-red" style="font-variation-settings:'FILL' 1">trending_up</span>
-          </div>
-          <div>
-            <h3 class="font-bold text-washi-light mb-1">Progress, never debt</h3>
-            <p class="text-sm text-washi-light/60 leading-relaxed">We show momentum: rings filling, retention rising, mastery expanding. Never "353 cards overdue".</p>
-          </div>
-        </div>
-        <div class="card-glass rounded-[2rem] p-8 flex gap-5 items-start">
-          <div class="w-10 h-10 rounded-xl bg-matcha-green/10 flex items-center justify-center shrink-0 mt-0.5">
-            <span class="material-symbols-outlined text-matcha-green" style="font-variation-settings:'FILL' 1">science</span>
-          </div>
-          <div>
-            <h3 class="font-bold text-washi-light mb-1">FSRS is sacred</h3>
-            <p class="text-sm text-washi-light/60 leading-relaxed">The state-of-the-art spaced repetition algorithm drives every scheduling decision. We celebrate it, never override it.</p>
-          </div>
-        </div>
-        <div class="card-glass rounded-[2rem] p-8 flex gap-5 items-start">
-          <div class="w-10 h-10 rounded-xl bg-aizome-indigo/20 flex items-center justify-center shrink-0 mt-0.5">
-            <span class="material-symbols-outlined text-aizome-indigo" style="font-variation-settings:'FILL' 1">shuffle</span>
-          </div>
-          <div>
-            <h3 class="font-bold text-washi-light mb-1">Varied interactions</h3>
-            <p class="text-sm text-washi-light/60 leading-relaxed">The same card appears as flashcard, MCQ, typing, and sentence exercises, so every review feels fresh.</p>
-          </div>
-        </div>
-        <div class="card-glass rounded-[2rem] p-8 flex gap-5 items-start">
-          <div class="w-10 h-10 rounded-xl bg-hanko-red/10 flex items-center justify-center shrink-0 mt-0.5">
-            <span class="material-symbols-outlined text-hanko-red" style="font-variation-settings:'FILL' 1">spa</span>
-          </div>
-          <div>
-            <h3 class="font-bold text-washi-light mb-1">Calm by design</h3>
-            <p class="text-sm text-washi-light/60 leading-relaxed">No guilt trips, no sensory overload. A workspace you can open at 6am on a train or 11pm in bed.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ── New to Japanese? Links to the learning guides ── -->
-  <section class="py-12 md:py-16 px-6 md:px-8 relative" id="learn">
-    <div class="max-w-[800px] mx-auto text-center section-fade-in">
-      <h2 class="text-3xl md:text-4xl font-bold text-washi-light mb-4">New to Japanese?</h2>
-      <p class="text-washi-light/60 max-w-lg mx-auto text-base leading-relaxed">Start with the <a href="glossary" class="underline">glossary</a> for kana, kanji and JLPT in plain words, read <a href="fsrs" class="underline">what FSRS is</a>, or look a word up in the free <a href="https://jisho.fudami.net/" class="underline">fudami dictionary</a>. See <a href="pricing" class="underline">pricing</a> or <a href="about" class="underline">who builds fudami</a>.</p>
-    </div>
-  </section>
-
-
-  <!-- ── Final CTA ──────────────────────────────────────────────────────── -->
-  <section class="py-20 md:py-28 px-6 md:px-8 relative">
-    <div class="max-w-[800px] mx-auto text-center section-fade-in">
-      <h2 class="text-3xl md:text-4xl font-bold text-washi-light mb-4">Ready to remember<br/>everything you learn?</h2>
-      <p class="text-washi-light/50 mb-8 max-w-lg mx-auto">Reserve your spot for early access. No spam, just a heads-up when we launch.</p>
-      <a href="waitlist" class="btn-hanko px-10 py-4 rounded-2xl text-base uppercase tracking-widest inline-flex items-center gap-2">
-        <span class="material-symbols-outlined text-xl" style="font-variation-settings:'FILL' 1">notifications_active</span>
-        Join the waitlist
-      </a>
     </div>
   </section>
 
 </main>
 
-<!-- fd-footer:start --><footer class="w-full py-12 mt-auto border-t border-white/5 relative z-10" id="site-footer" style="background-color: rgb(var(--surface-rgb));"><div class="max-w-[1200px] mx-auto px-6 md:px-8"><div class="flex flex-col md:flex-row justify-between items-start gap-8"><div class="flex flex-col gap-3"><a class="inline-block no-underline" href="/"><span class="text-lg font-bold text-washi-light">fudami</span></a><p class="text-sm text-washi-light/60 max-w-[280px]" data-i18n="footer.tagline">Memory science with the pull of a game. Japanese that stays learned.</p></div><div class="grid grid-cols-2 sm:grid-cols-3 gap-x-12 gap-y-10 md:flex md:gap-16"><div class="flex flex-col gap-2"><span class="text-xs font-bold uppercase tracking-widest text-washi-light/60 mb-1">Product</span><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="/pricing" data-i18n="nav.pricing">Pricing</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://jisho.fudami.net">Dictionary</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="/glossary">Glossary</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="/fsrs">What is FSRS?</a></div><div class="flex flex-col gap-2"><span class="text-xs font-bold uppercase tracking-widest text-washi-light/60 mb-1">Company</span><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="/about" data-i18n="nav.about">About</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="/credits">Credits</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://github.com/snonow/fudami-landing" target="_blank" rel="noopener noreferrer">GitHub</a></div><div class="flex flex-col gap-2"><span class="text-xs font-bold uppercase tracking-widest text-washi-light/60 mb-1">Legal</span><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://fudami.net/privacy">Privacy</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://fudami.net/terms">Terms</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://fudami.net/legal">Legal notice</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://fudami.net/credits">Credits</a></div></div></div><div class="mt-10 pt-6 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-3"><span class="text-xs text-washi-light/60" data-i18n="footer.copy">© 2026 fudami. All rights reserved.</span></div></div></footer><!-- fd-footer:end -->
+<!-- fd-footer:start --><footer class="w-full py-12 mt-auto border-t border-white/5 relative z-10" id="site-footer" style="background-color: rgb(var(--surface-rgb));"><div class="max-w-[1200px] mx-auto px-6 md:px-8"><div class="flex flex-col md:flex-row justify-between items-start gap-8"><div class="flex flex-col gap-3"><a class="inline-block no-underline" href="/"><span class="fd-wordmark text-xl">fudami</span></a><p class="text-sm text-washi-light/60 max-w-[280px]" data-i18n="footer.tagline">Memory science with the pull of a game. Japanese that stays learned.</p></div><div class="grid grid-cols-2 sm:grid-cols-3 gap-x-12 gap-y-10 md:flex md:gap-16"><div class="flex flex-col gap-2"><span class="text-xs font-bold uppercase tracking-widest text-washi-light/60 mb-1">Product</span><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="/pricing" data-i18n="nav.pricing">Pricing</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://jisho.fudami.net">Dictionary</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="/glossary">Glossary</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="/fsrs">What is FSRS?</a></div><div class="flex flex-col gap-2"><span class="text-xs font-bold uppercase tracking-widest text-washi-light/60 mb-1">Company</span><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="/about" data-i18n="nav.about">About</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://github.com/snonow/fudami-landing" target="_blank" rel="noopener noreferrer">GitHub</a></div><div class="flex flex-col gap-2"><span class="text-xs font-bold uppercase tracking-widest text-washi-light/60 mb-1">Legal</span><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://fudami.net/privacy">Privacy</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://fudami.net/terms">Terms</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://fudami.net/legal">Legal notice</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://fudami.net/credits">Credits</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="mailto:privacy@fudami.net">Contact</a></div></div></div><div class="mt-10 pt-6 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-3"><span class="text-xs text-washi-light/60" data-i18n="footer.copy">© 2026 fudami. All rights reserved.</span></div></div></footer><!-- fd-footer:end -->
 </body>
 </html>

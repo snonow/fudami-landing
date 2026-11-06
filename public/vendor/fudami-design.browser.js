@@ -46,7 +46,7 @@
       // Relative: no scheme and no protocol-relative "//host" (which inherits the page scheme).
       if (!/^[a-z][a-z0-9+.-]*:/i.test(href)) return href.startsWith("//") ? "#" : href;
       try {
-        return new URL(href).protocol === "https:" ? href : "#";
+        return ["https:", "mailto:"].includes(new URL(href).protocol) ? href : "#";
       } catch {
         return "#";
       }
@@ -89,6 +89,7 @@
       { label: "Terms", href: "https://fudami.net/terms" },
       { label: "Legal notice", href: "https://fudami.net/legal" },
       { label: "Credits", href: "https://fudami.net/credits" },
+      { label: "Contact", href: "mailto:privacy@fudami.net" },
     ];
     
     // ── Language ───────────────────────────────────────────────────────────────
@@ -226,6 +227,13 @@
       return node;
     }
     
+    /** The logo, the same on every site: "fudami" in the wordmark face, then the product ("jisho") in brand red. */
+    function wordmark(badge) {
+      const node = el("span", { className: "fd-wordmark", text: "fudami" });
+      if (badge) node.appendChild(el("b", { text: ` ${badge}` }));
+      return node;
+    }
+    
     /**
      * @param {object} cfg
      * @param {string}  cfg.active      id of the current page
@@ -252,17 +260,7 @@
           "flex items-center gap-2 text-washi-light",
         attrs: { href: safeHref(brandHref) },
       });
-      brand.appendChild(el("span", { text: "fudami" }));
-      if (badge) {
-        brand.appendChild(
-          el("span", {
-            className:
-              "text-xs px-2 py-0.5 rounded-full bg-hanko-red/10 border border-hanko-red/30 " +
-              "text-hanko font-mono uppercase tracking-widest font-bold",
-            text: badge,
-          }),
-        );
-      }
+      brand.appendChild(wordmark(badge));
     
       const desktopNav = el("nav", { className: "hidden md:flex items-center gap-8" });
       for (const item of nav) {
@@ -350,8 +348,8 @@
     
       const wrap = el("div", { attrs: { id: "site-chrome" } });
       const side = el("aside", { className: "fd-side", attrs: { id: "site-sidebar" } });
-      const brand = el("a", { className: "fd-side-brand", attrs: { href: safeHref(brandHref) }, text: "fudami" });
-      if (badge) brand.appendChild(el("b", { text: ` ${badge}` }));
+      const brand = el("a", { className: "fd-side-brand", attrs: { href: safeHref(brandHref) } });
+      brand.appendChild(wordmark(badge));
       side.appendChild(brand);
     
       const list = el("nav", { className: "fd-side-nav", attrs: { "aria-label": "Main" } });
@@ -413,11 +411,8 @@
     
       const brandCol = el("div", { className: "flex flex-col gap-3" });
       const brandLink = el("a", { className: "inline-block no-underline", attrs: { href: safeHref(brandHref) } });
-      const brandText = el("span", {
-        className: "text-lg font-bold text-washi-light",
-        text: "fudami",
-      });
-      if (badge) brandText.appendChild(el("span", { className: "text-hanko", text: ` ${badge}` }));
+      const brandText = wordmark(badge);
+      brandText.classList.add("text-xl");
       brandLink.appendChild(brandText);
       brandCol.appendChild(brandLink);
       if (tagline) {
@@ -608,6 +603,7 @@
     
     module.exports = {
       LEGAL,
+      wordmark,
       t,
       translate,
       initI18n,
