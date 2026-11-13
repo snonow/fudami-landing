@@ -15,8 +15,9 @@ name: Security scan
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
   pull_request:
+    branches: [main]
   schedule:
     # A CVE lands against code that has not changed, so a scan that only runs on
     # push goes stale without ever going red.
@@ -67,9 +68,13 @@ jobs:
       #     in Markdown (HTML comments are not comments to its generic mode).
       #   tests/fixtures — hostile payloads and http://example.com URLs are the
       #     point of those files.
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
       - name: Semgrep — SAST
         run: >
-          pipx run semgrep scan
+          uv tool run --python 3.12 semgrep scan
           --config p/default
           --severity ERROR
           --error
