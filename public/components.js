@@ -48,6 +48,7 @@ function injectFooter() {
             { label: 'Dictionary', href: 'https://jisho.fudami.net' },
             { label: 'Glossary', href: '/glossary' },
             { label: 'What is FSRS?', href: '/fsrs' },
+            { label: 'Install the app', href: '#install' },
           ],
         },
         {
