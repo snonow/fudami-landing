@@ -4,7 +4,8 @@
 (() => {
   const KEY = "fudami-install-seen";
   const t = (s) => FudamiDesign.t(s);
-  const standalone = matchMedia("(display-mode: standalone)");
+  const mq = (q) => (window.matchMedia ? matchMedia(q) : { matches: false }); // jsdom has none
+  const standalone = mq("(display-mode: standalone)");
   const installed = () => standalone.matches || navigator.standalone === true;
   const ios = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
   const seen = () => { try { return localStorage.getItem(KEY); } catch { return "1"; } };
@@ -55,5 +56,5 @@
     if (a) { e.preventDefault(); open(); }
   });
   // Late enough for beforeinstallprompt to have fired, so Android gets its one-tap button.
-  if (!seen() && !installed() && matchMedia("(pointer: coarse)").matches) setTimeout(open, 1500);
+  if (!seen() && !installed() && mq("(pointer: coarse)").matches) setTimeout(open, 1500);
 })();
