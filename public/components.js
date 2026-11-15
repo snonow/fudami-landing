@@ -39,7 +39,7 @@ function injectFooter() {
   document.body.appendChild(
     FudamiDesign.createFooter({
       brandHref: '/',
-      tagline: 'Japanese spaced repetition with a daily habit. Forgetting is part of the plan.',
+      tagline: 'Japanese spaced repetition with a daily habit. Your memory sets the pace.',
       columns: [
         {
           title: 'Product',
