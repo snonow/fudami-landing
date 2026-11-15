@@ -4,3 +4,4 @@
 # Clean canonical URLs — strip .html suffix and trailing /index
 /index              /   301
 /index.html         /   301
+/favicon.ico /assets/favicon.png 200

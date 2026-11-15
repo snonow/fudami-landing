@@ -27,7 +27,7 @@ function injectHeader(activePage) {
       active: activePage,
       nav: NAV,
       brandHref: '/',
-      cta: { label: 'Start learning free', href: 'https://app.fudami.net/' },
+      cta: { label: 'Start learning', href: 'https://app.fudami.net/' },
     }),
   );
 }
@@ -39,7 +39,7 @@ function injectFooter() {
   document.body.appendChild(
     FudamiDesign.createFooter({
       brandHref: '/',
-      tagline: 'Memory science with the pull of a game. Japanese that stays learned.',
+      tagline: 'Japanese spaced repetition with a daily habit. Forgetting is part of the plan.',
       columns: [
         {
           title: 'Product',
