@@ -35,8 +35,8 @@ if (location.hostname === 'fudami.net' && navigator.doNotTrack !== '1' && !navig
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initWikiModal();
-  // English only for now: the shared engine sets <html lang>; French is a dictionary away.
-  FudamiDesign.initI18n({});
+  // English is the HTML; a page that has French declares window.PAGE_I18N = { fr: {...} } (why-kana).
+  FudamiDesign.initI18n(window.PAGE_I18N || {});
 
   // Prevent FOUT on app mockup. Guarded: document.fonts is absent in older browsers, and an
   // exception here would take the rest of this handler with it.
