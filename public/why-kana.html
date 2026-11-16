@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="theme-color" content="#f9f7f1"/>
+<title>Why we teach kana: what written Japanese is made of | fudami</title>
+
+<!-- SEO -->
+<meta name="description" content="More than half of written Japanese is kana: 56% of the characters in NINJAL&#x27;s 104-million-word corpus, kanji 30%. Why fudami teaches kana first, and what research says about romaji and handwriting, with sources."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://fudami.net/why-kana"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Why we teach kana: what written Japanese is made of | fudami"/>
+<meta property="og:url" content="https://fudami.net/why-kana"/>
+<meta property="og:site_name" content="fudami"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:description" content="More than half of written Japanese is kana: 56% of the characters in NINJAL&#x27;s 104-million-word corpus, kanji 30%. Why fudami teaches kana first, and what research says about romaji and handwriting, with sources."/>
+<meta property="og:image" content="https://fudami.net/assets/og-image.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="fudami: Your memory sets the pace. Two screens of the app: a lesson and the Progress screen."/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Why we teach kana: what written Japanese is made of | fudami"/>
+<meta name="twitter:description" content="More than half of written Japanese is kana: 56% of the characters in NINJAL&#x27;s 104-million-word corpus, kanji 30%. Why fudami teaches kana first, and what research says about romaji and handwriting, with sources."/>
+<meta name="twitter:image" content="https://fudami.net/assets/og-image.png"/>
+<link rel="icon" type="image/png" href="assets/favicon.png"/>
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png"/>
+<link rel="manifest" href="/manifest.webmanifest"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-title" content="fudami"/>
+
+
+<!-- Design System CSS (single source of truth) -->
+<link rel="preload" href="vendor/fonts/m-plus-2/latin.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="preload" href="vendor/fonts/fudami-wordmark.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="stylesheet" href="vendor/fonts/fonts.css"/>
+<link rel="stylesheet" href="design-system.css"/>
+
+<!-- Anti-flash: apply theme before paint -->
+<script>
+  (function(){
+    var s=localStorage.getItem('fudami-theme');
+    var d=s?s==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.classList.toggle('dark', d);
+    document.documentElement.classList.toggle('light', !d);
+  })();
+</script>
+
+
+<!-- App scripts (deferred) -->
+<script src="vendor/fudami-design.browser.js" defer></script>
+<script src="components.js" defer></script>
+<script src="shared.js" defer></script>
+<script src="vendor/install.js" defer></script>
+
+<!-- Page-specific init: English is the HTML; French is a dictionary (fudami-docs research/why-kana.md) -->
+<script>
+  window.PAGE_I18N = { fr: {
+"wk.h1": "Pourquoi nous enseignons les kana",
+"wk.lead": "Chez fudami, nous pensons que les kana font partie de l'apprentissage du japonais, autant que les kanji. Voici pourquoi, avec nos sources. Là où les preuves manquent, nous le disons.",
+"wk.share.h": "Plus de la moitié du japonais écrit, ce sont des kana",
+"wk.share.p1": "En 2022, Makoto Yamazaki, de l'Institut national de la langue japonaise et de linguistique (NINJAL), a compté les caractères du Corpus équilibré du japonais écrit contemporain : 104,3 millions de mots de livres, de magazines, de journaux, de blogs, de manuels, de lois et d'autres textes. Les hiragana représentent 48,8 % des caractères et les katakana 7,1 %, soit environ 56 % de kana. Les kanji représentent 30,3 %, les lettres latines 1,5 %.",
+"wk.share.p2": "Même dans les journaux, l'un des registres les plus riches en kanji, les kana (44,9 %) dépassent les kanji (41,4 %).",
+"wk.role.h": "Les kana tiennent la phrase",
+"wk.role.p1": "Les kanji écrivent la plupart des noms et le cœur des verbes et des adjectifs : ils portent l'essentiel du sens. Les hiragana écrivent les particules, les terminaisons et les petits mots grammaticaux ; les katakana, les mots empruntés (Tanaka, 1980). Dans 猫が魚を食べた, « le chat a mangé le poisson », が, を et べた sont des hiragana.",
+"wk.romaji.h": "Et le romaji ?",
+"wk.romaji.p1": "Nous n'avons trouvé aucune étude qui suive des apprenants lisant le japonais en romaji puis mesure leur lecture des kana ou des kanji plus tard. Les études les plus proches vont dans les deux sens :",
+"wk.romaji.l1": "Ajouter le romaji aux hiragana n'a pas aidé 61 étudiants de premier semestre à apprendre plus de mots ; ceux qui écoutaient davantage l'audio en retenaient plus (Okuyama, 2007).",
+"wk.romaji.l2": "Introduire les kana 8 semaines plus tard n'a fait aucune différence significative à deux post-tests (Hatasa, 2002).",
+"wk.romaji.l3": "Chez 98 adultes, le romaji a mieux aidé que les furigana à retenir la prononciation de nouveaux mots en kanji (Allen, 2023, mémoire de master).",
+"wk.romaji.p2": "Ce point est donc une conviction, pas un résultat : le japonais s'écrit en kana et en kanji, alors nous les enseignons dès le premier jour. Si vous connaissez déjà des mots à l'oral, fudami les garde, et ils reviennent dès que vous savez les lire.",
+"wk.time.h": "Combien de temps faut-il ?",
+"wk.time.p1": "Il y a 46 hiragana et 46 katakana de base, plus leurs formes voisées et combinées. Les cours gratuits en autonomie de la Fondation du Japon prévoient environ 14 heures d'étude pour les hiragana et 14 pour les katakana, pour savoir les lire et les taper. C'est une prévision de cours, pas une mesure : nous n'avons trouvé aucune étude qui mesure le temps que mettent les apprenants.",
+"wk.time.p2": "fudami enseigne quelques kana à la fois et fait revenir chacun juste avant que vous ne l'oubliiez.",
+"wk.hand.h": "Écrire à la main aide-t-il ?",
+"wk.hand.p1": "Pour une écriture nouvelle, il semble que oui :",
+"wk.hand.l1": "42 adultes ont appris des lettres arabes en les tapant, en les regardant ou en les écrivant. Ceux qui écrivaient ont appris plus vite, en moins d'essais, et ont mieux réussi des tâches qu'ils n'avaient pas entraînées (Wiley et Rapp, 2021).",
+"wk.hand.l2": "Des adultes qui avaient appris de nouveaux caractères à la main les confondaient moins souvent avec leur image en miroir que ceux qui les avaient tapés, surtout trois semaines après l'entraînement (Longcamp et al., 2006).",
+"wk.hand.p2": "Cela a aussi un coût :",
+"wk.hand.l3": "Dans une classe de 52 apprenants du chinois, la copie à la main a pris 34,69 % du temps d'entraînement et fait baisser la reconnaissance des mots juste après ; une semaine plus tard, les deux conditions ne différaient plus (Lu et al., 2019).",
+"wk.hand.l4": "Dans une première étude auprès de 5 apprenants des kanji, la frappe a aidé à retenir les lectures et l'écriture à la main, les formes (Sugaya, 2025).",
+"wk.hand.p3": "Aucune de ces études ne porte sur les kana : nous ne promettons donc aucun gain à les écrire. C'est pourquoi, dans fudami, l'écriture à la main sera toujours gratuite et facultative, et la frappe toujours possible.",
+"wk.src.h": "Sources",
+"wk.cta": "Commencer à apprendre",
+"wk.glossary": "Glossaire",
+"Home": "Accueil",
+"About": "À propos",
+"Pricing": "Tarifs",
+"Dictionary": "Dictionnaire",
+"Start learning": "Commencer à apprendre",
+"Toggle theme": "Changer de thème",
+"Switch to dark mode": "Passer en mode sombre",
+"Switch to light mode": "Passer en mode clair",
+"Menu": "Menu",
+"Language": "Langue",
+"Japanese spaced repetition with a daily habit. Your memory sets the pace.": "La répétition espacée du japonais, avec une habitude quotidienne. Votre mémoire donne le rythme.",
+"Product": "Produit",
+"Glossary": "Glossaire",
+"What is FSRS?": "Qu'est-ce que FSRS ?",
+"Why kana?": "Pourquoi les kana ?",
+"Install the app": "Installer l'app",
+"Company": "Projet",
+"GitHub": "GitHub",
+"Legal": "Informations légales",
+"Privacy": "Confidentialité",
+"Terms": "Conditions",
+"Legal notice": "Mentions légales",
+"Credits": "Crédits",
+"Contact": "Contact",
+"© 2026 fudami. All rights reserved.": "© 2026 fudami. Tous droits réservés."
+} };
+  document.addEventListener('DOMContentLoaded', function() {
+    FudamiDesign.initI18n(window.PAGE_I18N);
+    injectHeader('why-kana', [FudamiDesign.langSelect({ en: 'English', fr: 'Français' })]);
+    injectFooter();
+    injectWikiModal();
+    initScrollReveal();
+  });
+</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "fudami", "item": "https://fudami.net/"}, {"@type": "ListItem", "position": 2, "name": "Why we teach kana", "item": "https://fudami.net/why-kana"}]}</script>
+</head>
+
+<body class="antialiased min-h-screen flex flex-col font-sans text-body-md">
+<!-- fd-header:start --><header class="fixed top-0 w-full z-50 chrome-glass" id="site-header"><div class="flex justify-between items-center w-full px-6 md:px-8 max-w-[1200px] mx-auto h-16"><a class="text-xl font-extrabold tracking-tight hover:opacity-80 transition-opacity no-underline flex items-center gap-2 text-washi-light" href="/"><span class="fd-wordmark">fudami</span></a><nav class="hidden md:flex items-center gap-8"><a class="text-washi-light/60 hover:text-washi-light transition-colors duration-200 text-sm font-medium no-underline" href="/" data-i18n="nav.home">Home</a><a class="text-washi-light/60 hover:text-washi-light transition-colors duration-200 text-sm font-medium no-underline" href="/about" data-i18n="nav.about">About</a><a class="text-washi-light/60 hover:text-washi-light transition-colors duration-200 text-sm font-medium no-underline" href="/pricing" data-i18n="nav.pricing">Pricing</a><a class="text-washi-light/60 hover:text-washi-light transition-colors duration-200 text-sm font-medium no-underline" href="https://jisho.fudami.net">Dictionary</a></nav><div class="flex items-center gap-3"><button class="text-washi-light/70 hover:text-washi-light hover:scale-105 transition-all duration-200 w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/5" id="theme-toggle" type="button" aria-label="Toggle theme" title="Switch to dark mode"><span class="material-symbols-outlined text-[18px]">dark_mode</span></button><a class="btn-hanko rounded-xl text-xs uppercase tracking-widest no-underline px-5 py-2 hidden md:inline-flex items-center gap-1.5" href="https://app.fudami.net/"><span>Start learning</span></a><button class="text-washi-light/70 hover:text-washi-light hover:scale-105 transition-all duration-200 w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/5 md:hidden" id="mobile-menu-toggle" type="button" aria-label="Menu" aria-controls="mobile-nav" aria-expanded="false"><span class="material-symbols-outlined text-[18px]">menu</span></button></div></div><div class="md:hidden hidden border-t border-white/5" id="mobile-nav" style="background: rgb(var(--surface-rgb) / 0.95); backdrop-filter: blur(24px);"><nav class="flex flex-col px-6 py-4 gap-1"><a class="py-3 px-4 rounded-xl text-sm font-medium no-underline transition-colors text-washi-light/80 hover:text-washi-light hover:bg-white/5" href="/" data-i18n="nav.home">Home</a><a class="py-3 px-4 rounded-xl text-sm font-medium no-underline transition-colors text-washi-light/80 hover:text-washi-light hover:bg-white/5" href="/about" data-i18n="nav.about">About</a><a class="py-3 px-4 rounded-xl text-sm font-medium no-underline transition-colors text-washi-light/80 hover:text-washi-light hover:bg-white/5" href="/pricing" data-i18n="nav.pricing">Pricing</a><a class="py-3 px-4 rounded-xl text-sm font-medium no-underline transition-colors text-washi-light/80 hover:text-washi-light hover:bg-white/5" href="https://jisho.fudami.net">Dictionary</a><a class="btn-hanko rounded-xl text-xs uppercase tracking-widest no-underline mt-3 py-3 w-full justify-center inline-flex items-center gap-2" href="https://app.fudami.net/"><span>Start learning</span></a></nav></div></header><!-- fd-header:end -->
+
+<main class="flex-grow pt-24 md:pt-32 pb-24 px-6 md:px-8 w-full max-w-3xl mx-auto relative z-10">
+  <h1 class="text-3xl md:text-5xl text-washi-light font-bold mb-6 tracking-tight" data-i18n="wk.h1">Why we teach kana</h1>
+  <p class="text-lg text-washi-light/90 leading-relaxed" data-i18n="wk.lead">At fudami, we believe kana, as much as kanji, are part of learning Japanese. Here is why, with our sources. Where the evidence runs out, we say so.</p>
+  <h2 class="text-xl font-bold text-washi-light mt-10 mb-3" data-i18n="wk.share.h">More than half of written Japanese is kana</h2>
+  <p class="text-base text-washi-light/80 leading-relaxed mb-3" data-i18n="wk.share.p1">In 2022, Makoto Yamazaki of the National Institute for Japanese Language and Linguistics (NINJAL) counted the characters of the Balanced Corpus of Contemporary Written Japanese: 104.3 million words of books, magazines, newspapers, blogs, textbooks, laws and more. Hiragana made up 48.8% of the characters and katakana 7.1%, so about 56% were kana. Kanji made up 30.3%, and Latin letters 1.5%.</p>
+  <p class="text-base text-washi-light/80 leading-relaxed mb-3" data-i18n="wk.share.p2">Even in newspapers, one of the registers richest in kanji, kana (44.9%) outnumber kanji (41.4%).</p>
+  <h2 class="text-xl font-bold text-washi-light mt-10 mb-3" data-i18n="wk.role.h">Kana hold the sentence together</h2>
+  <p class="text-base text-washi-light/80 leading-relaxed mb-3" data-i18n="wk.role.p1">Kanji write most nouns and the core of verbs and adjectives: they carry most of the meaning. Hiragana writes the particles, the endings and the small grammatical words; katakana writes borrowed words (Tanaka, 1980). In 猫が魚を食べた, “the cat ate the fish”, が, を and べた are hiragana.</p>
+  <h2 class="text-xl font-bold text-washi-light mt-10 mb-3" data-i18n="wk.romaji.h">What about romaji?</h2>
+  <p class="text-base text-washi-light/80 leading-relaxed mb-3" data-i18n="wk.romaji.p1">We found no study that follows learners who read Japanese through romaji and then tests how well they read kana or kanji later. The closest studies point both ways:</p>
+  <ul class="list-disc pl-6 flex flex-col gap-2 text-base text-washi-light/80 leading-relaxed mb-3">
+    <li data-i18n="wk.romaji.l1">Adding romaji to hiragana did not help 61 first-semester students learn more words; the students who used the audio more remembered more (Okuyama, 2007).</li>
+    <li data-i18n="wk.romaji.l2">Introducing kana 8 weeks later made no significant difference on two post-tests (Hatasa, 2002).</li>
+    <li data-i18n="wk.romaji.l3">With 98 adults, romaji helped them recall the sound of new kanji words better than furigana did (Allen, 2023, master's thesis).</li>
+  </ul>
+  <p class="text-base text-washi-light/80 leading-relaxed mb-3" data-i18n="wk.romaji.p2">So this part is a belief, not a finding: Japanese is written in kana and kanji, so we teach them from the first day. If you already know words by ear, fudami keeps them, and they come back as soon as you can read them.</p>
+  <h2 class="text-xl font-bold text-washi-light mt-10 mb-3" data-i18n="wk.time.h">How long does it take?</h2>
+  <p class="text-base text-washi-light/80 leading-relaxed mb-3" data-i18n="wk.time.p1">There are 46 basic hiragana and 46 basic katakana, plus their voiced and combined forms. The Japan Foundation's free self-study courses plan about 14 hours of study for hiragana and 14 for katakana, to read and type them. That is a course plan, not a measurement: we found no study that measures how long learners take.</p>
+  <p class="text-base text-washi-light/80 leading-relaxed mb-3" data-i18n="wk.time.p2">fudami teaches a few kana at a time and brings each one back just before you would forget it.</p>
+  <h2 class="text-xl font-bold text-washi-light mt-10 mb-3" data-i18n="wk.hand.h">Does writing by hand help?</h2>
+  <p class="text-base text-washi-light/80 leading-relaxed mb-3" data-i18n="wk.hand.p1">For a new script, it seems to:</p>
+  <ul class="list-disc pl-6 flex flex-col gap-2 text-base text-washi-light/80 leading-relaxed mb-3">
+    <li data-i18n="wk.hand.l1">42 adults learned Arabic letters by typing them, looking at them or writing them. Those who wrote learned faster, with fewer trials, and did better on tasks they had not trained (Wiley &amp; Rapp, 2021).</li>
+    <li data-i18n="wk.hand.l2">Adults who learned new characters by hand confused them less often with their mirror images than adults who typed them, mostly three weeks after training (Longcamp et al., 2006).</li>
+  </ul>
+  <p class="text-base text-washi-light/80 leading-relaxed mb-3" data-i18n="wk.hand.p2">It also has a cost:</p>
+  <ul class="list-disc pl-6 flex flex-col gap-2 text-base text-washi-light/80 leading-relaxed mb-3">
+    <li data-i18n="wk.hand.l3">In a class of 52 learners of Chinese, hand-copying took 34.69% of practice time and lowered word recognition right after practice; one week later, the two conditions no longer differed (Lu et al., 2019).</li>
+    <li data-i18n="wk.hand.l4">In a first study of 5 learners of kanji, typing helped them recall readings and handwriting helped them recall forms (Sugaya, 2025).</li>
+  </ul>
+  <p class="text-base text-washi-light/80 leading-relaxed mb-3" data-i18n="wk.hand.p3">None of these studies is about kana, so we promise no gain from writing them. That is why handwriting in fudami will always be free and optional, with typing always available.</p>
+  <h2 class="text-xl font-bold text-washi-light mt-10 mb-3" data-i18n="wk.src.h">Sources</h2>
+  <ol class="list-decimal pl-6 flex flex-col gap-2 text-sm text-washi-light/70 leading-relaxed">
+    <li><a class="underline underline-offset-4" href="https://www2.ninjal.ac.jp/openhouse/2022/pdf/27.pdf" rel="noopener">Yamazaki M. (2022). 「現代日本語書き言葉均衡コーパス」の漢字と表記. NINJAL Open House 2022, poster 27, Fig. 2</a></li>
+    <li><a class="underline underline-offset-4" href="https://clrd.ninjal.ac.jp/bccwj/en/" rel="noopener">NINJAL. Balanced Corpus of Contemporary Written Japanese (BCCWJ)</a></li>
+    <li><a class="underline underline-offset-4" href="https://aclanthology.org/C80-1047.pdf" rel="noopener">Tanaka T. (1980). Statistical analysis of Japanese characters. COLING 1980</a></li>
+    <li><a class="underline underline-offset-4" href="https://eric.ed.gov/?id=EJ809414" rel="noopener">Okuyama Y. (2007). CALL vocabulary learning in Japanese: Does romaji help beginners learn more words? CALICO Journal</a></li>
+    <li><a class="underline underline-offset-4" href="https://doi.org/10.1111/1540-4781.00154" rel="noopener">Hatasa Y. A. (2002). The effects of differential timing in the introduction of Japanese syllabaries on early second language development in Japanese. Modern Language Journal</a></li>
+    <li><a class="underline underline-offset-4" href="https://ora.ox.ac.uk/objects/uuid:73e229a0-5aaa-4f15-9a90-66dbc125c943" rel="noopener">Allen B. (2023). The effectiveness of phonological reading aids and the role of self-regulation in L2 Japanese kanji word learning. MSc thesis, University of Oxford</a></li>
+    <li><a class="underline underline-offset-4" href="https://minato-jf.jp/CourseDetail/Index/KC26_HRGS_A100_EN01" rel="noopener">The Japan Foundation, JF Japanese e-Learning Minato: Hiragana A1 Self-Study Course</a></li>
+    <li><a class="underline underline-offset-4" href="https://minato-jf.jp/CourseDetail/Index/KC25_KTKS_A100_EN01" rel="noopener">The Japan Foundation, JF Japanese e-Learning Minato: Katakana A1 Self-Study Course</a></li>
+    <li><a class="underline underline-offset-4" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8641140/" rel="noopener">Wiley R. W. &amp; Rapp B. (2021). The effects of handwriting experience on literacy learning. Psychological Science</a></li>
+    <li><a class="underline underline-offset-4" href="https://doi.org/10.1016/j.humov.2006.07.007" rel="noopener">Longcamp M., Boucard C., Gilhodes J.-C. &amp; Velay J.-L. (2006). Remembering the orientation of newly learned characters depends on the associated writing knowledge. Human Movement Science</a></li>
+    <li><a class="underline underline-offset-4" href="https://doi.org/10.1177/2332858419890326" rel="noopener">Lu X., Ostrow K. &amp; Heffernan N. (2019). Save your strokes: Chinese handwriting practice makes for ineffective use of instructional time in second language classrooms. AERA Open</a></li>
+    <li><a class="underline underline-offset-4" href="https://doi.org/10.19022/jlem.32.1_84" rel="noopener">Sugaya N. (2025). Comparing the effects of handwriting and typing on kanji learning: results from a preliminary study. Journal of Japanese Language Education Methods 32(1)</a></li>
+  </ol>
+  <p class="mt-10"><a class="text-matcha-green font-bold" href="https://app.fudami.net/" data-i18n="wk.cta">Start learning</a> · <a class="text-matcha-green font-bold" href="glossary" data-i18n="wk.glossary">Glossary</a></p>
+</main>
+<!-- fd-footer:start --><footer class="w-full py-12 mt-auto border-t border-white/5 relative z-10" id="site-footer" style="background-color: rgb(var(--surface-rgb));"><div class="max-w-[1200px] mx-auto px-6 md:px-8"><div class="flex flex-col md:flex-row justify-between items-start gap-8"><div class="flex flex-col gap-3"><a class="inline-block no-underline" href="/"><span class="fd-wordmark text-xl">fudami</span></a><p class="text-sm text-washi-light/60 max-w-[280px]" data-i18n="footer.tagline">Japanese spaced repetition with a daily habit. Your memory sets the pace.</p></div><div class="grid grid-cols-2 sm:grid-cols-3 gap-x-12 gap-y-10 md:flex md:gap-16"><div class="flex flex-col gap-2"><span class="text-xs font-bold uppercase tracking-widest text-washi-light/60 mb-1">Product</span><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="/pricing" data-i18n="nav.pricing">Pricing</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://jisho.fudami.net">Dictionary</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="/glossary">Glossary</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="/fsrs">What is FSRS?</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="/why-kana">Why kana?</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="#install">Install the app</a></div><div class="flex flex-col gap-2"><span class="text-xs font-bold uppercase tracking-widest text-washi-light/60 mb-1">Company</span><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="/about" data-i18n="nav.about">About</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://github.com/snonow/fudami-landing" target="_blank" rel="noopener noreferrer">GitHub</a></div><div class="flex flex-col gap-2"><span class="text-xs font-bold uppercase tracking-widest text-washi-light/60 mb-1">Legal</span><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://fudami.net/privacy">Privacy</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://fudami.net/terms">Terms</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://fudami.net/legal">Legal notice</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="https://fudami.net/credits">Credits</a><a class="text-sm text-washi-light/60 hover:text-washi-light transition-colors no-underline" href="mailto:privacy@fudami.net">Contact</a></div></div></div><div class="mt-10 pt-6 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-3"><span class="text-xs text-washi-light/60" data-i18n="footer.copy">© 2026 fudami. All rights reserved.</span></div></div></footer><!-- fd-footer:end -->
+</body>
+</html>

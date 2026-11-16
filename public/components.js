@@ -18,7 +18,7 @@ const NAV = [
   { id: 'jisho', href: 'https://jisho.fudami.net', label: 'Dictionary' },
 ];
 
-function injectHeader(activePage) {
+function injectHeader(activePage, actions = []) {
   const existing = document.getElementById('site-header');
   if (existing) existing.remove();
 
@@ -28,6 +28,7 @@ function injectHeader(activePage) {
       nav: NAV,
       brandHref: '/',
       cta: { label: 'Start learning', href: 'https://app.fudami.net/' },
+      actions,
     }),
   );
 }
@@ -48,6 +49,7 @@ function injectFooter() {
             { label: 'Dictionary', href: 'https://jisho.fudami.net' },
             { label: 'Glossary', href: '/glossary' },
             { label: 'What is FSRS?', href: '/fsrs' },
+            { label: 'Why kana?', href: '/why-kana' },
             { label: 'Install the app', href: '#install' },
           ],
         },

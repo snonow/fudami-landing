@@ -6,7 +6,7 @@ const PUBLIC = path.join(__dirname, '..', 'public');
 for (const name of fs.readdirSync(PUBLIC).filter(name => name.endsWith('.html'))) {
   const file = path.join(PUBLIC, name);
   let html = fs.readFileSync(file, 'utf8');
-  const active = html.match(/injectHeader\('([^']*)'\)/)?.[1];
+  const active = html.match(/injectHeader\('([^']*)'/)?.[1];
   if (active === undefined) throw new Error(`${name} has no header configuration`);
   const dom = new JSDOM('<!doctype html><body></body>', { runScripts: 'outside-only', url: 'https://fudami.net/' });
   for (const script of ['vendor/fudami-design.browser.js', 'components.js']) {
