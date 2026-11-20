@@ -5,6 +5,7 @@
 - [Home](https://fudami.net/): what fudami is and why (spaced repetition for Japanese with a daily habit).
 - [About](https://fudami.net/about): who builds it and what it believes.
 - [What is FSRS?](https://fudami.net/fsrs): the spaced repetition algorithm fudami uses, vs SM-2, with FAQ.
+- [Why we teach kana](https://fudami.net/why-kana): how much of written Japanese is kana (56% of characters in NINJAL's BCCWJ, kanji 30%), what research says about romaji, time to learn kana and handwriting, with sources. English and French.
 - [Glossary](https://fudami.net/glossary): plain-language definitions of kana, hiragana, katakana, kanji, furigana, romaji, radicals, JLPT, pitch accent, SRS and FSRS.
 - [Pricing](https://fudami.net/pricing): planned plans; nothing is sold yet.
 - [Waitlist](https://fudami.net/waitlist): leave an email to hear when N4 and the native apps arrive.

@@ -17,7 +17,7 @@ const path = require('path');
 const { JSDOM } = require('jsdom');
 
 const ROOT = path.join(__dirname, '..', 'public');
-const PAGES = ['index.html', 'about.html', 'fsrs.html', 'glossary.html', 'pricing.html', 'privacy.html', 'terms.html', 'legal.html', 'credits.html', 'waitlist.html'];
+const PAGES = ['index.html', 'about.html', 'fsrs.html', 'glossary.html', 'pricing.html', 'privacy.html', 'terms.html', 'legal.html', 'credits.html', 'waitlist.html', 'why-kana.html'];
 // Every call to action leads to the app (live, guest learning) or the waitlist (N4, native apps).
 const APP_URL = '^(https://app\\.fudami\\.net/|waitlist) ';
 
@@ -183,7 +183,15 @@ test('the static home page links to its sibling pages without JavaScript', () =>
   // The header and footer are injected at runtime; a crawler that does not run scripts must
   // still find the rest of the site from the page body.
   const index = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
-  for (const href of ['glossary', 'fsrs', 'about', 'pricing', 'waitlist']) {
+  for (const href of ['glossary', 'fsrs', 'about', 'pricing', 'waitlist', 'why-kana']) {
     assert.match(index, new RegExp(`href="${href}"`), `index.html has no static link to ${href}`);
   }
+});
+
+test('why-kana has a French entry for every string it marks', () => {
+  const html = fs.readFileSync(path.join(ROOT, 'why-kana.html'), 'utf8');
+  const fr = JSON.parse(/window\.PAGE_I18N = \{ fr: (\{[\s\S]*?\}) \};/.exec(html)[1]);
+  const keys = [...html.matchAll(/data-i18n="(wk\.[\w.]+)"/g)].map((m) => m[1]);
+  assert.ok(keys.length > 20, 'the page marks too few strings');
+  for (const key of keys) assert.ok(fr[key], `no French for ${key}`);
 });
