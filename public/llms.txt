@@ -1,6 +1,6 @@
 # fudami
 
-> fudami is a Japanese-learning project: a spaced-repetition app (FSRS) whose JLPT N5 path is open and free at https://app.fudami.net/ (no account needed), and a free Japanese–English/French dictionary, jisho.
+> fudami is a Japanese-learning project: a spaced-repetition app (FSRS) open and free at https://app.fudami.net/ for every JLPT level, N5 to N1 (no account needed on the first day), and a free Japanese–English/French dictionary, jisho.
 
 - [Home](https://fudami.net/): what fudami is and why (spaced repetition for Japanese with a daily habit).
 - [About](https://fudami.net/about): who builds it and what it believes.
@@ -8,7 +8,7 @@
 - [Why we teach kana](https://fudami.net/why-kana): how much of written Japanese is kana (56% of characters in NINJAL's BCCWJ, kanji 30%), what research says about romaji, time to learn kana and handwriting, with sources. English and French.
 - [Glossary](https://fudami.net/glossary): plain-language definitions of kana, hiragana, katakana, kanji, furigana, romaji, radicals, JLPT, pitch accent, SRS and FSRS.
 - [Pricing](https://fudami.net/pricing): planned plans; nothing is sold yet.
-- [Waitlist](https://fudami.net/waitlist): leave an email to hear when N4 and the native apps arrive.
+- [Waitlist](https://fudami.net/waitlist): leave an email to hear when the native apps arrive.
 - [Jisho dictionary](https://jisho.fudami.net/): search words in romaji, kana or kanji, browse kanji by radical; see its own llms.txt.
 - [Credits](https://fudami.net/credits): open data used (JMdict, KANJIDIC2, KanjiVG, Tatoeba, JLPT lists) and licences.
 - [Privacy](https://fudami.net/privacy), [Terms](https://fudami.net/terms), [Legal notice](https://fudami.net/legal).
