@@ -87,9 +87,9 @@ test('the CSP names no third-party script, style or font host: the privacy page 
   assert.match(csp, /img-src 'self' data:;/);
 });
 
-test('privacy describes Umami alone for dictionary analytics and keeps the offline key notice', () => {
+test('privacy describes Umami alone for dictionary analytics, and no content key or Turnstile', () => {
   const html = fs.readFileSync(`${__dirname}/../public/privacy.html`, 'utf8');
   assert.match(html, /dictionary uses only the self-hosted Umami/);
-  assert.match(html, /Offline content keys \(app\)/);
+  assert.doesNotMatch(html, /content key|Turnstile/i);   // content is public files since 2026-11-20
   assert.doesNotMatch(html, /unless you accept in the banner|Only if you accept|Dictionary audience statistics \(anonymous counts|Cookie settings|fudami-consent/);
 });
