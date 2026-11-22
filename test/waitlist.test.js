@@ -13,5 +13,7 @@ test('waitlist stores a valid email once, refuses junk, and lets the honeypot th
   assert.match((await post({ email: ' Me@Example.com ' })).headers.get('location'), /#joined$/);
   assert.match((await post({ email: 'not-an-email' })).headers.get('location'), /#invalid$/);
   assert.match((await post({ email: 'bot@spam.io', website: 'x' })).headers.get('location'), /#joined$/);
+  const big = await onRequestPost({ env: { DB }, request: new Request('https://fudami.net/api/waitlist', { method: 'POST', headers: { 'content-length': '3100' }, body: new URLSearchParams({ email: 'a@b.co', pad: 'x'.repeat(3000) }) }) });
+  assert.match(big.headers.get('location'), /#invalid$/); // oversize body refused before it is parsed
   assert.deepStrictEqual(rows.map((r) => r[0]), ['me@example.com']);
 });
