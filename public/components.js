@@ -50,7 +50,6 @@ function injectFooter() {
             { label: 'Glossary', href: '/glossary' },
             { label: 'What is FSRS?', href: '/fsrs' },
             { label: 'Why kana?', href: '/why-kana' },
-            { label: 'Install the app', href: '#install' },
           ],
         },
         {
