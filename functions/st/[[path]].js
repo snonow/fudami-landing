@@ -13,6 +13,7 @@ export async function onRequest({ request, env, params }) {
   if (request.method !== method) return new Response('not found', { status: 404 });
   const on = env.UMAMI_HOST && env.UMAMI_RELAY_KEY && UUID.test(env.UMAMI_WEBSITE_ID || '');
   if (!on) return method === 'GET' ? new Response('', { headers: JS }) : new Response(null, { status: 204 });
+  if (Number(request.headers.get('content-length') || 0) > 8192) return new Response('too large', { status: 413 }); // a beacon is ~1 KB: the open door must not carry bulk
   if (name === 's.js') {
     return new Response(
       `(()=>{const s=document.createElement('script');s.defer=true;s.src='/st/u.js';` +

@@ -31,6 +31,8 @@ test('configured: only the tracker and the beacon are forwarded, with the visito
   assert.strictEqual((await call(onRequest, 'GET', 'api/send', env)).status, 404); // wrong method
   assert.ok(!/console\./.test(fs.readFileSync(`${__dirname}/../functions/st/[[path]].js`, 'utf8')), 'the door logs nothing');
   assert.strictEqual((await call(onRequest, 'GET', 'api/websites', env)).status, 404); // nothing else is reachable
+  const bulk = new Request('https://fudami.net/st/api/send', { method: 'POST', headers: { 'content-length': '9000' }, body: 'x'.repeat(9000) });
+  assert.strictEqual((await onRequest({ request: bulk, env, params: { path: ['api', 'send'] } })).status, 413); // no bulk through the open door
   assert.strictEqual(seen.length, 2);
 });
 
