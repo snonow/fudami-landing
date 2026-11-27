@@ -48,7 +48,7 @@ A behaviour change needs a test that fails before and passes after; never weaken
 
 ## Branch and release flow
 
-Branch from `develop`, PR to `develop`, never push to `main`, no force-push. Releasing = a PR `develop` → `main`. Cloudflare Pages git integration deploys `main` to production; any other branch gets `<branch>.fudami-landing.pages.dev`. Output directory is `public` (`pages_build_output_dir` in `wrangler.toml`, asserted by `test/public-output.test.js`), and there is no build command in Pages: CSS and chrome are built and **committed** before release. Never deploy the repo root.
+Branch from `develop`, PR to `develop`, never push to `main`, no force-push. Releasing = a PR `develop` → `main`. Cloudflare Pages git integration deploys `main` to production; any other branch gets `<branch>.fudami-landing.pages.dev`. The gate runs only on the PR; a push to `develop`/`main` runs one CI job, "Deployed and served", which checks the merged PR's gate was green on its head commit, waits for this commit's Pages deployment, compares every page byte for byte on the deployment URL and, on `main`, reads every page back from `fudami.net`. A red one means a commit reached the branch without a green gate or the deploy is not what was merged. Output directory is `public` (`pages_build_output_dir` in `wrangler.toml`, asserted by `test/public-output.test.js`), and there is no build command in Pages: CSS and chrome are built and **committed** before release. Never deploy the repo root.
 
 ## Traps and rules
 
