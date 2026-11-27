@@ -140,5 +140,12 @@ jobs:
           for f in public/*.html; do
             p=${f#public/}; [ "$p" = 404.html ] && continue
             title=$(grep -m1 -o '<title>[^<]*</title>' "$f")
-            curl -sfL "https://fudami.net/${p%.html}" | grep -qF "$title" || { echo "::error::https://fudami.net/${p%.html} is not served"; exit 1; }
+            u="https://fudami.net/${p%.html}"
+            curl -sfL "$u" | grep -qF "$title" && continue
+            # Cloudflare may challenge GitHub's runner IPs: then this domain can't be read from here (the byte check above
+            # already proved the content), so say it instead of failing the release.
+            if curl -sI "$u" | grep -qi '^cf-mitigated: *challenge'; then
+              echo "::notice::fudami.net challenges this runner: domain read-back skipped"; exit 0
+            fi
+            echo "::error::$u is not served (answer: $(curl -sL -o /dev/null -w '%{http_code}' "$u"))"; exit 1
           done
