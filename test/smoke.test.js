@@ -18,8 +18,8 @@ const { JSDOM } = require('jsdom');
 
 const ROOT = path.join(__dirname, '..', 'public');
 const PAGES = ['index.html', 'about.html', 'fsrs.html', 'glossary.html', 'pricing.html', 'privacy.html', 'terms.html', 'legal.html', 'credits.html', 'waitlist.html', 'why-kana.html'];
-// Every call to action leads to the app (live, guest learning) or the waitlist (N4, native apps).
-const APP_URL = '^(https://app\\.fudami\\.net/|waitlist) ';
+// Every call to action leads to the app (live, guest learning) or the waitlist (native apps).
+const APP_URL = '^(https://app\\.fudami\\.net/(pro)?|waitlist) '; // the Pro CTA goes to the app's Pro screen
 
 /** Load one page with its scripts executed, as a browser would. */
 function boot(page) {
@@ -194,4 +194,11 @@ test('why-kana has a French entry for every string it marks', () => {
   const keys = [...html.matchAll(/data-i18n="(wk\.[\w.]+)"/g)].map((m) => m[1]);
   assert.ok(keys.length > 20, 'the page marks too few strings');
   for (const key of keys) assert.ok(fr[key], `no French for ${key}`);
+});
+
+test('no page carries an install prompt: that lives in the app after the first lesson', () => {
+  assert.ok(!fs.existsSync(path.join(ROOT, 'vendor/install.js')));
+  for (const page of fs.readdirSync(ROOT).filter(name => name.endsWith('.html'))) {
+    assert.doesNotMatch(fs.readFileSync(path.join(ROOT, page), 'utf8'), /install\.js|href="#install"/, page);
+  }
 });
