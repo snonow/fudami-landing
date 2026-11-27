@@ -63,4 +63,4 @@ Branch from `develop`, PR to `develop`, never push to `main`, no force-push. Rel
 
 ## Agent conventions (shared, not repeated here)
 
-ponytail is mandatory for coding tasks; `modern-web-guidance` before HTML/CSS/client-JS work; use your own worktree under `/home/agent/fudami/recovery-work/wt-<task>`; never `git stash`; one browser/Playwright run at a time under `flock ~/fudami/recovery-work/.browser.lock`; claim and log tasks with `~/.agents/bin/task_tracker.py`; clean desk when done. Details: `/home/agent/fudami/recovery-work/briefs/repo-agents-1127.md` and `common-1120.md`.
+ponytail is mandatory for coding tasks; `modern-web-guidance` before HTML/CSS/client-JS work; use your own worktree under `/home/agent/fudami/recovery-work/wt-<task>`; never `git stash`; one browser/Playwright run at a time under `flock /home/agent/fudami/recovery-work/.browser.lock`; claim and log tasks with `~/.agents/bin/task_tracker.py`; clean desk when done. Details: `/home/agent/fudami/recovery-work/briefs/repo-agents-1127.md` and `common-1120.md`.
