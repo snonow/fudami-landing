@@ -1,5 +1,10 @@
 name: CI
 
+# The gate runs on the PR: HTML lint, smoke tests and links here, security.yml beside them, all in parallel.
+# A push to develop or main is a merged PR, and Cloudflare Pages (git integration) deploys it by itself: main to
+# fudami.net, develop to develop.fudami-landing.pages.dev. The push runs one job, `live`: it checks the PR's gate was
+# green on its head commit instead of re-running it, waits for this commit's Pages deployment, and reads it back.
+
 on:
   push:
     branches: [main, develop]
@@ -16,6 +21,7 @@ permissions:
 jobs:
   validate:
     name: Validate HTML
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -34,6 +40,7 @@ jobs:
 
   test:
     name: Page smoke tests
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -43,6 +50,7 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: 22
+          cache: npm
 
       - name: Install dependencies
         run: npm ci
@@ -52,6 +60,7 @@ jobs:
 
   links:
     name: Check Links
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -81,3 +90,55 @@ jobs:
             done < <(grep -oP 'href="\K[^"#?]+' "$file" 2>/dev/null)
           done
           exit $EXIT_CODE
+
+  live:
+    name: Deployed and served
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      checks: read
+      pull-requests: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: The merged PR's gate was green on its head commit
+        run: |
+          head=$(gh api "repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/pulls" -q '.[0].head.sha')
+          [ -n "$head" ] || { echo "::error::$GITHUB_SHA reached $GITHUB_REF_NAME without a PR: no gate ran"; exit 1; }
+          green=$(gh api "repos/$GITHUB_REPOSITORY/commits/$head/check-runs?per_page=100" -q '.check_runs[] | select(.conclusion == "success") | .name')
+          for check in "Validate HTML" "Page smoke tests" "Check Links" "Dependencies, secrets, IaC, SAST"; do
+            grep -qxF "$check" <<< "$green" || { echo "::error::'$check' was not green on the PR head $head"; exit 1; }
+          done
+
+      - name: Wait for this commit's Cloudflare Pages deployment
+        run: |
+          api="repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/check-runs?check_name=Cloudflare%20Pages"
+          until [ "$(gh api "$api" -q '.check_runs[0].status')" = completed ]; do sleep 10; done
+          [ "$(gh api "$api" -q '.check_runs[0].conclusion')" = success ] || { echo "::error::Pages deployment failed"; exit 1; }
+          url=$(gh api "$api" -q '.check_runs[0].output.summary' | grep -oE 'https://[0-9a-f]+\.fudami-landing\.pages\.dev' | head -1)
+          [ -n "$url" ] || { echo "::error::no deployment URL in the Pages check"; exit 1; }
+          echo "DEPLOY_URL=$url" >> "$GITHUB_ENV"
+          echo "Pages deployment: $url" >> "$GITHUB_STEP_SUMMARY"
+
+      # Byte for byte on the deployment's own URL: it serves exactly this commit's public/.
+      - name: The deployment serves this commit
+        run: |
+          for f in public/*.html; do
+            p=${f#public/}; [ "$p" = index.html ] && p=
+            cmp -s <(curl -sL "$DEPLOY_URL/$p") "$f" || { echo "::error::$DEPLOY_URL/$p differs from $f"; exit 1; }
+          done
+
+      # The production domain adds Cloudflare's own scripts to the HTML, so it is checked by status and title.
+      - name: fudami.net serves every page
+        if: github.ref_name == 'main'
+        run: |
+          for f in public/*.html; do
+            p=${f#public/}; [ "$p" = 404.html ] && continue
+            title=$(grep -m1 -o '<title>[^<]*</title>' "$f")
+            curl -sfL "https://fudami.net/${p%.html}" | grep -qF "$title" || { echo "::error::https://fudami.net/${p%.html} is not served"; exit 1; }
+          done

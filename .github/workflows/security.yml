@@ -14,8 +14,7 @@
 name: Security scan
 
 on:
-  push:
-    branches: [main, develop]
+  # fudami-landing: the scan gates the PR; the push after a merge would rescan the same tree, so it is not triggered there.
   pull_request:
   schedule:
     # A CVE lands against code that has not changed, so a scan that only runs on
